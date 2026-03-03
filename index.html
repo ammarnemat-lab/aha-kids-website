@@ -613,6 +613,14 @@
       font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s;
     }
     .modal-btn:hover { background: #2f6a38; transform: translateY(-2px); }
+    .modal-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+    .hp-field-wrap {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
     .modal-success { text-align: center; display: none; padding: 1rem 0; }
     .modal-success .success-icon { font-size: 3rem; margin-bottom: 0.5rem; }
     .modal-success p { color: var(--muted); font-size: 1rem; }
@@ -988,6 +996,10 @@
     window.openContactModal = function() {
       document.getElementById('contactForm').style.display = '';
       document.getElementById('contactSuccess').style.display = 'none';
+      document.getElementById('ctName').value = '';
+      document.getElementById('ctEmail').value = '';
+      document.getElementById('ctMessage').value = '';
+      document.getElementById('ctWebsite').value = '';
       document.getElementById('contactModal').classList.add('open');
       document.body.style.overflow = 'hidden';
     };
@@ -995,15 +1007,54 @@
       document.getElementById('contactModal').classList.remove('open');
       document.body.style.overflow = '';
     };
-    window.submitContact = function() {
+    window.submitContact = async function() {
       const name = document.getElementById('ctName').value.trim();
       const email = document.getElementById('ctEmail').value.trim();
       const msg = document.getElementById('ctMessage').value.trim();
+      const website = document.getElementById('ctWebsite').value.trim();
+      const sendButton = document.querySelector('#contactForm .modal-btn');
+      const previousButtonText = sendButton.textContent;
+
       if (!name || !email || !msg) { alert('Bitte fülle alle Felder aus.'); return; }
-      const body = 'Kontaktanfrage:\nName: ' + name + '\nE-Mail: ' + email + '\nNachricht: ' + msg + '\nDatum: ' + new Date().toLocaleString('de-DE');
-      window.location.href = 'mailto:hello@aha-kids.de?subject=Kontaktanfrage+aha+Kids&body=' + encodeURIComponent(body);
-      document.getElementById('contactForm').style.display = 'none';
-      document.getElementById('contactSuccess').style.display = 'block';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Bitte gib eine gültige E-Mail-Adresse ein.'); return; }
+
+      sendButton.disabled = true;
+      sendButton.textContent = 'Wird gesendet...';
+
+      try {
+        const response = await fetch('contact.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            message: msg,
+            website: website
+          })
+        });
+
+        let result = null;
+        try {
+          result = await response.json();
+        } catch (jsonError) {
+          result = null;
+        }
+
+        if (!response.ok || !result || !result.success) {
+          throw new Error('Kontaktformular konnte nicht gesendet werden.');
+        }
+
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('contactSuccess').style.display = 'block';
+      } catch (error) {
+        alert('Beim Senden ist etwas schiefgelaufen. Bitte versuche es in ein paar Minuten erneut.');
+      } finally {
+        sendButton.disabled = false;
+        sendButton.textContent = previousButtonText;
+      }
     };
 
     // ── Close modals on Escape ────────────────────────────────────
@@ -1047,6 +1098,10 @@
         <p class="modal-sub">Schreib uns – wir freuen uns über jede Nachricht.</p>
         <input class="modal-field" id="ctName" type="text" placeholder="Dein Name">
         <input class="modal-field" id="ctEmail" type="email" placeholder="Deine E-Mail-Adresse">
+        <div class="hp-field-wrap" aria-hidden="true">
+          <label for="ctWebsite">Website</label>
+          <input class="modal-field" id="ctWebsite" type="text" autocomplete="off" tabindex="-1">
+        </div>
         <textarea class="modal-field" id="ctMessage" placeholder="Deine Nachricht an uns" rows="4"></textarea>
         <button class="modal-btn" onclick="submitContact()">🚀 Nachricht senden</button>
       </div>
