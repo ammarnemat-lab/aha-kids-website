@@ -1,6 +1,7 @@
 /**
  * Shared Navbar Component for aha Kids Website
  * Generates the navbar dynamically to avoid duplication across pages.
+ * Also injects Newsletter and Contact modals on every page.
  */
 (function () {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
@@ -11,35 +12,36 @@
   // Helper: prefix for links — on index use anchors, on subpages prefix with index.html
   const idx = isIndex ? '' : 'index.html';
 
-  // Navigation items: [label, href, pageFile (for active detection)]
+  // Navigation items: [label, href, pageFile (for active detection), special]
   const navItems = [
-    ['Home',      isIndex ? '#' : 'index.html',            'index.html'],
-    ['Bücher',    idx + '#buecher',                         null],
-    ['Über uns',  'ueber-uns.html',                         'ueber-uns.html'],
-    ['Die App',   'app.html',                               'app.html'],
-    ['Newsletter', '#',                                      null,  'newsletter'],
-    ['Kontakt',   idx + '#kontakt',                         null],
+    ['Home',       isIndex ? '#' : 'index.html',  'index.html'],
+    ['Bücher',     idx + '#buecher',               null],
+    ['Über uns',   'ueber-uns.html',               'ueber-uns.html'],
+    ['Die App',    'app.html',                     'app.html'],
+    ['Newsletter', '#',                            null, 'newsletter'],
+    ['Kontakt',    '#',                            null, 'kontakt'],
   ];
 
   // Build nav-links list
   const listItems = navItems.map(function (item) {
-    const label = item[0];
-    const href = item[1];
+    const label   = item[0];
+    const href    = item[1];
     const pageFile = item[2];
-    const special = item[3];
+    const special  = item[3];
 
     // Active styling
-    const isActive = pageFile && (currentPage === pageFile || (pageFile === 'index.html' && isIndex));
+    const isActive   = pageFile && (currentPage === pageFile || (pageFile === 'index.html' && isIndex));
     const activeHome = label === 'Home' && isActive;
     const activeStyle = (isActive && !activeHome) ? ' style="color:var(--green);"' : '';
 
     // Newsletter item
     if (special === 'newsletter') {
-      if (typeof window.openNewsletterModal === 'function' || isIndex) {
-        return '<li><a href="#" class="nav-cta" onclick="openNewsletterModal();return false;">' + label + '</a></li>';
-      } else {
-        return '<li><a href="index.html?newsletter=1" class="nav-cta">' + label + '</a></li>';
-      }
+      return '<li><a href="#" class="nav-cta" onclick="openNewsletterModal();return false;">' + label + '</a></li>';
+    }
+
+    // Kontakt item — always opens modal
+    if (special === 'kontakt') {
+      return '<li><a href="#" onclick="openContactModal();return false;">' + label + '</a></li>';
     }
 
     // Home on index.html gets smooth scroll
@@ -51,7 +53,7 @@
   }).join('\n      ');
 
   // Build the full nav-logo link
-  const logoHref = isIndex ? '#' : 'index.html';
+  const logoHref    = isIndex ? '#' : 'index.html';
   const logoOnclick = isIndex
     ? ' onclick="window.scrollTo({top:0,behavior:\'smooth\'});return false;"'
     : '';
@@ -75,16 +77,137 @@
       '    </button>';
   }
 
-  // Scroll handler for nav shadow and logo visibility
+  // ── Inject Newsletter & Contact modals if not already in the DOM ──────────
+  function injectModals() {
+    if (!document.getElementById('newsletterModal')) {
+      var nl = document.createElement('div');
+      nl.className = 'modal-overlay';
+      nl.id = 'newsletterModal';
+      nl.setAttribute('onclick', 'if(event.target===this)closeNewsletterModal()');
+      nl.innerHTML =
+        '<div class="modal-box">' +
+          '<button class="modal-close" onclick="closeNewsletterModal()" aria-label="Schließen">✕</button>' +
+          '<div id="newsletterForm">' +
+            '<h2 class="modal-title">📬 Newsletter</h2>' +
+            '<p class="modal-sub">Bleib auf dem Laufenden – keine Werbung, nur echte News von aha Kids.</p>' +
+            '<input class="modal-field" id="nlName" type="text" placeholder="Dein Name">' +
+            '<input class="modal-field" id="nlEmail" type="email" placeholder="Deine E-Mail-Adresse">' +
+            '<button class="modal-btn" onclick="submitNewsletter()">🌱 Jetzt anmelden</button>' +
+          '</div>' +
+          '<div class="modal-success" id="newsletterSuccess" style="display:none">' +
+            '<div class="success-icon">🎉</div>' +
+            '<h3 style="font-family:\'Baloo 2\',cursive;margin-bottom:0.4rem;">Fast geschafft!</h3>' +
+            '<p>Deine Anmeldung wurde abgeschickt. Schau kurz in dein Postfach.</p>' +
+          '</div>' +
+        '</div>';
+      document.body.appendChild(nl);
+    }
+
+    if (!document.getElementById('contactModal')) {
+      var ct = document.createElement('div');
+      ct.className = 'modal-overlay';
+      ct.id = 'contactModal';
+      ct.setAttribute('onclick', 'if(event.target===this)closeContactModal()');
+      ct.innerHTML =
+        '<div class="modal-box">' +
+          '<button class="modal-close" onclick="closeContactModal()" aria-label="Schließen">✕</button>' +
+          '<div id="contactForm">' +
+            '<h2 class="modal-title">📧 Kontakt aufnehmen</h2>' +
+            '<p class="modal-sub">Schreib uns – wir freuen uns über jede Nachricht.</p>' +
+            '<input class="modal-field" id="ctName" type="text" placeholder="Dein Name">' +
+            '<input class="modal-field" id="ctEmail" type="email" placeholder="Deine E-Mail-Adresse">' +
+            '<textarea class="modal-field" id="ctMessage" placeholder="Deine Nachricht an uns" rows="4"></textarea>' +
+            '<button class="modal-btn" onclick="submitContact()">🚀 Nachricht senden</button>' +
+          '</div>' +
+          '<div class="modal-success" id="contactSuccess" style="display:none">' +
+            '<div class="success-icon">✅</div>' +
+            '<h3 style="font-family:\'Baloo 2\',cursive;margin-bottom:0.4rem;">Danke!</h3>' +
+            '<p>Deine Nachricht ist auf dem Weg. Wir melden uns bald!</p>' +
+          '</div>' +
+        '</div>';
+      document.body.appendChild(ct);
+    }
+  }
+
+  // ── Modal open/close/submit (define only if not already defined) ──────────
+  if (typeof window.openNewsletterModal !== 'function') {
+    window.openNewsletterModal = function () {
+      var form = document.getElementById('newsletterForm');
+      var succ = document.getElementById('newsletterSuccess');
+      if (form) form.style.display = '';
+      if (succ) succ.style.display = 'none';
+      var m = document.getElementById('newsletterModal');
+      if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    };
+    window.closeNewsletterModal = function () {
+      var m = document.getElementById('newsletterModal');
+      if (m) m.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+    window.submitNewsletter = function () {
+      var name  = (document.getElementById('nlName')  || {}).value || '';
+      var email = (document.getElementById('nlEmail') || {}).value || '';
+      name = name.trim(); email = email.trim();
+      if (!name || !email) { alert('Bitte fülle alle Felder aus.'); return; }
+      var body = 'Newsletter-Anmeldung:\nName: ' + name + '\nE-Mail: ' + email + '\nDatum: ' + new Date().toLocaleString('de-DE');
+      window.location.href = 'mailto:hello@aha-kids.de?subject=Newsletter+Anmeldung&body=' + encodeURIComponent(body);
+      var form = document.getElementById('newsletterForm');
+      var succ = document.getElementById('newsletterSuccess');
+      if (form) form.style.display = 'none';
+      if (succ) succ.style.display = 'block';
+    };
+  }
+
+  if (typeof window.openContactModal !== 'function') {
+    window.openContactModal = function () {
+      var form = document.getElementById('contactForm');
+      var succ = document.getElementById('contactSuccess');
+      if (form) form.style.display = '';
+      if (succ) succ.style.display = 'none';
+      var m = document.getElementById('contactModal');
+      if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    };
+    window.closeContactModal = function () {
+      var m = document.getElementById('contactModal');
+      if (m) m.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+    window.submitContact = function () {
+      var name  = (document.getElementById('ctName')    || {}).value || '';
+      var email = (document.getElementById('ctEmail')   || {}).value || '';
+      var msg   = (document.getElementById('ctMessage') || {}).value || '';
+      name = name.trim(); email = email.trim(); msg = msg.trim();
+      if (!name || !email || !msg) { alert('Bitte fülle alle Felder aus.'); return; }
+      var body = 'Kontaktanfrage:\nName: ' + name + '\nE-Mail: ' + email + '\nNachricht: ' + msg + '\nDatum: ' + new Date().toLocaleString('de-DE');
+      window.location.href = 'mailto:hello@aha-kids.de?subject=Kontaktanfrage+aha+Kids&body=' + encodeURIComponent(body);
+      var form = document.getElementById('contactForm');
+      var succ = document.getElementById('contactSuccess');
+      if (form) form.style.display = 'none';
+      if (succ) succ.style.display = 'block';
+    };
+  }
+
+  // Close modals on Escape
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      if (typeof closeNewsletterModal === 'function') closeNewsletterModal();
+      if (typeof closeContactModal    === 'function') closeContactModal();
+    }
+  });
+
+  // Run injection after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', injectModals);
+  } else {
+    injectModals();
+  }
+
+  // ── Scroll handler for nav shadow and logo visibility ─────────────────────
   function updateNavOnScroll() {
-    var nav = document.getElementById('navbar');
+    var nav  = document.getElementById('navbar');
     var logo = document.querySelector('.nav-logo');
-    if (nav) {
-      nav.classList.toggle('scrolled', window.scrollY > 20);
-    }
-    if (logo) {
-      logo.classList.toggle('hidden', window.scrollY > 0);
-    }
+    if (nav)  nav.classList.toggle('scrolled', window.scrollY > 20);
+    if (logo) logo.classList.toggle('hidden',  window.scrollY > 50);
   }
 
   window.addEventListener('scroll', updateNavOnScroll);

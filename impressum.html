@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impressum – aha Kids</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    :root {
+      --green: #3a7d44;
+      --green-bg: #e8f5e2;
+      --orange: #FF6B35;
+      --blue: #4ECDC4;
+      --bg: #fefcf7;
+      --text: #2c3e2d;
+      --muted: #6b7c6c;
+      --white: #fff;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1,h2,h3,h4 { font-family: 'Baloo 2', cursive; line-height: 1.25; }
+
+    /* ── Page Header ───────────────────────────────────────────── */
+    .legal-page-header {
+      background: linear-gradient(135deg, #3a7d44 0%, #2d8ec9 60%, #4ECDC4 100%);
+      padding: 7rem 2.5rem 4rem;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .legal-page-header::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .legal-page-header::after {
+      content: '';
+      position: absolute; bottom: -60px; left: -60px;
+      width: 260px; height: 260px; border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .legal-page-badge {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      padding: 0.35rem 1.1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 4px 16px rgba(255,107,53,0.35);
+      position: relative; z-index: 1;
+    }
+    .legal-page-header h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: #fff;
+      position: relative; z-index: 1;
+    }
+    .legal-page-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 1.5rem;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.9rem; font-weight: 600;
+      transition: color 0.2s;
+      position: relative; z-index: 1;
+    }
+    .legal-page-back:hover { color: #fff; }
+
+    /* ── Content ───────────────────────────────────────────────── */
+    .legal-page-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2.5rem 5rem;
+    }
+    .legal-page-content h3 {
+      font-size: 1.15rem;
+      color: var(--green);
+      margin: 2rem 0 0.6rem;
+    }
+    .legal-page-content p {
+      font-size: 0.97rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      line-height: 1.75;
+    }
+    .legal-page-content ul {
+      padding-left: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+    .legal-page-content li {
+      font-size: 0.97rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+      line-height: 1.7;
+    }
+    .legal-page-content a { color: var(--green); }
+    .legal-para-num { color: var(--muted); font-weight: 700; margin-right: 0.35rem; }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    footer {
+      padding: 2.5rem; max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(58,125,68,0.08);
+    }
+    footer p { font-size: 0.82rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; font-weight: 600; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--orange); }
+    @media (max-width: 768px) {
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .legal-page-header { padding: 6rem 1.5rem 3rem; }
+      .legal-page-content { padding: 2.5rem 1.2rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-logo"></div>
+  <nav id="navbar"></nav>
+
+  <header class="legal-page-header">
+    <span class="legal-page-badge">Angaben gemäß § 5 DDG</span>
+    <h1>Impressum</h1>
+    <a href="index.html" class="legal-page-back">
+      ← Zurück zur Startseite
+    </a>
+  </header>
+
+  <div class="legal-page-content">
+
+    <h3>Unternehmensangaben</h3>
+    <p>
+      <strong>aha Kids</strong><br>
+      Goltzstraße 63<br>
+      13587 Berlin
+    </p>
+
+    <h3>Vertreten durch</h3>
+    <p>
+      Ammar Nemat<br>
+      Fabienne Zumholz<br>
+      Michael Zumholz
+    </p>
+
+    <h3>Kontakt</h3>
+    <p>E-Mail: <a href="mailto:hello@aha-kids.de">hello@aha-kids.de</a></p>
+
+    <h3>Haftungshinweis</h3>
+    <p>Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+
+  </div>
+
+  <footer>
+    <p>© 2026 aha Kids. Alle Rechte vorbehalten.</p>
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="agb.html">AGB</a>
+      <a href="#" onclick="openContactModal();return false;">Kontakt</a>
+    </div>
+  </footer>
+
+  <script src="navbar/navbar.js"></script>
+</body>
+</html>

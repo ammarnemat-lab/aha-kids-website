@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datenschutzerklärung – aha Kids</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    :root {
+      --green: #3a7d44;
+      --green-bg: #e8f5e2;
+      --orange: #FF6B35;
+      --blue: #4ECDC4;
+      --bg: #fefcf7;
+      --text: #2c3e2d;
+      --muted: #6b7c6c;
+      --white: #fff;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1,h2,h3,h4 { font-family: 'Baloo 2', cursive; line-height: 1.25; }
+
+    .legal-page-header {
+      background: linear-gradient(135deg, #3a7d44 0%, #2d8ec9 60%, #4ECDC4 100%);
+      padding: 7rem 2.5rem 4rem;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .legal-page-header::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .legal-page-header::after {
+      content: '';
+      position: absolute; bottom: -60px; left: -60px;
+      width: 260px; height: 260px; border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .legal-page-badge {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      padding: 0.35rem 1.1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 4px 16px rgba(255,107,53,0.35);
+      position: relative; z-index: 1;
+    }
+    .legal-page-header h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: #fff;
+      position: relative; z-index: 1;
+    }
+    .legal-page-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 1.5rem;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.9rem; font-weight: 600;
+      transition: color 0.2s;
+      position: relative; z-index: 1;
+    }
+    .legal-page-back:hover { color: #fff; }
+
+    .legal-page-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2.5rem 5rem;
+    }
+    .legal-page-content h3 {
+      font-size: 1.15rem;
+      color: var(--green);
+      margin: 2rem 0 0.6rem;
+    }
+    .legal-page-content p {
+      font-size: 0.97rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      line-height: 1.75;
+    }
+    .legal-page-content ul {
+      padding-left: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+    .legal-page-content li {
+      font-size: 0.97rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+      line-height: 1.7;
+    }
+    .legal-page-content a { color: var(--green); }
+    .legal-para-num { color: var(--muted); font-weight: 700; margin-right: 0.35rem; }
+
+    footer {
+      padding: 2.5rem; max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(58,125,68,0.08);
+    }
+    footer p { font-size: 0.82rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; font-weight: 600; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--orange); }
+    @media (max-width: 768px) {
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .legal-page-header { padding: 6rem 1.5rem 3rem; }
+      .legal-page-content { padding: 2.5rem 1.2rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-logo"></div>
+  <nav id="navbar"></nav>
+
+  <header class="legal-page-header">
+    <span class="legal-page-badge">Stand: 2026 · DSGVO-konform</span>
+    <h1>Datenschutzerklärung</h1>
+    <a href="index.html" class="legal-page-back">
+      ← Zurück zur Startseite
+    </a>
+  </header>
+
+  <div class="legal-page-content">
+
+    <h3>1. Verantwortliche Stelle</h3>
+    <p>Verantwortlich im Sinne der Datenschutzgesetze (DSGVO) ist:</p>
+    <p><strong>aha Kids</strong><br>[Adresse einsetzen]<br>E-Mail: <a href="mailto:hello@aha-kids.de">hello@aha-kids.de</a></p>
+
+    <h3>2. Arten der verarbeiteten Daten</h3>
+    <p>Wir verarbeiten folgende Kategorien personenbezogener Daten:</p>
+    <ul>
+      <li><strong>Bestands- und Kontaktdaten:</strong> Name, E-Mail-Adresse, Zahlungsdaten (nur Eltern/Erziehungsberechtigte).</li>
+      <li><strong>Nutzungsdaten:</strong> Interaktionen innerhalb der App (z. B. gelesene Geschichten, abgeschlossene Spiele).</li>
+      <li><strong>Gerätedaten:</strong> Betriebssystem, Version, Gerätekennung, IP-Adresse (technisch erforderlich).</li>
+      <li><strong>Kommunikationsdaten:</strong> Anfragen per E-Mail oder Kontaktformular.</li>
+    </ul>
+    <p>Wir erheben keine sensiblen Daten (wie Gesundheitsdaten). Daten von Kindern werden nur in pseudonymisierter Form verarbeitet.</p>
+
+    <h3>3. Zwecke der Datenverarbeitung</h3>
+    <p>Wir verarbeiten die Daten zu folgenden Zwecken:</p>
+    <ul>
+      <li>Bereitstellung unserer Angebote (App, Bücher, Hörgeschichten, Spiele).</li>
+      <li>Vertragserfüllung (Abonnement, Zahlungsabwicklung über App Stores).</li>
+      <li>Support &amp; Kommunikation mit Eltern.</li>
+      <li>Sicherstellung des Betriebs (z. B. Fehlerbehebung, IT-Sicherheit).</li>
+      <li>Freiwillige Nutzung von Newslettern (nur mit Einwilligung).</li>
+    </ul>
+
+    <h3>4. Rechtsgrundlagen</h3>
+    <ul>
+      <li><strong>Art. 6 Abs. 1 lit. b DSGVO</strong> – Vertragserfüllung (z. B. Nutzung der App, Kauf von Produkten).</li>
+      <li><strong>Art. 6 Abs. 1 lit. c DSGVO</strong> – rechtliche Verpflichtungen (z. B. steuerrechtliche Aufbewahrung).</li>
+      <li><strong>Art. 6 Abs. 1 lit. f DSGVO</strong> – berechtigtes Interesse (z. B. IT-Sicherheit, Missbrauchsverhinderung).</li>
+      <li><strong>Art. 6 Abs. 1 lit. a DSGVO</strong> – Einwilligung (z. B. Newsletter, optionale Cookies).</li>
+    </ul>
+
+    <h3>5. Besondere Hinweise für Kinder</h3>
+    <p>Unsere App richtet sich an Kinder von 4–8 Jahren. Verträge schließen ausschließlich Eltern/Erziehungsberechtigte ab. Wir verarbeiten Kinder-Interaktionsdaten (z. B. Spiel- oder Lesefortschritt) nur pseudonymisiert und ausschließlich zur Bereitstellung der App.</p>
+    <p>Eltern können jederzeit Auskunft verlangen oder die Löschung der Kinder-Daten beantragen (siehe Abschnitt 9 – Rechte der Betroffenen).</p>
+
+    <h3>6. Weitergabe von Daten</h3>
+    <p>Eine Weitergabe personenbezogener Daten erfolgt nur, wenn dies notwendig ist:</p>
+    <ul>
+      <li>an App Stores (Apple/Google) zur Abwicklung von Abonnements,</li>
+      <li>an Zahlungsdienstleister (nur wenn Käufe über Website erfolgen),</li>
+      <li>an Hosting-Anbieter innerhalb der EU (Speicherung der App-Daten),</li>
+      <li>wenn wir gesetzlich dazu verpflichtet sind.</li>
+    </ul>
+    <p>Eine Weitergabe an Dritte zu Werbezwecken findet nicht statt.</p>
+
+    <h3>7. Speicherung und Löschung</h3>
+    <ul>
+      <li>Daten werden nur so lange gespeichert, wie es für den jeweiligen Zweck erforderlich ist.</li>
+      <li>Vertrags- und Zahlungsdaten werden entsprechend der gesetzlichen Aufbewahrungsfristen (6–10 Jahre) gespeichert.</li>
+      <li>Nutzungsdaten in der App werden spätestens 24 Monate nach Kündigung des Abos gelöscht oder anonymisiert.</li>
+      <li>Eltern können jederzeit die Löschung von Daten verlangen.</li>
+    </ul>
+
+    <h3>8. Cookies &amp; Tracking</h3>
+    <p>Unsere Website verwendet nur technisch notwendige Cookies. Optionale Analyse- oder Marketing-Cookies setzen wir nur mit eurer ausdrücklichen Einwilligung ein (Opt-in). In der App verzichten wir bewusst auf Tracking- und Werbe-Tools.</p>
+
+    <h3>9. Rechte der Betroffenen</h3>
+    <p>Als Betroffene*r habt ihr folgende Rechte:</p>
+    <ul>
+      <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
+      <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
+      <li>Recht auf Löschung (Art. 17 DSGVO)</li>
+      <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+      <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
+      <li>Recht auf Widerspruch (Art. 21 DSGVO)</li>
+      <li>Recht auf Widerruf erteilter Einwilligungen (Art. 7 Abs. 3 DSGVO)</li>
+    </ul>
+    <p>Zur Ausübung eurer Rechte genügt eine formlose E-Mail an: <a href="mailto:info@aha-kids.de">info@aha-kids.de</a></p>
+
+    <h3>10. Datensicherheit</h3>
+    <p>Wir setzen technische und organisatorische Maßnahmen ein, um Daten vor Verlust, Missbrauch oder unbefugtem Zugriff zu schützen. Dazu gehören Verschlüsselung, Zugriffsbeschränkungen und regelmäßige Sicherheitsüberprüfungen.</p>
+
+    <h3>11. Änderungen der Datenschutzerklärung</h3>
+    <p>Wir behalten uns vor, diese Datenschutzerklärung bei Bedarf zu ändern. Über wesentliche Änderungen informieren wir euch rechtzeitig per App-Hinweis oder E-Mail.</p>
+
+    <h3>12. Beschwerderecht</h3>
+    <p>Ihr habt das Recht, euch bei einer Aufsichtsbehörde für Datenschutz zu beschweren, wenn ihr der Meinung seid, dass eure Daten rechtswidrig verarbeitet werden. Zuständige Behörde ist z. B. die Berliner Beauftragte für Datenschutz und Informationsfreiheit oder die jeweilige Behörde eures Wohnorts.</p>
+
+  </div>
+
+  <footer>
+    <p>© 2026 aha Kids. Alle Rechte vorbehalten.</p>
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="agb.html">AGB</a>
+      <a href="#" onclick="openContactModal();return false;">Kontakt</a>
+    </div>
+  </footer>
+
+  <script src="navbar/navbar.js"></script>
+</body>
+</html>
