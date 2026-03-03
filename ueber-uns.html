@@ -37,6 +37,37 @@
 
     h1,h2,h3,h4 { font-family: 'Baloo 2', cursive; line-height: 1.25; }
 
+    /* NAV */
+    nav {
+      position: fixed; top:0; right:0; z-index:100;
+      padding: 0.5rem 1.5rem;
+      display: flex; align-items: center;
+      background: rgba(254,252,247,0.3);
+      backdrop-filter: blur(20px);
+      border-bottom: 2px solid rgba(255,107,53,0.1);
+      border-left: 2px solid rgba(255,107,53,0.1);
+      border-radius: 0 0 0 16px;
+      transition: box-shadow 0.3s;
+      width: auto;
+    }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(58,125,68,0.08); }
+
+    .nav-logo { position:fixed; top:0.8rem; left:1.5rem; z-index:101; display:flex; align-items:center; gap:0.75rem; text-decoration:none; }
+    .nav-logo img { height:112px; width:112px; border-radius:50%; object-fit:cover; }
+    .nav-logo span { display:none; }
+
+    .nav-links { display:flex; gap:2rem; list-style:none; align-items:center; }
+    .nav-links a { text-decoration:none; color:var(--muted); font-size:0.9rem; font-weight:600; transition:color 0.3s; }
+    .nav-links a:hover { color:var(--green); }
+    .nav-cta {
+      background:var(--orange)!important; color:var(--white)!important;
+      padding:0.5rem 1.3rem; border-radius:100px; font-weight:700!important;
+      box-shadow:0 4px 16px rgba(245,146,42,0.25);
+      transition:all 0.3s!important;
+    }
+    .nav-cta:hover { background:var(--green)!important; transform:translateY(-1px); }
+    .mobile-menu { display:none; background:none; border:none; cursor:pointer; }
+
     /* HERO */
     .hero {
       min-height: 100vh;
@@ -445,6 +476,12 @@
       .story-block { grid-template-columns:1fr; }
     }
     @media (max-width:768px) {
+      nav { padding:0.5rem 1rem; background:transparent; border:none; backdrop-filter:none; box-shadow:none; }
+      .nav-logo { top:0.4rem; left:0.5rem; }
+      .nav-logo img { height:67px; width:67px; }
+      .nav-links { display:none; flex-direction:column; position:fixed; top:64px; right:0; background:rgba(254,252,247,0.95); backdrop-filter:blur(20px); border-radius:16px 0 0 16px; padding:1.2rem 1.5rem; gap:1rem; z-index:99; border:1px solid rgba(255,107,53,0.1); }
+      .nav-links.show { display:flex; }
+      .mobile-menu { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border:2px solid rgba(58,125,68,0.6); border-radius:50%; padding:0; }
       .hero { padding:6rem 1.2rem 2rem; }
       .section { padding:2.5rem 1.2rem; }
       .wishlist-section, .feedback-section { padding:2.5rem 1.2rem; }
