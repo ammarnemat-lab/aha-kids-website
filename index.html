@@ -431,6 +431,119 @@
       object-fit: cover;
       min-height: 420px;
     }
+    /* LEGAL MODALS */
+    .legal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(44,62,45,0.6); backdrop-filter: blur(8px);
+      display: flex; align-items: flex-start; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+      padding: 2rem 1rem;
+      overflow-y: auto;
+    }
+    .legal-overlay.open { opacity: 1; pointer-events: all; }
+    .legal-box {
+      background: var(--bg); border-radius: 24px;
+      width: 100%; max-width: 780px;
+      box-shadow: 0 24px 80px rgba(44,62,45,0.2);
+      transform: translateY(32px); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+      overflow: hidden; position: relative;
+      margin: auto;
+    }
+    .legal-overlay.open .legal-box { transform: translateY(0); }
+    .legal-header {
+      background: linear-gradient(135deg, #3a7d44 0%, #2d8ec9 100%);
+      padding: 2rem 2.5rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 2;
+    }
+    .legal-header h2 {
+      font-family: 'Baloo 2', cursive; font-size: 1.5rem;
+      color: white; margin: 0;
+    }
+    .legal-header-close {
+      background: rgba(255,255,255,0.15); border: none; border-radius: 50%;
+      width: 40px; height: 40px; cursor: pointer; color: white;
+      font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; flex-shrink: 0;
+    }
+    .legal-header-close:hover { background: rgba(255,255,255,0.3); }
+    .legal-body {
+      padding: 2rem 2.5rem 3rem;
+      font-family: 'Nunito', sans-serif; color: var(--text); line-height: 1.75;
+    }
+    .legal-body h3 {
+      font-family: 'Baloo 2', cursive; font-size: 1.15rem;
+      color: var(--green); margin: 2rem 0 0.6rem; padding-bottom: 0.4rem;
+      border-bottom: 2px solid rgba(58,125,68,0.1);
+    }
+    .legal-body h3:first-child { margin-top: 0; }
+    .legal-body p { margin-bottom: 0.85rem; font-size: 0.95rem; color: #3a4a3b; }
+    .legal-body ul { padding-left: 1.4rem; margin-bottom: 0.85rem; }
+    .legal-body ul li { font-size: 0.95rem; color: #3a4a3b; margin-bottom: 0.35rem; }
+    .legal-body a { color: var(--green); font-weight: 600; text-decoration: underline; cursor: pointer; }
+    .legal-body a:hover { color: var(--orange); }
+    .legal-para-num { font-weight: 700; color: var(--muted); margin-right: 0.3rem; }
+    .legal-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: linear-gradient(135deg, #FFE66D, #FF6B35); color: #fff;
+      padding: 0.3rem 1rem; border-radius: 100px;
+      font-size: 0.75rem; font-weight: 700; margin-bottom: 1.2rem;
+      box-shadow: 0 4px 12px rgba(255,107,53,0.25);
+    }
+    @media (max-width: 600px) {
+      .legal-body { padding: 1.5rem 1.2rem 2.5rem; }
+      .legal-header { padding: 1.5rem 1.2rem 1.2rem; }
+      .legal-header h2 { font-size: 1.2rem; }
+    }
+
+    /* NEWSLETTER & CONTACT MODALS */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(44,62,45,0.55); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: var(--white); border-radius: 24px; padding: 2.5rem;
+      width: 90%; max-width: 460px; position: relative;
+      box-shadow: 0 20px 60px rgba(44,62,45,0.18);
+      transform: translateY(24px); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1.2rem;
+      background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--muted);
+    }
+    .modal-close:hover { color: var(--orange); }
+    .modal-title { font-family: 'Baloo 2', cursive; font-size: 1.6rem; margin-bottom: 0.4rem; color: var(--text); }
+    .modal-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .modal-field {
+      width: 100%; padding: 0.75rem 1rem; border-radius: 12px;
+      border: 1.5px solid rgba(58,125,68,0.15); background: var(--bg);
+      font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--text);
+      margin-bottom: 0.85rem; transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .modal-field:focus { outline: none; border-color: var(--green); }
+    textarea.modal-field { resize: vertical; min-height: 100px; }
+    .modal-btn {
+      width: 100%; padding: 0.9rem; border-radius: 100px; border: none;
+      background: var(--green); color: white; font-family: 'Nunito', sans-serif;
+      font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s;
+    }
+    .modal-btn:hover { background: #2f6a38; transform: translateY(-2px); }
+    .modal-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+    .hp-field-wrap {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    .modal-success { text-align: center; display: none; padding: 1rem 0; }
+    .modal-success .success-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+    .modal-success p { color: var(--muted); font-size: 1rem; }
+
   </style>
     <link rel="stylesheet" href="navbar.css">
 </head>
@@ -694,6 +807,10 @@
     window.openContactModal = function() {
       document.getElementById('contactForm').style.display = '';
       document.getElementById('contactSuccess').style.display = 'none';
+      document.getElementById('ctName').value = '';
+      document.getElementById('ctEmail').value = '';
+      document.getElementById('ctMessage').value = '';
+      document.getElementById('ctWebsite').value = '';
       document.getElementById('contactModal').classList.add('open');
       document.body.style.overflow = 'hidden';
     };
@@ -701,15 +818,54 @@
       document.getElementById('contactModal').classList.remove('open');
       document.body.style.overflow = '';
     };
-    window.submitContact = function() {
+    window.submitContact = async function() {
       const name = document.getElementById('ctName').value.trim();
       const email = document.getElementById('ctEmail').value.trim();
       const msg = document.getElementById('ctMessage').value.trim();
+      const website = document.getElementById('ctWebsite').value.trim();
+      const sendButton = document.querySelector('#contactForm .modal-btn');
+      const previousButtonText = sendButton.textContent;
+
       if (!name || !email || !msg) { alert('Bitte fülle alle Felder aus.'); return; }
-      const body = 'Kontaktanfrage:\nName: ' + name + '\nE-Mail: ' + email + '\nNachricht: ' + msg + '\nDatum: ' + new Date().toLocaleString('de-DE');
-      window.location.href = 'mailto:hello@aha-kids.de?subject=Kontaktanfrage+aha+Kids&body=' + encodeURIComponent(body);
-      document.getElementById('contactForm').style.display = 'none';
-      document.getElementById('contactSuccess').style.display = 'block';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Bitte gib eine gültige E-Mail-Adresse ein.'); return; }
+
+      sendButton.disabled = true;
+      sendButton.textContent = 'Wird gesendet...';
+
+      try {
+        const response = await fetch('contact.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            message: msg,
+            website: website
+          })
+        });
+
+        let result = null;
+        try {
+          result = await response.json();
+        } catch (jsonError) {
+          result = null;
+        }
+
+        if (!response.ok || !result || !result.success) {
+          throw new Error('Kontaktformular konnte nicht gesendet werden.');
+        }
+
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('contactSuccess').style.display = 'block';
+      } catch (error) {
+        alert('Beim Senden ist etwas schiefgelaufen. Bitte versuche es in ein paar Minuten erneut.');
+      } finally {
+        sendButton.disabled = false;
+        sendButton.textContent = previousButtonText;
+      }
     };
 
     // ── Close modals on Escape ────────────────────────────────────
@@ -754,6 +910,10 @@
         <p class="modal-sub">Schreib uns – wir freuen uns über jede Nachricht.</p>
         <input class="modal-field" id="ctName" type="text" placeholder="Dein Name">
         <input class="modal-field" id="ctEmail" type="email" placeholder="Deine E-Mail-Adresse">
+        <div class="hp-field-wrap" aria-hidden="true">
+          <label for="ctWebsite">Website</label>
+          <input class="modal-field" id="ctWebsite" type="text" autocomplete="off" tabindex="-1">
+        </div>
         <textarea class="modal-field" id="ctMessage" placeholder="Deine Nachricht an uns" rows="4"></textarea>
         <button class="modal-btn" onclick="submitContact()">🚀 Nachricht senden</button>
       </div>
