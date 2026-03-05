@@ -63,6 +63,36 @@
   margin-top: 0.4rem;
 }
 .modal-btn:hover { background: #2f6a38; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(58,125,68,0.3); }
+
+/* GDPR consent checkbox */
+.modal-gdpr {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.82rem;
+  color: #6b7c6c;
+  margin: 0.1rem 0 0.85rem;
+  cursor: pointer;
+  line-height: 1.5;
+}
+.modal-gdpr input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  accent-color: #3a7d44;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.modal-gdpr a { color: #3a7d44; text-decoration: underline; text-underline-offset: 2px; }
+.modal-gdpr a:hover { color: #2f6a38; }
+.modal-btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  background: #3a7d44;
+}
 .modal-success {
   text-align: center; padding: 1rem 0;
 }

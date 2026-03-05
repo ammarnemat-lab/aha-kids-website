@@ -92,7 +92,12 @@
             '<p class="modal-sub">Bleib auf dem Laufenden – keine Werbung, nur echte News von aha Kids.</p>' +
             '<input class="modal-field" id="nlName" type="text" placeholder="Dein Name">' +
             '<input class="modal-field" id="nlEmail" type="email" placeholder="Deine E-Mail-Adresse">' +
-            '<button class="modal-btn" onclick="submitNewsletter()">🌱 Jetzt anmelden</button>' +
+            '<label class="modal-gdpr">' +
+            '<input type="checkbox" id="nlGdpr" onchange="var b=document.getElementById(\'nlSubmitBtn\');if(b)b.disabled=!this.checked;">' +
+            '<span>Ich stimme der Verarbeitung meiner Daten gem\u00e4\u00df der ' +
+            '<a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerkl\u00e4rung</a> zu.</span>' +
+            '</label>' +
+            '<button class="modal-btn" id="nlSubmitBtn" onclick="submitNewsletter()" disabled>🌱 Jetzt anmelden</button>' +
           '</div>' +
           '<div class="modal-success" id="newsletterSuccess" style="display:none">' +
             '<div class="success-icon">🎉</div>' +
@@ -117,7 +122,12 @@
             '<input class="modal-field" id="ctName" type="text" placeholder="Dein Name">' +
             '<input class="modal-field" id="ctEmail" type="email" placeholder="Deine E-Mail-Adresse">' +
             '<textarea class="modal-field" id="ctMessage" placeholder="Deine Nachricht an uns" rows="4"></textarea>' +
-            '<button class="modal-btn" onclick="submitContact()">🚀 Nachricht senden</button>' +
+            '<label class="modal-gdpr">' +
+            '<input type="checkbox" id="ctGdpr" onchange="var b=document.getElementById(\'ctSubmitBtn\');if(b)b.disabled=!this.checked;">' +
+            '<span>Ich stimme der Verarbeitung meiner Daten gem\u00e4\u00df der ' +
+            '<a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerkl\u00e4rung</a> zu.</span>' +
+            '</label>' +
+            '<button class="modal-btn" id="ctSubmitBtn" onclick="submitContact()" disabled>🚀 Nachricht senden</button>' +
           '</div>' +
           '<div class="modal-success" id="contactSuccess" style="display:none">' +
             '<div class="success-icon">✅</div>' +
@@ -136,6 +146,10 @@
       var succ = document.getElementById('newsletterSuccess');
       if (form) form.style.display = '';
       if (succ) succ.style.display = 'none';
+      var cb  = document.getElementById('nlGdpr');
+      var btn = document.getElementById('nlSubmitBtn');
+      if (cb)  cb.checked  = false;
+      if (btn) btn.disabled = true;
       var m = document.getElementById('newsletterModal');
       if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
     };
@@ -164,6 +178,10 @@
       var succ = document.getElementById('contactSuccess');
       if (form) form.style.display = '';
       if (succ) succ.style.display = 'none';
+      var cb  = document.getElementById('ctGdpr');
+      var btn = document.getElementById('ctSubmitBtn');
+      if (cb)  cb.checked  = false;
+      if (btn) btn.disabled = true;
       var m = document.getElementById('contactModal');
       if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
     };
