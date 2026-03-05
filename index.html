@@ -226,26 +226,29 @@
     .quote-card:nth-child(2) { border-left-color: var(--pink); }
     .quote-card span { color:var(--orange); }
 
-    /* BOOKS CAROUSEL */
-    /* ── Peek Carousel ──────────────────────────────────────────────── */
+    /* BOOKS CAROUSEL – CoverFlow */
+    /* Config: sideScale=0.82  sideOpacity=0.42  loop=true  autoplay=false */
     .carousel-stage { position:relative; display:flex; align-items:center; margin:1.5rem -2.5rem 0; }
-    .books-carousel-wrapper { flex:1; overflow:hidden; padding:2rem 0 1.5rem; opacity:0; transition:opacity 0.3s; }
-    .books-carousel-track { display:flex; transition:transform 0.55s cubic-bezier(0.22,1,0.36,1); will-change:transform; }
+    .books-carousel-wrapper { flex:1; overflow:hidden; padding:2.5rem 0 2rem; opacity:0; transition:opacity 0.3s; cursor:grab; }
+    .books-carousel-wrapper.is-dragging { cursor:grabbing; user-select:none; }
+    .books-carousel-track { display:flex; align-items:center; will-change:transform; transition:transform 0.38s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .books-carousel-track.no-transition { transition:none !important; }
     .book-card {
-      flex:0 0 62%; margin:0 0.75rem;
+      flex:0 0 56%; margin:0 0.875rem;
       background:var(--white); border-radius:20px; overflow:hidden;
       border:2px solid rgba(255,107,53,0.07);
       display:flex; flex-direction:column;
-      opacity:0.45; transform:scale(0.87);
-      transition:all 0.55s cubic-bezier(0.22,1,0.36,1);
+      opacity:0.42; transform:scale(0.82);
+      transition:opacity 0.38s ease-out, transform 0.38s ease-out, box-shadow 0.38s ease-out;
       box-shadow:0 4px 20px rgba(0,0,0,0.06);
       pointer-events:auto; cursor:pointer;
     }
-    .book-card.active { opacity:1; transform:scale(1); box-shadow:0 20px 60px rgba(255,107,53,0.18); border-color:rgba(255,107,53,0.14); pointer-events:auto; }
+    .book-card.active { opacity:1; transform:scale(1); box-shadow:0 20px 60px rgba(255,107,53,0.18); border-color:rgba(255,107,53,0.14); }
     .book-cover { width:100%; display:flex; align-items:center; justify-content:center; background:#fff; padding:1.4rem 2rem 1rem; }
-    .book-cover img { width:auto; height:auto; max-height:190px; max-width:100%; object-fit:contain; display:block; transition:transform 0.55s cubic-bezier(0.22,1,0.36,1); }
+    .book-cover img { width:auto; height:auto; max-height:190px; max-width:100%; object-fit:contain; display:block; transition:transform 0.38s ease-out; }
     .book-card.active .book-cover img { transform:scale(1.03); }
-    .book-info { padding:1rem 1.5rem 1.5rem; display:flex; flex-direction:column; flex-grow:1; }
+    .book-info { padding:1rem 1.5rem 1.5rem; display:flex; flex-direction:column; flex-grow:1; opacity:0; pointer-events:none; transition:opacity 0.38s ease-out; }
+    .book-card.active .book-info { opacity:1; pointer-events:auto; }
     .book-info h3 { font-size:1.05rem; margin-bottom:0.4rem; line-height:1.3; }
     .book-info p { font-size:0.88rem; color:var(--muted); line-height:1.6; margin-bottom:1rem; flex-grow:1; }
     .book-cta { display:inline-flex; align-items:center; gap:0.4rem; font-size:0.9rem; font-weight:700; color:var(--orange); text-decoration:none; transition:all 0.3s; }
@@ -260,15 +263,14 @@
       transition:all 0.25s; z-index:10;
     }
     .carousel-btn:hover { background:#fff; box-shadow:0 4px 22px rgba(0,0,0,0.18); transform:scale(1.1); color:var(--orange); }
-    .carousel-btn:disabled { opacity:0.28; cursor:not-allowed; transform:none; }
     .carousel-dots { display:flex; justify-content:center; align-items:center; gap:0.45rem; margin-top:1.4rem; }
     .carousel-dot { height:5px; width:18px; border-radius:3px; background:rgba(255,107,53,0.22); border:none; cursor:pointer; transition:all 0.35s; padding:0; }
     .carousel-dot.active { width:34px; background:var(--orange); }
     .books-bottom { text-align:center; margin-top:2rem; }
     .books-bottom p { color:var(--muted); font-size:1rem; max-width:600px; margin:0 auto; line-height:1.7; }
     .books-bottom p strong { color:var(--text); }
-    @media (max-width:768px) { .book-card { flex:0 0 76%; } .carousel-stage { margin:1rem -1.2rem 0; } }
-    @media (max-width:480px) { .book-card { flex:0 0 84%; } .carousel-btn { width:36px; height:36px; } .carousel-stage { margin:1rem -0.5rem 0; } }
+    @media (max-width:768px) { .book-card { flex:0 0 74%; } .carousel-stage { margin:1rem -1.2rem 0; } }
+    @media (max-width:480px) { .book-card { flex:0 0 82%; } .carousel-btn { width:36px; height:36px; } .carousel-stage { margin:1rem -0.5rem 0; } }
 
     /* APP */
     .app-section {
@@ -698,54 +700,185 @@
     });
     // Navbar scroll handled by navbar/navbar.js
 
-    // ── Book Carousel ─────────────────────────────────────────────
+    // ── Book Carousel – CoverFlow ───────────────────────────────────
     (function() {
-      const track = document.getElementById('carouselTrack');
+      // ── Configurable parameters ──────────────────────────────
+      var CFG = {
+        loop:         true,   // infinite loop
+        autoplay:     false,  // set true to auto-advance
+        autoplayDelay:4000,   // ms between slides (autoplay)
+        sideScale:    0.82,   // scale of non-active cards (mirrors CSS)
+        sideOpacity:  0.42,   // opacity of non-active cards (mirrors CSS)
+        duration:     380     // transition duration ms (mirrors CSS)
+      };
+
+      var track   = document.getElementById('carouselTrack');
       if (!track) return;
-      const cards = Array.from(track.querySelectorAll('.book-card'));
-      const dotsContainer = document.getElementById('carouselDots');
-      const wrapper = track.parentElement;
-      let current = 1;
-      const total = cards.length;
+      var wrapper = track.parentElement;
+      var dotsEl  = document.getElementById('carouselDots');
 
-      cards.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.className = 'carousel-dot' + (i === 1 ? ' active' : '');
-        dot.setAttribute('aria-label', 'Buch ' + (i + 1));
-        dot.onclick = () => goTo(i);
-        dotsContainer.appendChild(dot);
-      });
+      // Collect originals; strip stale active class
+      var origCards = Array.from(track.querySelectorAll('.book-card'));
+      var total     = origCards.length;
+      origCards.forEach(function(c) { c.classList.remove('active'); });
 
-      function goTo(idx) {
-        cards[current].classList.remove('active');
-        dotsContainer.querySelectorAll('.carousel-dot')[current].classList.remove('active');
-        current = ((idx % total) + total) % total;
-        cards[current].classList.add('active');
-        dotsContainer.querySelectorAll('.carousel-dot')[current].classList.add('active');
-        const card = cards[current];
-        const wrapW = wrapper.offsetWidth;
-        const cardW = card.offsetWidth;
-        const offset = card.offsetLeft - (wrapW / 2) + (cardW / 2);
-        track.style.transform = 'translateX(' + (-offset) + 'px)';
+      // Clone first & last slides for seamless infinite loop
+      var cloneOffset = (CFG.loop && total > 1) ? 1 : 0;
+      if (cloneOffset) {
+        var fc = origCards[0].cloneNode(true);
+        var lc = origCards[total - 1].cloneNode(true);
+        fc.setAttribute('aria-hidden', 'true');
+        lc.setAttribute('aria-hidden', 'true');
+        track.appendChild(fc);
+        track.insertBefore(lc, origCards[0]);
+      }
+      var allSlides = Array.from(track.querySelectorAll('.book-card'));
+
+      var current   = cloneOffset; // start at first real card
+      var wrapTimer = null;
+
+      // ── Dots ──────────────────────────────────────────────
+      for (var di = 0; di < total; di++) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel-dot';
+        dot.setAttribute('aria-label', 'Buch ' + (di + 1));
+        dot.onclick = (function(idx) { return function() { navigate(idx); }; })(di + cloneOffset);
+        dotsEl.appendChild(dot);
+      }
+      var dots = Array.from(dotsEl.querySelectorAll('.carousel-dot'));
+
+      function realIdxOf(idx) {
+        var r = idx - cloneOffset;
+        return ((r % total) + total) % total;
+      }
+      function updateDots(realIdx) {
+        dots.forEach(function(d, i) { d.classList.toggle('active', i === realIdx); });
       }
 
-      // Click on side cards to navigate
-      cards.forEach(function(card, i) {
-        card.addEventListener('click', function(e) {
-          if (i !== current) { e.preventDefault(); goTo(i); }
+      // ── Position helpers ────────────────────────────────────
+      function getTrackOffset(idx) {
+        var slide  = allSlides[idx];
+        var wrapW  = wrapper.offsetWidth;
+        var slideW = slide.offsetWidth;
+        return slide.offsetLeft - (wrapW / 2) + (slideW / 2);
+      }
+
+      function applyPos(idx, instant) {
+        if (instant) {
+          track.classList.add('no-transition');
+          void track.offsetWidth; // force reflow
+        } else {
+          track.classList.remove('no-transition');
+        }
+        track.style.transform = 'translateX(' + (-getTrackOffset(idx)) + 'px)';
+        if (instant) {
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() { track.classList.remove('no-transition'); });
+          });
+        }
+      }
+
+      function setActive(idx) {
+        allSlides.forEach(function(s) { s.classList.remove('active'); });
+        allSlides[idx].classList.add('active');
+        updateDots(realIdxOf(idx));
+      }
+
+      // ── Core navigation ─────────────────────────────────────
+      function navigate(targetIdx) {
+        if (!CFG.loop) {
+          targetIdx = Math.max(0, Math.min(allSlides.length - 1, targetIdx));
+        }
+        if (targetIdx === current) return;
+        if (wrapTimer) { clearTimeout(wrapTimer); wrapTimer = null; }
+
+        setActive(targetIdx);
+        applyPos(targetIdx, false);
+        current = targetIdx;
+
+        // Seamless wrap-around: after transition ends, silently jump to real card
+        if (CFG.loop && cloneOffset) {
+          var max = allSlides.length - 1; // index of firstClone
+          if (targetIdx === 0) {
+            // arrived at lastClone -> jump to real last card
+            wrapTimer = setTimeout(function() {
+              applyPos(total, true); setActive(total); current = total; wrapTimer = null;
+            }, CFG.duration);
+          } else if (targetIdx === max) {
+            // arrived at firstClone -> jump to real first card
+            wrapTimer = setTimeout(function() {
+              applyPos(cloneOffset, true); setActive(cloneOffset); current = cloneOffset; wrapTimer = null;
+            }, CFG.duration);
+          }
+        }
+      }
+
+      // Public API (used by inline onclick on prev/next buttons)
+      window.carouselMove = function(dir) { navigate(current + dir); };
+
+      // Click a side card to bring it to center
+      allSlides.forEach(function(slide, i) {
+        slide.addEventListener('click', function(e) {
+          if (i !== current) { e.preventDefault(); navigate(i); }
         });
       });
 
-      window.carouselMove = function(dir) { goTo(current + dir); };
-      requestAnimationFrame(() => { goTo(1); requestAnimationFrame(() => { wrapper.style.opacity = 1; }); });
-      window.addEventListener('resize', () => { requestAnimationFrame(() => goTo(current)); });
+      // ── Touch swipe ──────────────────────────────────────────
+      var txStart = 0;
+      wrapper.addEventListener('touchstart', function(e) {
+        txStart = e.changedTouches[0].clientX;
+      }, { passive: true });
+      wrapper.addEventListener('touchend', function(e) {
+        var dx = e.changedTouches[0].clientX - txStart;
+        if (Math.abs(dx) > 45) navigate(current + (dx < 0 ? 1 : -1));
+      });
 
-      // Touch swipe
-      let tx = 0;
-      track.addEventListener('touchstart', e => { tx = e.changedTouches[0].clientX; }, { passive: true });
-      track.addEventListener('touchend', e => {
-        const dx = e.changedTouches[0].clientX - tx;
-        if (Math.abs(dx) > 50) carouselMove(dx < 0 ? 1 : -1);
+      // ── Desktop drag ─────────────────────────────────────────
+      var isDragging = false, dragStartX = 0, dragStartTx = 0;
+      wrapper.addEventListener('mousedown', function(e) {
+        if (e.button !== 0) return;
+        isDragging  = true;
+        dragStartX  = e.clientX;
+        var m = new DOMMatrix(getComputedStyle(track).transform);
+        dragStartTx = isNaN(m.m41) ? 0 : m.m41;
+        track.classList.add('no-transition');
+        wrapper.classList.add('is-dragging');
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        track.style.transform = 'translateX(' + (dragStartTx + e.clientX - dragStartX) + 'px)';
+      });
+      document.addEventListener('mouseup', function(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        wrapper.classList.remove('is-dragging');
+        var dx = e.clientX - dragStartX;
+        track.classList.remove('no-transition');
+        if (Math.abs(dx) > 50) {
+          navigate(current + (dx < 0 ? 1 : -1));
+        } else {
+          applyPos(current, false); // snap back
+        }
+      });
+
+      // ── Autoplay ─────────────────────────────────────────────
+      if (CFG.autoplay) {
+        var apTimer = setInterval(function() { navigate(current + 1); }, CFG.autoplayDelay);
+        wrapper.addEventListener('mouseenter', function() { clearInterval(apTimer); });
+        wrapper.addEventListener('mouseleave', function() {
+          apTimer = setInterval(function() { navigate(current + 1); }, CFG.autoplayDelay);
+        });
+      }
+
+      // ── Init ──────────────────────────────────────────────────
+      requestAnimationFrame(function() {
+        applyPos(current, true);
+        setActive(current);
+        requestAnimationFrame(function() { wrapper.style.opacity = 1; });
+      });
+      window.addEventListener('resize', function() {
+        requestAnimationFrame(function() { applyPos(current, true); });
       });
     })();
 
