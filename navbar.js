@@ -158,17 +158,29 @@
       if (m) m.classList.remove('open');
       document.body.style.overflow = '';
     };
-    window.submitNewsletter = function () {
+    window.submitNewsletter = async function () {
       var name  = (document.getElementById('nlName')  || {}).value || '';
       var email = (document.getElementById('nlEmail') || {}).value || '';
       name = name.trim(); email = email.trim();
       if (!name || !email) { alert('Bitte fülle alle Felder aus.'); return; }
-      var body = 'Newsletter-Anmeldung:\nName: ' + name + '\nE-Mail: ' + email + '\nDatum: ' + new Date().toLocaleString('de-DE');
-      window.location.href = 'mailto:hello@aha-kids.de?subject=Newsletter+Anmeldung&body=' + encodeURIComponent(body);
-      var form = document.getElementById('newsletterForm');
-      var succ = document.getElementById('newsletterSuccess');
-      if (form) form.style.display = 'none';
-      if (succ) succ.style.display = 'block';
+      var btn = document.getElementById('nlSubmitBtn');
+      var prevText = btn ? btn.innerHTML : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Wird gesendet...'; }
+      try {
+        var res = await fetch('https://formspree.io/f/mbdzrbld', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ _subject: 'Newsletter Anmeldung – aha Kids', name: name, email: email })
+        });
+        if (!res.ok) throw new Error();
+        var form = document.getElementById('newsletterForm');
+        var succ = document.getElementById('newsletterSuccess');
+        if (form) form.style.display = 'none';
+        if (succ) succ.style.display = 'block';
+      } catch(e) {
+        alert('Beim Senden ist etwas schiefgelaufen. Bitte versuche es erneut.');
+        if (btn) { btn.disabled = false; btn.innerHTML = prevText; }
+      }
     };
   }
 
@@ -190,18 +202,30 @@
       if (m) m.classList.remove('open');
       document.body.style.overflow = '';
     };
-    window.submitContact = function () {
+    window.submitContact = async function () {
       var name  = (document.getElementById('ctName')    || {}).value || '';
       var email = (document.getElementById('ctEmail')   || {}).value || '';
       var msg   = (document.getElementById('ctMessage') || {}).value || '';
       name = name.trim(); email = email.trim(); msg = msg.trim();
       if (!name || !email || !msg) { alert('Bitte fülle alle Felder aus.'); return; }
-      var body = 'Kontaktanfrage:\nName: ' + name + '\nE-Mail: ' + email + '\nNachricht: ' + msg + '\nDatum: ' + new Date().toLocaleString('de-DE');
-      window.location.href = 'mailto:hello@aha-kids.de?subject=Kontaktanfrage+aha+Kids&body=' + encodeURIComponent(body);
-      var form = document.getElementById('contactForm');
-      var succ = document.getElementById('contactSuccess');
-      if (form) form.style.display = 'none';
-      if (succ) succ.style.display = 'block';
+      var btn = document.getElementById('ctSubmitBtn');
+      var prevText = btn ? btn.innerHTML : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Wird gesendet...'; }
+      try {
+        var res = await fetch('https://formspree.io/f/xreyzdbb', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ _subject: 'Kontaktanfrage – aha Kids', name: name, email: email, message: msg })
+        });
+        if (!res.ok) throw new Error();
+        var form = document.getElementById('contactForm');
+        var succ = document.getElementById('contactSuccess');
+        if (form) form.style.display = 'none';
+        if (succ) succ.style.display = 'block';
+      } catch(e) {
+        alert('Beim Senden ist etwas schiefgelaufen. Bitte versuche es in ein paar Minuten erneut.');
+        if (btn) { btn.disabled = false; btn.innerHTML = prevText; }
+      }
     };
   }
 
