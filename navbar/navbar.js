@@ -63,7 +63,7 @@
   if (logoContainer) {
     logoContainer.innerHTML =
       '<a href="' + logoHref + '"' + logoOnclick + ' class="nav-logo">' +
-      '<img src="logo.png" alt="aha Kids Logo">' +
+      '<img src="images/logo.webp" alt="aha Kids Logo">' +
       '</a>';
   }
 

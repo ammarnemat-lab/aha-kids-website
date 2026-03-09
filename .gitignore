@@ -1,0 +1,6 @@
+# Source image files (use compressed webp versions in images/ instead)
+images/*.png
+
+# Node
+node_modules/
+package-lock.json
