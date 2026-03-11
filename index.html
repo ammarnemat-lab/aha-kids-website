@@ -727,7 +727,7 @@
       if (!track) return;
       var wrapper = track.parentElement;
       var dotsEl  = document.getElementById('carouselDots');
-      var cards, n, current, dots;
+      var cards = [], n = 0, current = 0, dots = [];
 
       // ── (Re-)initialise carousel (called on lang change too) ──
       window.carouselInit = function() {
@@ -808,11 +808,12 @@
       }
       window.carouselMove = function(dir) { goTo(current + dir); };
 
-      // Click a side card to bring it to center
-      cards.forEach(function(card, i) {
-        card.addEventListener('click', function(e) {
-          if (i !== current) { e.preventDefault(); goTo(i); }
-        });
+      // Click a side card to bring it to center (event delegation)
+      track.addEventListener('click', function(e) {
+        var card = e.target.closest('.book-card');
+        if (!card) return;
+        var i = cards.indexOf(card);
+        if (i !== -1 && i !== current) { e.preventDefault(); goTo(i); }
       });
 
       // ── Touch swipe ────────────────────────────────────────
