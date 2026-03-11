@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>aha Kids – Lernen für eine bessere Zukunft</title>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="navbar/navbar.css">
+  <link rel="stylesheet" href="navbar.css">
   <style>
     :root {
       --green: #3a7d44;
@@ -559,7 +559,6 @@
     .modal-success p { color: var(--muted); font-size: 1rem; }
 
   </style>
-    <link rel="stylesheet" href="navbar.css">
 </head>
 <body>
     <div id="navbar-logo"></div>
@@ -578,7 +577,7 @@
         </div>
       </div>
       <div class="hero-image reveal">
-        <img src="images/book1.webp" alt="Kinder entdecken die Natur">
+        <img src="images/book1.webp" alt="Kinder entdecken die Natur" data-alt-de="Kinder entdecken die Natur" data-alt-en="Children discovering nature">
       </div>
     </div>
   </section>
@@ -587,37 +586,37 @@
     <h2 class="section-title reveal" data-de="Unsere Bücher" data-en="Our Books">Unsere Bücher</h2>
     <p class="section-desc reveal" data-de="Die Geschichten von aha Kids gibt es bereits als Bücher. Sie sind liebevoll illustriert, pädagogisch fundiert und von Familien geliebt." data-en="aha Kids stories are already available as books. They are beautifully illustrated, educationally grounded, and loved by families.">Die Geschichten von aha Kids gibt es bereits als Bücher. Sie sind liebevoll illustriert, pädagogisch fundiert und von Familien geliebt.</p>
     <div class="carousel-stage">
-    <button class="carousel-btn" id="prevBtn" onclick="carouselMove(-1)" aria-label="Voriges Buch">
+    <button class="carousel-btn" id="prevBtn" onclick="carouselMove(-1)" aria-label="Voriges Buch" data-aria-de="Voriges Buch" data-aria-en="Previous Book">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <div class="books-carousel-wrapper">
     <div class="books-carousel-track" id="carouselTrack">
       <div class="book-card reveal">
-        <div class="book-cover"><img src="images/magische-wald.webp" data-img-de="images/magische-wald.webp" data-img-en="images/magische-wald-en.webp" alt="Der magische Wald und die Nachhaltigkeit"></div>
+        <div class="book-cover"><img src="images/magische-wald.webp" data-img-de="images/magische-wald.webp" data-img-en="images/magische-wald-en.webp" alt="Der magische Wald und die Nachhaltigkeit" data-alt-de="Der magische Wald und die Nachhaltigkeit" data-alt-en="The Magical Forest and Sustainability"></div>
         <div class="book-info">
           <h3 data-de="Der magische Wald und die Nachhaltigkeit" data-en="The Magical Forest and Sustainability">Der magische Wald und die Nachhaltigkeit</h3>
           <p data-de="Ein magisches Abenteuer über kleine Taten mit großer Wirkung." data-en="A magical adventure about small acts with a big impact.">Ein magisches Abenteuer über kleine Taten mit großer Wirkung.</p>
-          <a href="https://www.amazon.de/-/en/gp/product/B0GRBLFHXN" target="_blank" rel="noopener" class="book-cta"><span data-de="Jetzt kaufen" data-en="Buy Now">Jetzt kaufen</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="https://www.amazon.de/-/en/gp/product/B0GRBLFHXN" data-href-de="https://www.amazon.de/-/en/gp/product/B0GRBLFHXN" data-href-en="https://www.amazon.de/-/en/gp/product/B0GRZ7KGY3?ref_=dbs_m_mng_rwt_calw_tpbk_0&storeType=ebooks&qid=1773240988&sr=1-1-catcorr" target="_blank" rel="noopener" class="book-cta"><span data-de="Jetzt kaufen" data-en="Buy Now">Jetzt kaufen</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
       <div class="book-card active reveal">
-        <div class="book-cover"><img src="images/fleissige-helfer.webp" data-img-de="images/fleissige-helfer.webp" data-img-en="images/fleissige-helfer-en.webp" alt="Die fleißigen Helfer"></div>
+        <div class="book-cover"><img src="images/fleissige-helfer.webp" data-img-de="images/fleissige-helfer.webp" data-img-en="images/fleissige-helfer-en.webp" alt="Die fleißigen Helfer" data-alt-de="Die fleißigen Helfer" data-alt-en="The Busy Helpers"></div>
         <div class="book-info">
-          <h3 data-de="Die fleißigen Helfer" data-en="The Diligent Helpers">Die fleißigen Helfer</h3>
+          <h3 data-de="Die fleißigen Helfer" data-en="The Busy Helpers">Die fleißigen Helfer</h3>
           <p data-de="Warum Bienen echte Helden unserer Natur sind." data-en="Why bees are true heroes of our nature.">Warum Bienen echte Helden unserer Natur sind.</p>
-          <a href="https://www.amazon.de/-/en/gp/product/B0GRZW17QV" target="_blank" rel="noopener" class="book-cta"><span data-de="Jetzt kaufen" data-en="Buy Now">Jetzt kaufen</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="https://www.amazon.de/-/en/gp/product/B0GRZW17QV" data-href-de="https://www.amazon.de/-/en/gp/product/B0GRZW17QV" data-href-en="https://www.amazon.de/-/en/gp/product/B0GS316ZBZ?ref_=dbs_m_mng_rwt_calw_tpbk_1&storeType=ebooks&qid=1773240988&sr=1-1-catcorr" target="_blank" rel="noopener" class="book-cta"><span data-de="Jetzt kaufen" data-en="Buy Now">Jetzt kaufen</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
       <div class="book-card reveal">
-        <div class="book-cover"><img src="images/book4.webp" data-img-de="images/book4.webp" data-img-en="images/kraft-sonne-wind-en.webp" alt="Die Kraft von Sonne und Wind"></div>
+        <div class="book-cover"><img src="images/book4.webp" data-img-de="images/book4.webp" data-img-en="images/kraft-sonne-wind-en.webp" alt="Die Kraft von Sonne und Wind" data-alt-de="Die Kraft von Sonne und Wind" data-alt-en="The Power of Sun and Wind"></div>
         <div class="book-info">
           <h3 data-de="Die Kraft von Sonne und Wind" data-en="The Power of Sun and Wind">Die Kraft von Sonne und Wind</h3>
           <p data-de="Entdecke die Energie der Natur – ganz ohne Rauch." data-en="Discover the energy of nature – completely without smoke.">Entdecke die Energie der Natur – ganz ohne Rauch.</p>
-          <a href="#" class="book-cta"><span data-de="Jetzt kaufen" data-en="Buy Now">Jetzt kaufen</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="#" data-href-de="#" data-href-en="https://www.amazon.de/-/en/gp/product/B0GS127GKY?ref_=dbs_m_mng_rwt_calw_tpbk_2&storeType=ebooks&qid=1773240988&sr=1-1-catcorr" class="book-cta"><span data-de="Jetzt kaufen" data-en="Buy Now">Jetzt kaufen</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
       <div class="book-card reveal" data-lang-de-only>
-        <div class="book-cover"><img src="images/book5.webp" alt="Die Zauberwelt des Recyclings"></div>
+        <div class="book-cover"><img src="images/book5.webp" alt="Die Zauberwelt des Recyclings" data-alt-de="Die Zauberwelt des Recyclings" data-alt-en="The Magic World of Recycling"></div>
         <div class="book-info">
           <h3 data-de="Die Zauberwelt des Recyclings" data-en="The Magic World of Recycling">Die Zauberwelt des Recyclings</h3>
           <p data-de="Wie aus Müll neue Dinge entstehen." data-en="How rubbish becomes new things.">Wie aus Müll neue Dinge entstehen.</p>
@@ -626,7 +625,7 @@
       </div>
     </div><!-- /track -->
     </div><!-- /wrapper -->
-    <button class="carousel-btn" id="nextBtn" onclick="carouselMove(1)" aria-label="Nächstes Buch">
+    <button class="carousel-btn" id="nextBtn" onclick="carouselMove(1)" aria-label="Nächstes Buch" data-aria-de="Nächstes Buch" data-aria-en="Next Book">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
     </div><!-- /stage -->
@@ -870,6 +869,8 @@
       _selectedReaction = btn.dataset.reaction;
     };
 
+    function _t(de, en) { try { return localStorage.getItem('aha-lang') === 'en' ? en : de; } catch(e) { return de; } }
+
     window.submitFeedback = async function() {
       if (!_selectedReaction) {
         const wrap = document.querySelector('.emoji-reactions');
@@ -882,7 +883,7 @@
       const email = (document.getElementById('feedbackEmail') || {}).value || '';
       const reactionLabels = { love: 'Ich liebe es! 😍', good: 'Gut! 🙂', meh: 'Geht so. 😐' };
       const fbBtn = document.querySelector('.feedback-submit');
-      if (fbBtn) { fbBtn.disabled = true; fbBtn.textContent = 'Wird gesendet...'; }
+      if (fbBtn) { fbBtn.disabled = true; fbBtn.textContent = _t('Wird gesendet...', 'Sending...'); }
       try {
         await fetch('https://formspree.io/f/xreyzdbb', {
           method: 'POST',
@@ -919,10 +920,10 @@
     window.submitNewsletter = async function() {
       const name  = document.getElementById('nlName').value.trim();
       const email = document.getElementById('nlEmail').value.trim();
-      if (!name || !email) { alert('Bitte fülle alle Felder aus.'); return; }
+      if (!name || !email) { alert(_t('Bitte fülle alle Felder aus.', 'Please fill in all fields.')); return; }
       const btn = document.getElementById('nlSubmitBtn');
       const prevText = btn ? btn.innerHTML : '';
-      if (btn) { btn.disabled = true; btn.textContent = 'Wird gesendet...'; }
+      if (btn) { btn.disabled = true; btn.textContent = _t('Wird gesendet...', 'Sending...'); }
       try {
         const res = await fetch('https://formspree.io/f/mbdzrbld', {
           method: 'POST',
@@ -933,7 +934,7 @@
         document.getElementById('newsletterForm').style.display = 'none';
         document.getElementById('newsletterSuccess').style.display = 'block';
       } catch(e) {
-        alert('Beim Senden ist etwas schiefgelaufen. Bitte versuche es erneut.');
+        alert(_t('Beim Senden ist etwas schiefgelaufen. Bitte versuche es erneut.', 'Something went wrong. Please try again.'));
         if (btn) { btn.disabled = false; btn.innerHTML = prevText; }
       }
     };
@@ -960,12 +961,12 @@
       const email   = document.getElementById('ctEmail').value.trim();
       const msg     = document.getElementById('ctMessage').value.trim();
       const website = document.getElementById('ctWebsite').value.trim();
-      if (!name || !email || !msg) { alert('Bitte fülle alle Felder aus.'); return; }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Bitte gib eine gültige E-Mail-Adresse ein.'); return; }
+      if (!name || !email || !msg) { alert(_t('Bitte fülle alle Felder aus.', 'Please fill in all fields.')); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert(_t('Bitte gib eine gültige E-Mail-Adresse ein.', 'Please enter a valid email address.')); return; }
       if (website) return; // honeypot
       const btn = document.getElementById('ctSubmitBtn');
       const prevText = btn ? btn.innerHTML : '';
-      if (btn) { btn.disabled = true; btn.textContent = 'Wird gesendet...'; }
+      if (btn) { btn.disabled = true; btn.textContent = _t('Wird gesendet...', 'Sending...'); }
       try {
         const res = await fetch('https://formspree.io/f/xreyzdbb', {
           method: 'POST',
@@ -976,7 +977,7 @@
         document.getElementById('contactForm').style.display = 'none';
         document.getElementById('contactSuccess').style.display = 'block';
       } catch(e) {
-        alert('Beim Senden ist etwas schiefgelaufen. Bitte versuche es in ein paar Minuten erneut.');
+        alert(_t('Beim Senden ist etwas schiefgelaufen. Bitte versuche es in ein paar Minuten erneut.', 'Something went wrong. Please try again in a few minutes.'));
         if (btn) { btn.disabled = false; btn.innerHTML = prevText; }
       }
     };
@@ -998,7 +999,7 @@
   <!-- Newsletter Modal -->
   <div class="modal-overlay" id="newsletterModal" onclick="if(event.target===this)closeNewsletterModal()">
     <div class="modal-box">
-      <button class="modal-close" onclick="closeNewsletterModal()" aria-label="Schließen">✕</button>
+      <button class="modal-close" onclick="closeNewsletterModal()" aria-label="Schließen" data-aria-de="Schließen" data-aria-en="Close">✕</button>
       <div id="newsletterForm">
         <h2 class="modal-title">📬 Newsletter</h2>
         <p class="modal-sub" data-de="Bleib auf dem Laufenden – keine Werbung, nur echte News von aha Kids." data-en="Stay up to date – no ads, just genuine news from aha Kids.">Bleib auf dem Laufenden – keine Werbung, nur echte News von aha Kids.</p>
@@ -1024,7 +1025,7 @@
   <!-- Contact Modal -->
   <div class="modal-overlay" id="contactModal" onclick="if(event.target===this)closeContactModal()">
     <div class="modal-box">
-      <button class="modal-close" onclick="closeContactModal()" aria-label="Schließen">✕</button>
+      <button class="modal-close" onclick="closeContactModal()" aria-label="Schließen" data-aria-de="Schließen" data-aria-en="Close">✕</button>
       <div id="contactForm">
         <h2 class="modal-title" data-de="📧 Kontakt aufnehmen" data-en="📧 Get in Touch">📧 Kontakt aufnehmen</h2>
         <p class="modal-sub" data-de="Schreib uns – wir freuen uns über jede Nachricht." data-en="Write to us – we love hearing from you.">Schreib uns – wir freuen uns über jede Nachricht.</p>
@@ -1052,6 +1053,5 @@
     </div>
   </div>
 
-  <script src="navbar/navbar.js"></script>
 </body>
 </html>

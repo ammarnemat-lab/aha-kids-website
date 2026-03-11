@@ -137,7 +137,7 @@
       nl.setAttribute('onclick', 'if(event.target===this)closeNewsletterModal()');
       nl.innerHTML =
         '<div class="modal-box">' +
-          '<button class="modal-close" onclick="closeNewsletterModal()" aria-label="Schließen">✕</button>' +
+          '<button class="modal-close" onclick="closeNewsletterModal()" aria-label="Schließen" data-aria-de="Schließen" data-aria-en="Close">✕</button>' +
           '<div id="newsletterForm">' +
             '<h2 class="modal-title">📬 Newsletter</h2>' +
             '<p class="modal-sub" data-de="Bleib auf dem Laufenden \u2013 keine Werbung, nur echte News von aha Kids." data-en="Stay up to date \u2013 no ads, just genuine news from aha Kids.">Bleib auf dem Laufenden \u2013 keine Werbung, nur echte News von aha Kids.</p>' +
@@ -169,7 +169,7 @@
       ct.setAttribute('onclick', 'if(event.target===this)closeContactModal()');
       ct.innerHTML =
         '<div class="modal-box">' +
-          '<button class="modal-close" onclick="closeContactModal()" aria-label="Schließen">✕</button>' +
+          '<button class="modal-close" onclick="closeContactModal()" aria-label="Schließen" data-aria-de="Schließen" data-aria-en="Close">✕</button>' +
           '<div id="contactForm">' +
             '<h2 class="modal-title" data-de="\uD83D\uDCE7 Kontakt aufnehmen" data-en="\uD83D\uDCE7 Get in Touch">\uD83D\uDCE7 Kontakt aufnehmen</h2>' +
             '<p class="modal-sub" data-de="Schreib uns \u2013 wir freuen uns \u00fcber jede Nachricht." data-en="Write to us \u2013 we love hearing from you.">Schreib uns \u2013 wir freuen uns \u00fcber jede Nachricht.</p>' +
@@ -196,6 +196,9 @@
     }
   }
 
+  // ── Language-aware helper for JS strings ──────────
+  function _t(de, en) { try { return localStorage.getItem('aha-lang') === 'en' ? en : de; } catch(e) { return de; } }
+
   // ── Modal open/close/submit (define only if not already defined) ──────────
   if (typeof window.openNewsletterModal !== 'function') {
     window.openNewsletterModal = function () {
@@ -219,10 +222,10 @@
       var name  = (document.getElementById('nlName')  || {}).value || '';
       var email = (document.getElementById('nlEmail') || {}).value || '';
       name = name.trim(); email = email.trim();
-      if (!name || !email) { alert('Bitte fülle alle Felder aus.'); return; }
+      if (!name || !email) { alert(_t('Bitte fülle alle Felder aus.', 'Please fill in all fields.')); return; }
       var btn = document.getElementById('nlSubmitBtn');
       var prevText = btn ? btn.innerHTML : '';
-      if (btn) { btn.disabled = true; btn.textContent = 'Wird gesendet...'; }
+      if (btn) { btn.disabled = true; btn.textContent = _t('Wird gesendet...', 'Sending...'); }
       try {
         var res = await fetch('https://formspree.io/f/mbdzrbld', {
           method: 'POST',
@@ -235,7 +238,7 @@
         if (form) form.style.display = 'none';
         if (succ) succ.style.display = 'block';
       } catch(e) {
-        alert('Beim Senden ist etwas schiefgelaufen. Bitte versuche es erneut.');
+        alert(_t('Beim Senden ist etwas schiefgelaufen. Bitte versuche es erneut.', 'Something went wrong. Please try again.'));
         if (btn) { btn.disabled = false; btn.innerHTML = prevText; }
       }
     };
@@ -264,10 +267,10 @@
       var email = (document.getElementById('ctEmail')   || {}).value || '';
       var msg   = (document.getElementById('ctMessage') || {}).value || '';
       name = name.trim(); email = email.trim(); msg = msg.trim();
-      if (!name || !email || !msg) { alert('Bitte fülle alle Felder aus.'); return; }
+      if (!name || !email || !msg) { alert(_t('Bitte fülle alle Felder aus.', 'Please fill in all fields.')); return; }
       var btn = document.getElementById('ctSubmitBtn');
       var prevText = btn ? btn.innerHTML : '';
-      if (btn) { btn.disabled = true; btn.textContent = 'Wird gesendet...'; }
+      if (btn) { btn.disabled = true; btn.textContent = _t('Wird gesendet...', 'Sending...'); }
       try {
         var res = await fetch('https://formspree.io/f/xreyzdbb', {
           method: 'POST',
@@ -280,7 +283,7 @@
         if (form) form.style.display = 'none';
         if (succ) succ.style.display = 'block';
       } catch(e) {
-        alert('Beim Senden ist etwas schiefgelaufen. Bitte versuche es in ein paar Minuten erneut.');
+        alert(_t('Beim Senden ist etwas schiefgelaufen. Bitte versuche es in ein paar Minuten erneut.', 'Something went wrong. Please try again in a few minutes.'));
         if (btn) { btn.disabled = false; btn.innerHTML = prevText; }
       }
     };
@@ -341,14 +344,28 @@
     document.querySelectorAll('[data-placeholder-de]').forEach(function(el) {
       el.placeholder = lang === 'en' ? el.dataset.placeholderEn : el.dataset.placeholderDe;
     });
+    // Swap links per language
+    document.querySelectorAll('[data-href-de]').forEach(function(el) {
+      el.href = lang === 'en' ? el.dataset.hrefEn : el.dataset.hrefDe;
+    });
     // Swap book cover images per language
     document.querySelectorAll('[data-img-de]').forEach(function(el) {
       el.src = lang === 'en' ? el.dataset.imgEn : el.dataset.imgDe;
+    });
+    // Swap alt texts per language
+    document.querySelectorAll('[data-alt-de]').forEach(function(el) {
+      el.alt = lang === 'en' ? el.dataset.altEn : el.dataset.altDe;
+    });
+    // Swap aria-labels per language
+    document.querySelectorAll('[data-aria-de]').forEach(function(el) {
+      el.setAttribute('aria-label', lang === 'en' ? el.dataset.ariaEn : el.dataset.ariaDe);
     });
     // Show/hide German-only elements (e.g. 4th book card)
     document.querySelectorAll('[data-lang-de-only]').forEach(function(el) {
       el.style.display = lang === 'en' ? 'none' : '';
     });
+    // Update html lang attribute
+    document.documentElement.lang = lang === 'en' ? 'en' : 'de';
     // Re-init carousel if it exists (book count changed)
     if (typeof window.carouselInit === 'function') window.carouselInit();
     // Update language dropdown state
