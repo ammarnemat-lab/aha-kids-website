@@ -341,6 +341,16 @@
     document.querySelectorAll('[data-placeholder-de]').forEach(function(el) {
       el.placeholder = lang === 'en' ? el.dataset.placeholderEn : el.dataset.placeholderDe;
     });
+    // Swap book cover images per language
+    document.querySelectorAll('[data-img-de]').forEach(function(el) {
+      el.src = lang === 'en' ? el.dataset.imgEn : el.dataset.imgDe;
+    });
+    // Show/hide German-only elements (e.g. 4th book card)
+    document.querySelectorAll('[data-lang-de-only]').forEach(function(el) {
+      el.style.display = lang === 'en' ? 'none' : '';
+    });
+    // Re-init carousel if it exists (book count changed)
+    if (typeof window.carouselInit === 'function') window.carouselInit();
     // Update language dropdown state
     var curFlag = document.getElementById('langCurrentFlag');
     if (curFlag) curFlag.innerHTML = lang === 'en' ? flagEN : flagDE;

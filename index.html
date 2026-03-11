@@ -593,7 +593,7 @@
     <div class="books-carousel-wrapper">
     <div class="books-carousel-track" id="carouselTrack">
       <div class="book-card reveal">
-        <div class="book-cover"><img src="images/magische-wald.webp" alt="Der magische Wald und die Nachhaltigkeit"></div>
+        <div class="book-cover"><img src="images/magische-wald.webp" data-img-de="images/magische-wald.webp" data-img-en="images/magische-wald-en.webp" alt="Der magische Wald und die Nachhaltigkeit"></div>
         <div class="book-info">
           <h3 data-de="Der magische Wald und die Nachhaltigkeit" data-en="The Magical Forest and Sustainability">Der magische Wald und die Nachhaltigkeit</h3>
           <p data-de="Ein magisches Abenteuer über kleine Taten mit großer Wirkung." data-en="A magical adventure about small acts with a big impact.">Ein magisches Abenteuer über kleine Taten mit großer Wirkung.</p>
@@ -601,7 +601,7 @@
         </div>
       </div>
       <div class="book-card active reveal">
-        <div class="book-cover"><img src="images/fleissige-helfer.webp" alt="Die fleißigen Helfer"></div>
+        <div class="book-cover"><img src="images/fleissige-helfer.webp" data-img-de="images/fleissige-helfer.webp" data-img-en="images/fleissige-helfer-en.webp" alt="Die fleißigen Helfer"></div>
         <div class="book-info">
           <h3 data-de="Die fleißigen Helfer" data-en="The Diligent Helpers">Die fleißigen Helfer</h3>
           <p data-de="Warum Bienen echte Helden unserer Natur sind." data-en="Why bees are true heroes of our nature.">Warum Bienen echte Helden unserer Natur sind.</p>
@@ -609,14 +609,14 @@
         </div>
       </div>
       <div class="book-card reveal">
-        <div class="book-cover"><img src="images/book4.webp" alt="Die Kraft von Sonne und Wind"></div>
+        <div class="book-cover"><img src="images/book4.webp" data-img-de="images/book4.webp" data-img-en="images/kraft-sonne-wind-en.webp" alt="Die Kraft von Sonne und Wind"></div>
         <div class="book-info">
           <h3 data-de="Die Kraft von Sonne und Wind" data-en="The Power of Sun and Wind">Die Kraft von Sonne und Wind</h3>
           <p data-de="Entdecke die Energie der Natur – ganz ohne Rauch." data-en="Discover the energy of nature – completely without smoke.">Entdecke die Energie der Natur – ganz ohne Rauch.</p>
           <a href="#" class="book-cta"><span data-de="Jetzt kaufen" data-en="Buy Now">Jetzt kaufen</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
-      <div class="book-card reveal">
+      <div class="book-card reveal" data-lang-de-only>
         <div class="book-cover"><img src="images/book5.webp" alt="Die Zauberwelt des Recyclings"></div>
         <div class="book-info">
           <h3 data-de="Die Zauberwelt des Recyclings" data-en="The Magic World of Recycling">Die Zauberwelt des Recyclings</h3>
@@ -727,21 +727,31 @@
       if (!track) return;
       var wrapper = track.parentElement;
       var dotsEl  = document.getElementById('carouselDots');
-      var cards   = Array.from(track.querySelectorAll('.book-card'));
-      var n       = cards.length;
-      var current = 1; // start on the card that had class="active" in HTML
+      var cards, n, current, dots;
 
-      cards.forEach(function(c) { c.classList.remove('active'); });
+      // ── (Re-)initialise carousel (called on lang change too) ──
+      window.carouselInit = function() {
+        cards = Array.from(track.querySelectorAll('.book-card')).filter(function(c) {
+          return c.style.display !== 'none';
+        });
+        n = cards.length;
+        current = Math.min(1, n - 1);
+        cards.forEach(function(c) { c.classList.remove('active'); });
 
-      // ── Build dots ──────────────────────────────────────────
-      for (var di = 0; di < n; di++) {
-        var dot = document.createElement('button');
-        dot.className = 'carousel-dot';
-        dot.setAttribute('aria-label', 'Buch ' + (di + 1));
-        dot.onclick = (function(i) { return function() { goTo(i); }; })(di);
-        dotsEl.appendChild(dot);
-      }
-      var dots = Array.from(dotsEl.querySelectorAll('.carousel-dot'));
+        // Rebuild dots
+        dotsEl.innerHTML = '';
+        for (var di = 0; di < n; di++) {
+          var dot = document.createElement('button');
+          dot.className = 'carousel-dot';
+          dot.setAttribute('aria-label', 'Book ' + (di + 1));
+          dot.onclick = (function(i) { return function() { goTo(i); }; })(di);
+          dotsEl.appendChild(dot);
+        }
+        dots = Array.from(dotsEl.querySelectorAll('.carousel-dot'));
+
+        syncHeight();
+        positionCards();
+      };
 
       function syncDots() {
         dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
@@ -842,13 +852,11 @@
 
       // ── Init ─────────────────────────────────────────────────
       requestAnimationFrame(function() {
-        syncHeight();
-        positionCards();
+        window.carouselInit();
         requestAnimationFrame(function() { wrapper.style.opacity = 1; });
       });
       window.addEventListener('resize', function() {
-        syncHeight();
-        positionCards();
+        window.carouselInit();
       });
     })();
 
