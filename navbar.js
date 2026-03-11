@@ -321,11 +321,20 @@
   window.applyLang = function(lang) {
     // Update text content for data-de / data-en elements
     document.querySelectorAll('[data-de]').forEach(function(el) {
-      // Skip elements that have child element nodes (mixed content) — only update pure-text nodes
+      var val = lang === 'en' ? el.dataset.en : el.dataset.de;
+      if (val === undefined) return;
       var hasChildElements = false;
       el.childNodes.forEach(function(n) { if (n.nodeType === 1) hasChildElements = true; });
       if (!hasChildElements) {
-        el.textContent = lang === 'en' ? el.dataset.en : el.dataset.de;
+        el.textContent = val;
+      } else {
+        // Legal pages: preserve (N) number span, translate the rest
+        var paraNum = el.querySelector('.legal-para-num');
+        if (paraNum) {
+          var numHtml = paraNum.outerHTML;
+          var text = val.replace(/^\(\d+\)\s*/, '');
+          el.innerHTML = numHtml + ' ' + text;
+        }
       }
     });
     // Update placeholders
