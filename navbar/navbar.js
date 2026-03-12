@@ -109,10 +109,11 @@
   var navContainer = document.getElementById('navbar');
   if (navContainer) {
     navContainer.innerHTML =
-      '<ul class="nav-links">\n      ' + listItems + '\n      <li class="lang-item">' + langDropdown + '</li>\n    </ul>\n' +
+      '<ul class="nav-links">\n      ' + listItems + '\n    </ul>\n' +
+      '<div class="nav-right">' + langDropdown +
       '    <button class="mobile-menu" onclick="document.querySelector(\'.nav-links\').classList.toggle(\'show\')" aria-label="Menu">\n' +
       '      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3a7d44" stroke-width="2.5" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>\n' +
-      '    </button>';
+      '    </button></div>';
   }
 
   // Toggle / close the language dropdown
