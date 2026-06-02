@@ -16,8 +16,6 @@
   const navItems = [
     ['Home',       isIndex ? '#' : 'index.html',  'index.html', null, 'Home', 'Home'],
     ['Bücher',     idx + '#buecher',               null, null, 'Bücher', 'Books'],
-    ['Über uns',   'ueber-uns.html',               'ueber-uns.html', null, 'Über uns', 'About Us'],
-    ['Die App',    'app.html',                     'app.html', null, 'Die App', 'Our App'],
     ['Newsletter', '#',                            null, 'newsletter', 'Newsletter', 'Newsletter'],
     ['Kontakt',    '#',                            null, 'kontakt', 'Kontakt', 'Contact'],
   ];
