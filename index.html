@@ -6,7 +6,7 @@
   <title>aha Kids – Lernen für eine bessere Zukunft</title>
   <meta name="description" content="aha Kids macht Nachhaltigkeit für Kinder erlebbar – liebevoll illustrierte Geschichten in der aha Kids App und als Buch.">
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="navbar.css">
+  <link rel="icon" href="images/logo.webp">  <link rel="stylesheet" href="navbar.css">
   <style>
     :root {
       /* aha Kids brand — aligned with the app */
@@ -165,7 +165,7 @@
 
     /* ===== SECTIONS ===== */
     .section { padding:4.5rem 2.5rem; max-width:1200px; margin:0 auto; }
-    .section-label { display:inline-flex; align-items:center; gap:0.5rem; font-size:0.78rem; font-weight:800; letter-spacing:0.10em; text-transform:uppercase; color:var(--orange); margin-bottom:0.8rem; }
+    .section-label { display:inline-flex; align-items:center; gap:0.5rem; font-size:0.78rem; font-weight:800; letter-spacing:0.10em; text-transform:uppercase; color:#a8500e; margin-bottom:0.8rem; }
     .section-title { font-size:clamp(1.9rem,3.6vw,2.8rem); margin-bottom:1rem; letter-spacing:-0.01em; }
     .section-desc { font-size:1.05rem; color:var(--muted); max-width:640px; line-height:1.75; }
 
@@ -429,7 +429,7 @@
         </div>
         <div class="store-cta">
           <span class="store-soon" data-de="Bald verfügbar" data-en="Coming soon">Bald verfügbar</span>
-          <a class="store-badge" href="#" onclick="return false;" aria-label="Download on the App Store" data-aria-de="Im App Store laden" data-aria-en="Download on the App Store">
+          <a class="store-badge" href="#" onclick="return false;" aria-label="Im App Store laden" data-aria-de="Im App Store laden" data-aria-en="Download on the App Store">
             <svg class="sb-apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.54c-.02-2.06 1.68-3.05 1.76-3.1-0.96-1.4-2.45-1.6-2.98-1.62-1.27-.13-2.48.75-3.12.75-.64 0-1.64-.73-2.7-.71-1.39.02-2.67.81-3.39 2.05-1.44 2.5-.37 6.2 1.04 8.23.69.99 1.51 2.1 2.59 2.06 1.04-.04 1.43-.67 2.69-.67 1.25 0 1.61.67 2.71.65 1.12-.02 1.83-1.01 2.51-2.01.79-1.15 1.12-2.27 1.14-2.33-.03-.01-2.18-.84-2.2-3.32zM15.0 6.21c.57-.69.95-1.65.85-2.61-.82.03-1.81.55-2.4 1.24-.53.61-.99 1.59-.87 2.52.91.07 1.85-.46 2.42-1.15z"/></svg>
             <span class="sb-text">
               <span class="sb-small" data-de="Im App Store laden" data-en="Download on the">Im App Store laden</span>
@@ -575,7 +575,7 @@
       var sc = document.getElementById('appScroll');
       if (!sc) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var dir = 1, paused = true, inView = false, idleTimer = null, last = null;
+      var dir = 1, paused = true, inView = false, idleTimer = null, last = null, rafId = null;
       var SPEED = 0.32;
       function nudgePause(ms) {
         paused = true; clearTimeout(idleTimer);
@@ -584,12 +584,6 @@
       ['wheel', 'touchstart', 'pointerdown', 'mouseenter'].forEach(function(ev) {
         sc.addEventListener(ev, function() { nudgePause(2400); }, { passive: true });
       });
-      var io = new IntersectionObserver(function(entries) {
-        inView = entries[0].isIntersecting;
-        if (inView) { if (!idleTimer) paused = false; } else paused = true;
-      }, { threshold: 0.25 });
-      io.observe(sc.closest('.ipad'));
-      setTimeout(function() { if (inView) paused = false; }, 1400);
       function step(ts) {
         if (last == null) last = ts;
         var dt = ts - last; last = ts;
@@ -599,9 +593,21 @@
           if (sc.scrollTop >= max - 0.5) { dir = -1; nudgePause(1000); }
           else if (sc.scrollTop <= 0.5) { dir = 1; sc.scrollTop = Math.max(0, sc.scrollTop); nudgePause(1000); }
         }
-        requestAnimationFrame(step);
+        rafId = requestAnimationFrame(step);
       }
-      requestAnimationFrame(step);
+      function start() { if (rafId == null) { last = null; rafId = requestAnimationFrame(step); } }
+      function stop() { if (rafId != null) { cancelAnimationFrame(rafId); rafId = null; } }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries) {
+          inView = entries[0].isIntersecting;
+          if (inView) { if (!idleTimer) paused = false; start(); }
+          else { paused = true; stop(); }
+        }, { threshold: 0.25 });
+        io.observe(sc.closest('.ipad'));
+      } else {
+        inView = true; start(); // no IntersectionObserver: animate, assume in view
+      }
+      setTimeout(function() { if (inView) paused = false; }, 1400);
     })();
 
     // ── Equal-height partner cards (clean 2×2 block; re-runs on resize & language change) ──
