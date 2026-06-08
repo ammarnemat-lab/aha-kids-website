@@ -247,6 +247,7 @@
     .partner-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:0.92fr 1.08fr; gap:3.6rem; align-items:start; }
     .partner-intro .section-desc { margin-bottom:1.1rem; }
     .partner-sub { color:var(--muted); font-size:1rem; line-height:1.65; margin:0 0 1.9rem; max-width:460px; }
+    .partner-cards-title { font-size:1.2rem; margin-bottom:1.3rem; color:var(--ink); }
     .partner-cards { display:grid; grid-template-columns:1fr 1fr; align-items:stretch; gap:1.3rem; }
     .partner-card { display:flex; flex-direction:column; justify-content:flex-start;
       background:var(--white); border:1px solid rgba(28,107,80,0.13); border-radius:20px;
@@ -326,8 +327,9 @@
         <h1 class="reveal"><span data-de="Lernen für eine" data-en="Learning for a">Lernen für eine</span><br><span class="accent" data-de="bessere Zukunft" data-en="Better Future">bessere Zukunft</span></h1>
         <p class="hero-sub reveal" style="margin-bottom:0.9rem;font-weight:800;color:var(--ink);font-size:1.22rem;" data-de="Geschichten, die Kinder für unsere Welt begeistern" data-en="Stories that inspire children to care about our world">Geschichten, die Kinder für unsere Welt begeistern</p>
         <p class="hero-sub reveal" style="margin-bottom:0.9rem;" data-de="Mit aha Kids entdecken Kinder von 3 bis 8 Jahren Natur, Tiere, Umwelt und die kleinen Dinge, die unsere Welt besser machen." data-en="With aha Kids, children aged 3 to 8 discover nature, animals, the environment, and the little things that make our world a better place.">Mit aha Kids entdecken Kinder von 3 bis 8 Jahren Natur, Tiere, Umwelt und die kleinen Dinge, die unsere Welt besser machen.</p>
-        <p class="hero-sub reveal" style="margin-bottom:0.9rem;" data-de="Unsere Bücher und digitalen Abenteuer wecken Neugier, stärken Empathie und zeigen spielerisch: Du bist Teil dieser Welt. Dein Handeln zählt." data-en="Our books and digital adventures spark curiosity, build empathy, and playfully show: You are part of this world. Your actions matter.">Unsere Bücher und digitalen Abenteuer wecken Neugier, stärken Empathie und zeigen spielerisch: Du bist Teil dieser Welt. Dein Handeln zählt.</p>
-        <p class="hero-sub reveal" style="margin-bottom:2.2rem;" data-de="Positiv, kindgerecht und ohne Angst. Dafür mit Fantasie, Herz und Freude am Entdecken." data-en="Positive, child-friendly, and without fear – instead full of imagination, heart, and the joy of discovery.">Positiv, kindgerecht und ohne Angst. Dafür mit Fantasie, Herz und Freude am Entdecken.</p>
+        <p class="hero-sub reveal" style="margin-bottom:0.9rem;" data-de="Unsere Geschichten wecken Neugier, stärken Empathie und zeigen Kindern: Du bist Teil dieser Welt. Dein Handeln zählt." data-en="Our stories spark curiosity, build empathy, and show children: You are part of this world. Your actions matter.">Unsere Geschichten wecken Neugier, stärken Empathie und zeigen Kindern: Du bist Teil dieser Welt. Dein Handeln zählt.</p>
+        <p class="hero-sub reveal" style="margin-bottom:0.9rem;" data-de="In der aha Kids Reader App können Familien unsere Bücher digital kaufen und direkt lesen. Zum Vorlesen, gemeinsamen Entdecken und für erste Gespräche über wichtige Themen." data-en="In the aha Kids Reader app, families can buy our books digitally and read them right away – for reading aloud, discovering together, and first conversations about important topics.">In der aha Kids Reader App können Familien unsere Bücher digital kaufen und direkt lesen. Zum Vorlesen, gemeinsamen Entdecken und für erste Gespräche über wichtige Themen.</p>
+        <p class="hero-sub reveal" style="margin-bottom:2.2rem;" data-de="Sicher, werbefrei, kindgerecht und voller Fantasie." data-en="Safe, ad-free, child-friendly, and full of imagination.">Sicher, werbefrei, kindgerecht und voller Fantasie.</p>
         <div class="hero-actions reveal">
           <a href="#" onclick="return false;" class="btn btn-primary" aria-label="aha Kids App">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3.2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
@@ -506,7 +508,8 @@
   <section class="section" id="buecher">
     <p class="section-label reveal" data-de="Unsere Geschichten" data-en="Our Stories">Unsere Geschichten</p>
     <h2 class="section-title reveal" data-de="Unsere Bücher" data-en="Our Books">Unsere Bücher</h2>
-    <p class="section-desc reveal" data-de="Liebevoll illustrierte Geschichten über Nachhaltigkeit – pädagogisch fundiert und von Familien geliebt. In der aha Kids App und als Buch." data-en="Lovingly illustrated stories about sustainability – educationally grounded and loved by families. In the aha Kids app and as a book.">Liebevoll illustrierte Geschichten über Nachhaltigkeit – pädagogisch fundiert und von Familien geliebt. In der aha Kids App und als Buch.</p>
+    <p class="section-desc reveal" data-de="Alle aha Kids Geschichten gibt es auch als liebevoll gestaltete Bücher für zu Hause." data-en="All aha Kids stories are also available as lovingly designed books for home.">Alle aha Kids Geschichten gibt es auch als liebevoll gestaltete Bücher für zu Hause.</p>
+    <p class="section-desc reveal" style="margin-top:0.9rem;" data-de="Jedes Buch enthält einen kleinen Mitmachteil und Ausmalbilder. So können Kinder selbst kreativ werden und das Thema spielerisch vertiefen." data-en="Each book includes a little activity section and colouring pages, so children can get creative themselves and explore the topic playfully.">Jedes Buch enthält einen kleinen Mitmachteil und Ausmalbilder. So können Kinder selbst kreativ werden und das Thema spielerisch vertiefen.</p>
 
     <div class="books-grid">
       <div class="bk reveal">
@@ -567,35 +570,38 @@
     <div class="partner-inner">
       <div class="partner-intro">
         <p class="section-label reveal" data-de="Gemeinsam die Zukunft gestalten" data-en="Shaping the Future Together">Gemeinsam die Zukunft gestalten</p>
-        <h2 class="section-title reveal" data-de="Partner*innen &amp; Investor*innen gesucht" data-en="Seeking Partners &amp; Investors">Partner*innen &amp; Investor*innen gesucht</h2>
-        <p class="section-desc reveal" data-de="Wir haben die Inhalte, die Vision und das Know-how. Jetzt suchen wir Partner*innen, die mit uns die nächste Generation nachhaltig prägen möchten." data-en="We have the content, the vision, and the know-how. Now we are looking for partners who want to shape the next generation sustainably alongside us.">Wir haben die Inhalte, die Vision und das Know-how. Jetzt suchen wir Partner*innen, die mit uns die nächste Generation nachhaltig prägen möchten.</p>
-        <p class="partner-sub reveal" data-de="Lasst uns gemeinsam eine Lernwelt schaffen, die Kinder stärkt und die Zukunft gestaltet." data-en="Let's create a learning world together that empowers children and shapes the future.">Lasst uns gemeinsam eine Lernwelt schaffen, die Kinder stärkt und die Zukunft gestaltet.</p>
+        <h2 class="section-title reveal" data-de="Partner und Investoren" data-en="Partners &amp; Investors">Partner und Investoren</h2>
+        <p class="section-desc reveal" data-de="aha Kids verbindet liebevoll erzählte Kinderbücher mit einer sicheren Reader App für Familien." data-en="aha Kids combines lovingly told children's books with a safe Reader app for families.">aha Kids verbindet liebevoll erzählte Kinderbücher mit einer sicheren Reader App für Familien.</p>
+        <p class="partner-sub reveal" data-de="Wir haben die Vision, aha Kids als starke Kindermarke für Nachhaltigkeit aufzubauen. Jetzt suchen wir Partner und Investoren, die mit uns die nächste Generation nachhaltig prägen möchten." data-en="Our vision is to build aha Kids into a strong children's brand for sustainability. Now we are looking for partners and investors who want to shape the next generation sustainably with us.">Wir haben die Vision, aha Kids als starke Kindermarke für Nachhaltigkeit aufzubauen. Jetzt suchen wir Partner und Investoren, die mit uns die nächste Generation nachhaltig prägen möchten.</p>
         <button class="btn btn-primary reveal" onclick="openContactModal();return false;">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
           <span data-de="Kontakt aufnehmen" data-en="Get in Touch">Kontakt aufnehmen</span>
         </button>
       </div>
 
-      <div class="partner-cards">
+      <div class="partner-right">
+        <h3 class="partner-cards-title reveal" data-de="Für wen aha Kids spannend ist" data-en="Who aha Kids is for">Für wen aha Kids spannend ist</h3>
+        <div class="partner-cards">
         <div class="partner-card reveal">
           <div class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
-          <h3 data-de="Investor*innen" data-en="Investors">Investor*innen</h3>
-          <p data-de="die an werteorientierte Bildung glauben und eine sinnstiftende Kindermarke mit Vision fördern möchten." data-en="who believe in values-based education and want to back a purpose-driven children's brand.">die an werteorientierte Bildung glauben und eine sinnstiftende Kindermarke mit Vision fördern möchten.</p>
+          <h3 data-de="Investorinnen und Investoren" data-en="Investors">Investorinnen und Investoren</h3>
+          <p data-de="Für alle, die eine sinnstiftende Kindermarke mit Wachstumspotenzial unterstützen möchten." data-en="For everyone who wants to support a purpose-driven children's brand with growth potential.">Für alle, die eine sinnstiftende Kindermarke mit Wachstumspotenzial unterstützen möchten.</p>
         </div>
         <div class="partner-card reveal">
           <div class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
           <h3 data-de="Entwicklungspartner" data-en="Development Partners">Entwicklungspartner</h3>
-          <p data-de="die hochwertige, sichere Apps für Kinder gestalten und unser Produkt gemeinsam mit uns weiterentwickeln." data-en="who build high-quality, safe apps for children and want to evolve the product together with us.">die hochwertige, sichere Apps für Kinder gestalten und unser Produkt gemeinsam mit uns weiterentwickeln.</p>
+          <p data-de="Für Partner, die hochwertige, sichere digitale Produkte für Kinder mit uns weiterentwickeln möchten." data-en="For partners who want to develop high-quality, safe digital products for children with us.">Für Partner, die hochwertige, sichere digitale Produkte für Kinder mit uns weiterentwickeln möchten.</p>
         </div>
         <div class="partner-card reveal">
           <div class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-4 9 4-9 4-9-4z"/><path d="M7 12v4c0 1 2.2 2.4 5 2.4s5-1.4 5-2.4v-4"/><path d="M21 10v5"/></svg></div>
           <h3 data-de="Bildungseinrichtungen" data-en="Educational Institutions">Bildungseinrichtungen</h3>
-          <p data-de="die unsere Geschichten in den Lernalltag von Kitas, Schulen und Bibliotheken bringen möchten." data-en="that want to bring our stories into everyday learning at nurseries, schools and libraries.">die unsere Geschichten in den Lernalltag von Kitas, Schulen und Bibliotheken bringen möchten.</p>
+          <p data-de="Für Kitas, Schulen und Bibliotheken, die Nachhaltigkeit kindgerecht und positiv vermitteln möchten." data-en="For nurseries, schools and libraries that want to teach sustainability in a child-friendly, positive way.">Für Kitas, Schulen und Bibliotheken, die Nachhaltigkeit kindgerecht und positiv vermitteln möchten.</p>
         </div>
         <div class="partner-card reveal">
           <div class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17l-1.9-5.1L4.5 10l5.6-1.4z"/><path d="M19 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg></div>
-          <h3 data-de="Marken" data-en="Brands">Marken</h3>
-          <p data-de="die unsere Werte teilen und gemeinsam Verantwortung für die nächste Generation übernehmen möchten." data-en="that share our values and want to shape the next generation together.">die unsere Werte teilen und gemeinsam Verantwortung für die nächste Generation übernehmen möchten.</p>
+          <h3 data-de="Marken und Partner" data-en="Brands &amp; Partners">Marken und Partner</h3>
+          <p data-de="Für Unternehmen, die unsere Werte teilen und gemeinsam Verantwortung für die nächste Generation übernehmen möchten." data-en="For companies that share our values and want to take responsibility for the next generation together.">Für Unternehmen, die unsere Werte teilen und gemeinsam Verantwortung für die nächste Generation übernehmen möchten.</p>
+        </div>
         </div>
       </div>
     </div>
