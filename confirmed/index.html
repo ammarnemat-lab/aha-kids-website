@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E-Mail bestätigt · aha Kids</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Deine E-Mail-Adresse ist bestätigt. Jetzt geht's los mit aha Kids.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFF9F0;
+    --ink:#2B2118;
+    --ink-soft:#6E6156;
+    --spark:#F5A524;
+    --leaf:#4A9E5C;
+    --leaf-dark:#377A45;
+    --line:#EADFCE;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  body{
+    min-height:100dvh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    background:var(--paper);
+    background-image:radial-gradient(circle at 50% 0%, #FFF3DC 0%, var(--paper) 55%);
+    font-family:"Nunito",system-ui,sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .card{
+    width:100%;
+    max-width:440px;
+    text-align:center;
+  }
+
+  /* --- Signature: the "aha!" spark moment --- */
+  .spark{
+    position:relative;
+    width:104px;
+    height:104px;
+    margin:0 auto 28px;
+  }
+  .spark svg{width:100%;height:100%;display:block}
+
+  .ray{
+    transform-origin:52px 52px;
+    animation:pop .5s cubic-bezier(.34,1.56,.64,1) backwards;
+  }
+  .ray:nth-child(1){animation-delay:.30s}
+  .ray:nth-child(2){animation-delay:.36s}
+  .ray:nth-child(3){animation-delay:.42s}
+  .ray:nth-child(4){animation-delay:.34s}
+  .ray:nth-child(5){animation-delay:.40s}
+  .ray:nth-child(6){animation-delay:.46s}
+
+  .bulb{
+    animation:rise .55s cubic-bezier(.34,1.4,.64,1) backwards;
+  }
+  .tick{
+    stroke-dasharray:32;
+    stroke-dashoffset:32;
+    animation:draw .4s ease-out .45s forwards;
+  }
+
+  @keyframes pop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
+  @keyframes rise{from{opacity:0;transform:translateY(10px) scale(.85)}to{opacity:1;transform:none}}
+  @keyframes draw{to{stroke-dashoffset:0}}
+
+  h1{
+    font-family:"Fredoka",system-ui,sans-serif;
+    font-weight:600;
+    font-size:clamp(1.75rem,6vw,2.25rem);
+    line-height:1.15;
+    letter-spacing:-.01em;
+    margin-bottom:12px;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--leaf);
+  }
+
+  p{
+    font-size:1.0625rem;
+    line-height:1.6;
+    color:var(--ink-soft);
+    max-width:34ch;
+    margin:0 auto 32px;
+  }
+
+  .actions{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:28px;
+  }
+
+  .btn{
+    display:block;
+    padding:15px 24px;
+    border-radius:14px;
+    font-family:"Fredoka",system-ui,sans-serif;
+    font-weight:600;
+    font-size:1.0625rem;
+    text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:focus-visible{outline:3px solid var(--spark);outline-offset:3px}
+
+  .btn-primary{
+    background:var(--leaf);
+    color:#fff;
+    box-shadow:0 3px 0 var(--leaf-dark);
+  }
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 0 var(--leaf-dark)}
+  .btn-primary:active{transform:translateY(2px);box-shadow:0 1px 0 var(--leaf-dark)}
+
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1.5px solid var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--spark);color:var(--ink)}
+
+  .foot{
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-size:.875rem;
+    color:var(--ink-soft);
+  }
+  .foot a{color:var(--ink-soft)}
+  .brand{
+    display:inline-block;
+    margin-top:20px;
+  }
+  .brand img{
+    width:64px;
+    height:64px;
+    display:block;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .ray,.bulb,.tick{animation:none;opacity:1;transform:none;stroke-dashoffset:0}
+  }
+</style>
+</head>
+<body>
+  <main class="card">
+
+    <div class="spark" aria-hidden="true">
+      <svg viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- rays -->
+        <g stroke="#F5A524" stroke-width="4.5" stroke-linecap="round">
+          <path class="ray" d="M52 12V4"/>
+          <path class="ray" d="M79 21l5.5-5.5"/>
+          <path class="ray" d="M89 46h8"/>
+          <path class="ray" d="M25 21l-5.5-5.5"/>
+          <path class="ray" d="M15 46H7"/>
+        </g>
+        <!-- bulb -->
+        <g class="bulb">
+          <circle cx="52" cy="52" r="30" fill="#4A9E5C"/>
+          <path class="tick" d="M39 53l9 9 18-19" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </g>
+      </svg>
+    </div>
+
+    <h1>Deine E-Mail ist <em>bestätigt</em></h1>
+    <p>Alles bereit. Öffne die aha Kids App und melde dich mit deiner E-Mail-Adresse an.</p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="ahakids://">App öffnen</a>
+    </div>
+
+    <div class="foot">
+      Probleme beim Anmelden? Schreib uns an
+      <a href="mailto:hello@aha-kids.de">hello@aha-kids.de</a>
+      <br>
+      <a class="brand" href="/"><img src="logo.png" alt="aha Kids"></a>
+    </div>
+
+  </main>
+</body>
+</html>
