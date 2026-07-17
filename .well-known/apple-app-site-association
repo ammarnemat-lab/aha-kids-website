@@ -1,0 +1,29 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "LPUJ8SM74P.de.ahakids.reader"
+        ],
+        "components": [
+          {
+            "/": "/books/*",
+            "comment": "AhaKids book links"
+          },
+          {
+            "/": "/book/*",
+            "comment": "Legacy singular book links"
+          },
+          {
+            "/": "/stories/*",
+            "comment": "Legacy story links"
+          },
+          {
+            "/": "/story/*",
+            "comment": "Legacy singular story links"
+          }
+        ]
+      }
+    ]
+  }
+}
