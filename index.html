@@ -189,7 +189,7 @@
     .qcard.flipped .qc-inner, .qcard.playing .qc-inner { transform:rotateY(180deg); }
     .qc-face { position:absolute; inset:0; border-radius:28px; overflow:hidden; -webkit-backface-visibility:hidden; backface-visibility:hidden; }
     .qc-front { width:100%; display:flex; flex-direction:column; justify-content:space-between; text-align:left; padding:24px 22px 20px; border:0; cursor:pointer;
-      background:#fff; color:var(--forest); font:inherit; box-shadow:0 14px 30px rgba(23,63,53,.08); transition:box-shadow .3s; }
+      background:#fff; color:var(--forest); font:inherit; box-shadow:0 14px 30px rgba(23,63,53,.08); transition:box-shadow .3s, visibility 0s .36s; }
     .qc-front::after { content:"?"; position:absolute; right:10px; bottom:-26px; font:800 150px/1 var(--display); color:var(--sky); opacity:.16; transform:rotate(12deg); pointer-events:none; }
     .qc-front q { position:relative; z-index:1; quotes:none; font:800 clamp(1.18rem, 1.65vw, 1.46rem)/1.18 var(--display); }
     .qc-hint { position:relative; z-index:1; display:inline-flex; align-items:center; gap:7px; font-size:.86rem; font-weight:600; color:var(--leaf); }
@@ -197,7 +197,10 @@
     .qcard.hl .qc-front { background:var(--orange); }
     .qcard.hl .qc-front::after { color:var(--forest); opacity:.1; }
     .qcard.hl .qc-hint { color:var(--forest); }
-    .qc-back { transform:rotateY(180deg); background:var(--forest); pointer-events:none; }
+    .qc-back { transform:rotateY(180deg); background:var(--forest); pointer-events:none; visibility:hidden; transition:visibility 0s .36s; }
+    /* the turned-away side is switched off at mid-turn: iPhone Safari does not always honour backface-visibility */
+    .qcard.flipped .qc-front, .qcard.playing .qc-front { visibility:hidden; }
+    .qcard.flipped .qc-back, .qcard.playing .qc-back { visibility:visible; }
     .qc-back img { width:100%; height:100%; object-fit:cover; transform:scale(1.08); transition:transform 1.2s cubic-bezier(.22,1,.36,1); }
     .qc-back::after { content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(23,63,53,.94) 0%, rgba(23,63,53,.5) 38%, rgba(23,63,53,0) 66%); }
     .qcard.flipped .qc-back, .qcard.playing .qc-back { pointer-events:auto; }
@@ -216,10 +219,11 @@
     .qc-app { display:inline-block; font-size:.86rem; font-weight:600; opacity:.88; }
     @media (hover:hover) and (pointer:fine) {
       .qcard:hover .qc-inner { transform:rotateY(180deg); }
-      .qcard:hover .qc-back { pointer-events:auto; }
-      .qcard:hover .qc-front { pointer-events:none; }
+      .qcard:hover .qc-back { pointer-events:auto; visibility:visible; }
+      .qcard:hover .qc-front { pointer-events:none; visibility:hidden; }
       .qcard:hover .qc-back img { transform:scale(1); }
     }
+    .qc-dots { display:none; }
     .fr-close { margin-top:64px; text-align:center; font:800 clamp(1.55rem, 3.2vw, 2.4rem)/1.2 var(--display); }
     .fr-close .ul2 { position:relative; display:inline-block; white-space:nowrap; }
     .fr-close .ul2 svg { position:absolute; left:-1%; bottom:-.2em; width:102%; height:.34em; overflow:visible; }
@@ -449,26 +453,47 @@
       .cta-logo { max-width:300px; }
       .paper-box { flex-direction:column; text-align:center; }
     }
+    @media (max-width:600px) {
+      /* question cards: a swipeable row of large cards */
+      .qcards { display:flex; gap:14px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; margin:28px -20px 0; padding:10px 20px 12px; scrollbar-width:none; }
+      .qcards::-webkit-scrollbar { display:none; }
+      .qcard { flex:0 0 76%; scroll-snap-align:center; }
+      .qc-inner { aspect-ratio:1 / 1.02; }
+      .qc-front { padding:22px 20px 18px; }
+      .qc-front q { font-size:1.5rem; }
+      .qc-dots { display:flex; justify-content:center; gap:8px; margin-top:12px; }
+      .qc-dots button { width:8px; height:8px; padding:0; border:0; border-radius:8px; background:rgba(23,63,53,.22); transition:width .3s, background .3s; cursor:pointer; }
+      .qc-dots button.on { width:24px; background:var(--forest); }
+      .fr-hint { font-size:.9rem; }
+      .fr-close { margin-top:44px; }
+    }
     @media (max-width:560px) {
       body { font-size:16px; }
       .wrap { padding:0 20px; }
-      .qcards { gap:14px; }
-      .qc-inner { aspect-ratio:1 / 1.2; }
-      .qc-front { padding:16px 14px 14px; border-radius:22px; }
-      .qc-face { border-radius:22px; }
-      .qc-front q { font-size:1.05rem; }
-      .qc-hint { font-size:.76rem; gap:5px; }
-      .qc-front::after { font-size:110px; bottom:-22px; }
-      .qc-aha { font-size:.85rem; left:10px; top:10px; }
-      .qc-turn { width:32px; height:32px; right:8px; top:8px; }
-      .qc-info { left:12px; right:10px; bottom:12px; }
-      .qc-info b { font-size:.95rem; margin-bottom:8px; }
-      .qc-listen { font-size:.8rem; padding:.4rem .75rem; }
-      .qc-app { font-size:.76rem; }
+      .h2 { margin:.8rem 0 .9rem; }
+      .label { font-size:.78rem; padding:.38rem .85rem; }
+      .hero { padding-bottom:56px; }
+      .film { width:min(100%, 360px); }
+      .hero h1 { font-size:2.5rem; margin:1rem 0 1.1rem; }
+      .hero-actions, .cta-actions { flex-direction:column; align-items:stretch; width:100%; max-width:330px; margin-left:auto; margin-right:auto; }
+      .hero-actions .store, .hero-actions .btn, .cta-actions .store, .cta-actions .btn { justify-content:center; }
+      .fragen { padding:56px 0 76px; }
+      .app { padding:76px 0 80px; }
+      .hoeren { padding:64px 0 84px; }
+      .warum { padding:64px 0 76px; }
+      .paper { padding:56px 0 60px; }
+      .cta { padding:64px 0 72px; text-align:center; }
+      .cta .lead { margin-left:auto; margin-right:auto; }
+      .cta-logo { order:-1; justify-self:center; width:150px; padding:18px 16px; border-radius:24px; }
       .stage { height:560px; }
       .phone { --pw:256px; }
-      .track { display:flex; }
-      .track-art { width:96px; height:96px; margin-bottom:16px; }
+      .tracks { margin-top:36px; gap:16px; }
+      .track { display:grid; grid-template-columns:72px minmax(0, 1fr); gap:2px 16px; align-items:center; padding:20px 18px 18px; text-align:left; }
+      .track-art { width:72px; height:72px; border-width:4px; margin:0; grid-row:span 3; }
+      .track-q { font-size:1.15rem; }
+      .track-title { margin-top:.3rem; font-size:.9rem; }
+      .track-meta { font-size:.8rem; }
+      .track .player { grid-column:1 / -1; padding-top:16px; }
       .foot { flex-direction:column; align-items:flex-start; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -614,6 +639,7 @@
             <div class="qc-info"><b data-de="Der Kühlschrank für alle" data-en="Der Kühlschrank für alle">Der Kühlschrank für alle</b><span class="qc-app" data-de="Diese Geschichte gibt es in der App" data-en="This story is in the app">Diese Geschichte gibt es in der App</span></div></div>
         </div></div></div>
       </div>
+      <div class="qc-dots" id="qcDots" aria-hidden="true"></div>
       <p class="fr-close reveal"><span data-de="Du bist Teil dieser Welt." data-en="You are part of this world.">Du bist Teil dieser Welt.</span><br><span class="ul2"><span data-de="Dein Handeln zählt." data-en="Your actions matter.">Dein Handeln zählt.</span><svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true"><path d="M20 45 Q316.8 34 580 41" stroke="#FF981C" stroke-width="14" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"/></svg></span></p>
     </div>
   </section>
@@ -726,7 +752,7 @@
           <div class="track-art"><img src="images/app/covers/sus10.jpg" alt="" decoding="async"></div>
           <p class="track-q" data-de="Wohin reist ein Regentropfen?" data-en="Where does a raindrop travel?">Wohin reist ein Regentropfen?</p>
           <h3 class="track-title">Der reisende Regentropfen</h3>
-          <p class="track-meta" data-de="Hörprobe · ganze Geschichte 6 Min." data-en="Sample · full story 6 min">Hörprobe · ganze Geschichte 6 Min.</p>
+          <p class="track-meta" data-de="Hörprobe · insgesamt 6 Min." data-en="Sample · 6 min in total">Hörprobe · insgesamt 6 Min.</p>
           <div class="player">
             <button class="play" type="button" aria-label="Hörprobe abspielen: Der reisende Regentropfen" data-aria-de="Hörprobe abspielen: Der reisende Regentropfen" data-aria-en="Play sample: The Traveling Raindrop">
               <svg class="i-play" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.8v14.4c0 .9 1 1.4 1.7.9l11-7.2a1.1 1.1 0 0 0 0-1.8l-11-7.2C8 3.4 7 3.9 7 4.8Z"/></svg>
@@ -740,7 +766,7 @@
           <div class="track-art"><img src="images/app/covers/sus03.jpg" alt="" decoding="async"></div>
           <p class="track-q" data-de="Wie wird Sonne zu Strom?" data-en="How does sunshine become electricity?">Wie wird Sonne zu Strom?</p>
           <h3 class="track-title">Die Kraft von Sonne und Wind</h3>
-          <p class="track-meta" data-de="Hörprobe · ganze Geschichte 8 Min." data-en="Sample · full story 8 min">Hörprobe · ganze Geschichte 8 Min.</p>
+          <p class="track-meta" data-de="Hörprobe · insgesamt 8 Min." data-en="Sample · 8 min in total">Hörprobe · insgesamt 8 Min.</p>
           <div class="player">
             <button class="play" type="button" aria-label="Hörprobe abspielen: Die Kraft von Sonne und Wind" data-aria-de="Hörprobe abspielen: Die Kraft von Sonne und Wind" data-aria-en="Play sample: The Power of Sun and Wind">
               <svg class="i-play" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.8v14.4c0 .9 1 1.4 1.7.9l11-7.2a1.1 1.1 0 0 0 0-1.8l-11-7.2C8 3.4 7 3.9 7 4.8Z"/></svg>
@@ -754,7 +780,7 @@
           <div class="track-art"><img src="images/app/covers/sus20.jpg" alt="" decoding="async"></div>
           <p class="track-q" data-de="Ist krummes Gemüse genauso lecker?" data-en="Is wonky veg just as tasty?">Ist krummes Gemüse genauso lecker?</p>
           <h3 class="track-title">Die krumme Karotte darf mit</h3>
-          <p class="track-meta" data-de="Hörprobe · ganze Geschichte 7 Min." data-en="Sample · full story 7 min">Hörprobe · ganze Geschichte 7 Min.</p>
+          <p class="track-meta" data-de="Hörprobe · insgesamt 7 Min." data-en="Sample · 7 min in total">Hörprobe · insgesamt 7 Min.</p>
           <div class="player">
             <button class="play" type="button" aria-label="Hörprobe abspielen: Die krumme Karotte darf mit" data-aria-de="Hörprobe abspielen: Die krumme Karotte darf mit" data-aria-en="Play sample: Die krumme Karotte darf mit">
               <svg class="i-play" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.8v14.4c0 .9 1 1.4 1.7.9l11-7.2a1.1 1.1 0 0 0 0-1.8l-11-7.2C8 3.4 7 3.9 7 4.8Z"/></svg>
@@ -978,6 +1004,20 @@
       var l = $('.qc-listen', c);
       if (l) l.addEventListener('click', function (e) { e.stopPropagation(); var t = $('.track[data-key="' + l.dataset.track + '"]'); if (t) toggleTrack(t); });
     });
+    (function () {   // phones: dots that follow the swipeable card row
+      var row = $('.qcards'), dots = $('#qcDots');
+      qcards.forEach(function (c, k) {
+        var b = document.createElement('button'); b.type = 'button'; b.tabIndex = -1;
+        b.addEventListener('click', function () { row.scrollTo({ left: c.offsetLeft - (row.clientWidth - c.offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth' }); });
+        dots.appendChild(b);
+      });
+      function mark() {
+        var mid = row.scrollLeft + row.clientWidth / 2, best = 0, bd = 1e9;
+        qcards.forEach(function (c, k) { var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = k; } });
+        $$('button', dots).forEach(function (b, k) { b.classList.toggle('on', k === best); });
+      }
+      row.addEventListener('scroll', mark, { passive: true }); window.addEventListener('resize', mark); mark();
+    })();
     if (!reduce && 'IntersectionObserver' in window && qcards[1]) {   // first visit: turn one card briefly, so the idea is clear
       var demoDone = false;
       var dio = new IntersectionObserver(function (es) {
