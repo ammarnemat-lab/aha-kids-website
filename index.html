@@ -127,8 +127,23 @@
     @keyframes draw { to { stroke-dashoffset:0; } }
     .hero-spark { position:absolute; width:74px; height:74px; right:-52px; top:-30px; }
     .hero-spark path { stroke-dasharray:1; stroke-dashoffset:1; animation:draw .5s 1.3s ease-out forwards; }
-    .hero-lead { font-size:clamp(1.12rem, 1.6vw, 1.3rem); max-width:600px; margin-bottom:1rem; }
-    .hero-lead strong { font-weight:600; }
+    .sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+    /* hero: kids' questions, one at a time, in a speech bubble (brand speech frame) */
+    .ask { margin:.1rem 0 1.15rem; max-width:560px; }
+    .ask-bubble { position:relative; display:flex; align-items:center; gap:16px; background:#fff; border:3px solid var(--orange); border-radius:28px; padding:12px 24px 12px 12px; box-shadow:0 14px 34px rgba(23,63,53,.1); }
+    .ask-bubble::after { content:""; position:absolute; left:46px; bottom:-14px; width:24px; height:24px; background:#fff; border-right:3px solid var(--orange); border-bottom:3px solid var(--orange); border-bottom-right-radius:6px; transform:rotate(45deg); }
+    .ask-art { position:relative; flex:0 0 auto; width:68px; height:68px; border-radius:50%; border:4px solid var(--forest); overflow:hidden; background:var(--sky-bg); }
+    .ask-art img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1.18); transition:opacity .5s, transform 1.1s cubic-bezier(.22,1,.36,1); }
+    .ask-art img.on { opacity:1; transform:scale(1); }
+    .ask-q { position:relative; flex:1; min-height:2.4em; font:800 clamp(1.3rem, 2.05vw, 1.62rem)/1.15 var(--display); text-align:left; }
+    .ask-q > span { position:absolute; left:0; right:0; top:50%; opacity:0; transform:translateY(calc(-50% + 20px)); transition:opacity .45s, transform .6s cubic-bezier(.22,1,.36,1); }
+    .ask-q > span.on { opacity:1; transform:translateY(-50%); }
+    .ask-q > span.out { opacity:0; transform:translateY(calc(-50% - 20px)); }
+    .ask-q em { font-style:normal; color:var(--orange); }
+    .ask-answer { margin-top:26px; font-size:clamp(1.08rem, 1.5vw, 1.24rem); line-height:1.5; }
+    .aha { display:inline-block; background:var(--orange); color:var(--forest); font:800 1.06em/1 var(--display); padding:.16em .55em .2em; border-radius:100px; transform:rotate(-5deg); margin:0 .12em; }
+    .aha.pop { animation:aha .65s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes aha { 0% { transform:rotate(-5deg) scale(1); } 40% { transform:rotate(-10deg) scale(1.2); } 100% { transform:rotate(-5deg) scale(1); } }
     .hero-sub { color:var(--text-soft); max-width:580px; margin-bottom:2rem; }
     .hero-actions { display:flex; flex-wrap:wrap; gap:14px; align-items:center; }
     .hero-paper { margin-top:1.4rem; font-size:.95rem; color:var(--text-soft); }
@@ -170,7 +185,7 @@
 
     /* ===== DIE APP (cream, simulator) ===== */
     .app { padding:110px 0 110px; }
-    .app-grid { display:grid; grid-template-columns:minmax(0, 1fr) 520px; gap:56px; align-items:center; margin-top:46px; }
+    .app-grid { display:grid; grid-template-columns:minmax(0, 1fr) 640px; gap:48px; align-items:center; margin-top:46px; }
     .app-grid > *, .hero-grid > *, .warum-grid > *, .cta-grid > * { min-width:0; }
     .steps { list-style:none; display:flex; flex-direction:column; gap:10px; }
     .step { position:relative; width:100%; display:grid; grid-template-columns:44px 1fr; gap:4px 16px; text-align:left; cursor:pointer; overflow:hidden;
@@ -186,9 +201,6 @@
     .step-prog::after { content:""; display:block; height:100%; width:0; background:var(--sun); }
     .step.run .step-prog::after { animation:prog var(--step-ms, 6500ms) linear forwards; }
     @keyframes prog { to { width:100%; } }
-    .chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
-    .chip { display:inline-flex; align-items:center; gap:8px; padding:.5rem .95rem; border-radius:100px; background:var(--mist); font-size:.9rem; font-weight:600; }
-    .chip svg { width:17px; height:17px; color:var(--leaf); }
     .step-detail { display:none; }
 
     .stage { position:relative; height:700px; display:flex; align-items:center; justify-content:center; }
@@ -201,7 +213,56 @@
     .scr { position:absolute; inset:0; opacity:0; visibility:hidden; transition:opacity .45s, visibility 0s .45s; }
     .scr.on { opacity:1; visibility:visible; transition:opacity .45s; }
     .scr > img { width:100%; height:100%; object-fit:cover; }
-    .scr-read img { position:absolute; left:50%; top:50%; width:100cqh; height:100cqw; max-width:none; object-fit:cover; transform:translate(-50%,-50%) rotate(90deg); }
+    /* interactive reader: „Schafalarm im Sonnenfeld“, pages 1–3 (inside the sideways phone; sizes in cqw = screen width) */
+    .reader { position:absolute; left:50%; top:50%; width:100cqh; height:100cqw; transform:translate(-50%,-50%) rotate(90deg); overflow:hidden; background:#cfe3ef; color:#103830; font-family:var(--body); outline:none; }
+    .rd-stage { position:absolute; inset:0; overflow:hidden; touch-action:pan-y; }
+    .rd-page { position:absolute; inset:0; width:100%; height:100%; max-width:none; object-fit:cover; opacity:0; transform:translateX(26%); transition:transform .6s cubic-bezier(.22,1,.36,1), opacity .5s; -webkit-user-drag:none; user-select:none; }
+    .rd-page.on { opacity:1; transform:none; }
+    .rd-page.prev { transform:translateX(-26%); }
+    .rd-top { position:absolute; left:9%; top:6%; display:flex; gap:2.4cqw; align-items:center; z-index:3; }
+    .rd-btn { flex:0 0 auto; width:10cqw; height:10cqw; padding:0; border:0; border-radius:50%; background:rgba(255,255,255,.85); color:#103830; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.12); transition:background .2s, transform .2s; }
+    .rd-btn:hover { background:#fff; transform:scale(1.06); }
+    .rd-btn:disabled { opacity:.45; cursor:default; transform:none; }
+    .rd-btn svg { width:46%; height:46%; }
+    .rd-pill { height:10cqw; padding:0 3.8cqw; border-radius:100px; background:rgba(255,255,255,.88); display:flex; align-items:center; font-size:4.3cqw; font-weight:600; white-space:nowrap; }
+    .rd-eye { position:absolute; right:3%; top:6%; z-index:3; }
+    .rd-eye .i-show, .reader.no-text .rd-eye .i-hide { display:none; }
+    .reader.no-text .rd-eye .i-show { display:block; }
+    .rd-nav { position:absolute; right:3%; bottom:7%; display:flex; gap:2.4cqw; z-index:3; }
+    .rd-nav .rd-btn { width:12cqw; height:12cqw; }
+    .rd-next { background:var(--sun); }
+    .rd-next:hover { background:#f9d363; }
+    .rd-next.nudge { animation:nudge 1.6s ease-in-out 2; }
+    @keyframes nudge { 0%,100% { transform:none; } 50% { transform:translateX(5px); } }
+    .rd-panel { position:absolute; left:9%; top:23%; bottom:6%; width:39%; z-index:2; background:rgba(255,255,255,.88); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); border-radius:5cqw; padding:3.6cqw 2.2cqw 3.6cqw 4.4cqw; transition:opacity .35s, transform .35s; }
+    .rd-panel::after { content:""; position:absolute; left:0; right:0; bottom:0; height:26%; border-radius:0 0 5cqw 5cqw; background:linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.96)); pointer-events:none; opacity:var(--more, 1); transition:opacity .3s; }
+    .reader.no-text .rd-panel { opacity:0; transform:translateX(-10%); pointer-events:none; }
+    .rd-text { height:100%; overflow-y:auto; padding-right:2.2cqw; font-size:4.7cqw; line-height:1.5; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:rgba(16,56,48,.35) transparent; }
+    .rd-text p + p { margin-top:.6em; }
+    .rd-scroll { position:absolute; left:50%; bottom:2.2cqw; transform:translateX(-50%); z-index:2; font-size:3.4cqw; font-weight:600; color:#103830; background:var(--sun); padding:.5cqw 2.6cqw; border-radius:100px; opacity:var(--more, 1); transition:opacity .3s; pointer-events:none; white-space:nowrap; }
+    .rd-end { position:absolute; inset:0; z-index:4; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2.6cqw; text-align:center; padding:0 14%; background:rgba(23,63,53,.9); color:var(--cream); opacity:0; pointer-events:none; transition:opacity .4s; }
+    .reader.at-end .rd-end { opacity:1; pointer-events:auto; }
+    .reader.at-end .rd-panel, .reader.at-end .rd-eye { opacity:0; pointer-events:none; }
+    .rd-end b { font:800 7.4cqw/1.15 var(--display); }
+    .rd-end span { font-size:4.6cqw; line-height:1.4; }
+    .rd-end button { margin-top:1.4cqw; border:0; border-radius:100px; background:var(--sun); color:var(--forest); font:600 4.6cqw var(--body); padding:2.4cqw 5.4cqw; cursor:pointer; }
+    /* card mode (phones, narrow columns): the same reader, readable, without the sideways phone */
+    .reader-card { display:none; width:100%; max-width:560px; container-type:inline-size; }
+    .stage.card-mode .phone { display:none; }
+    .stage.card-mode .reader-card { display:block; }
+    .reader-card .reader { position:relative; left:auto; top:auto; width:100%; height:auto; transform:none; overflow:visible; background:none; }
+    .reader-card .rd-stage { position:relative; inset:auto; aspect-ratio:1400/594; border-radius:20px; box-shadow:0 18px 40px rgba(23,63,53,.2); }
+    .reader-card .rd-top { gap:8px; left:3%; }
+    .reader-card .rd-btn { width:38px; height:38px; }
+    .reader-card .rd-nav .rd-btn { width:44px; height:44px; }
+    .reader-card .rd-pill { height:38px; padding:0 14px; font-size:14px; }
+    .reader-card .rd-panel { position:relative; left:auto; top:auto; bottom:auto; width:auto; margin-top:14px; padding:16px 10px 16px 18px; border-radius:20px; background:#fff; box-shadow:0 10px 26px rgba(23,63,53,.08); }
+    .reader-card .rd-panel::after { border-radius:0 0 20px 20px; }
+    .reader-card .rd-text { height:11.5em; font-size:16px; padding-right:10px; }
+    .reader-card .rd-scroll { bottom:10px; font-size:12px; padding:3px 10px; }
+    .reader-card .reader.no-text .rd-panel { opacity:.35; transform:none; }
+    .reader-card .rd-end { border-radius:20px; bottom:auto; height:calc(100cqw * 594 / 1400); gap:8px; padding:0 8%; }
+    .reader-card .rd-end b { font-size:20px; } .reader-card .rd-end span { font-size:14px; } .reader-card .rd-end button { font-size:14px; padding:8px 18px; }
     .sbar { position:absolute; top:0; left:0; right:0; height:52px; z-index:8; display:flex; align-items:center; justify-content:space-between; padding:6px 26px 0 30px; font:600 13px var(--body); color:#103830; pointer-events:none; transition:opacity .3s; }
     .phone.landscape .sbar { opacity:0; }
     .sim-play { position:absolute; left:50%; top:83.5%; width:17.8%; aspect-ratio:1; transform:translate(-50%,-50%); border-radius:50%; border:0; cursor:pointer; background:transparent; z-index:5; }
@@ -269,7 +330,11 @@
     .pillar h3 { font-size:1.28rem; align-self:end; }
     .pillar p { color:var(--text-soft); font-size:.98rem; }
     .cast { position:relative; text-align:center; }
-    .cast img { width:100%; max-width:560px; margin:0 auto; filter:drop-shadow(0 26px 40px rgba(23,63,53,.16)); }
+    .cast-art { position:relative; max-width:560px; margin:0 auto; padding-bottom:30px; }
+    .cast-art img { position:relative; z-index:1; width:100%; filter:drop-shadow(0 14px 22px rgba(23,63,53,.12)); animation:floaty 7s ease-in-out infinite; will-change:transform; }
+    .cast-art::after { content:""; position:absolute; left:24%; right:24%; bottom:6px; height:26px; border-radius:50%; background:radial-gradient(closest-side, rgba(23,63,53,.24), rgba(23,63,53,0)); animation:floatshadow 7s ease-in-out infinite; }
+    @keyframes floaty { 0%, 100% { transform:translateY(0) rotate(-.8deg); } 50% { transform:translateY(-16px) rotate(.8deg); } }
+    @keyframes floatshadow { 0%, 100% { transform:scaleX(1); opacity:1; } 50% { transform:scaleX(.8); opacity:.55; } }
     .cast-cap { display:inline-block; margin-top:8px; font:800 1.5rem var(--display); }
     .promise { margin-top:52px; text-align:center; font:800 clamp(1.25rem, 2.4vw, 1.7rem)/1.3 var(--display); }
     .promise svg { display:inline-block; vertical-align:-6px; width:30px; height:30px; margin-right:8px; }
@@ -306,8 +371,11 @@
     .reveal.visible { opacity:1; transform:none; }
 
     /* ===== responsive ===== */
+    @media (max-width:1240px) {
+      .app-grid { grid-template-columns:minmax(0, 1fr) 520px; gap:40px; }
+    }
     @media (max-width:1060px) {
-      .app-grid { grid-template-columns:minmax(0,1fr) 400px; gap:36px; }
+      .app-grid { grid-template-columns:minmax(0,1fr) 440px; gap:36px; }
       .tracks { grid-template-columns:1fr; max-width:560px; }
       .track { display:grid; grid-template-columns:auto 1fr; gap:0 22px; align-items:center; }
       .track-art { width:104px; height:104px; margin:0; grid-row:span 3; }
@@ -319,7 +387,8 @@
       .hero-media { order:-1; display:flex; justify-content:center; }
       .film { height:auto; width:min(100%, 400px); min-height:0; }
       .hero-copy { text-align:center; }
-      .hero-lead, .hero-sub { margin-left:auto; margin-right:auto; }
+      .hero-sub, .ask { margin-left:auto; margin-right:auto; }
+      .ask-bubble { text-align:left; }
       .hero-actions { justify-content:center; }
       .hero-spark { display:none; }
       .app-grid { grid-template-columns:1fr; gap:10px; }
@@ -333,7 +402,6 @@
       .step-text { display:none; }
       .step-prog { left:14px; right:14px; bottom:4px; }
       .step-detail { display:block; min-height:4.8em; margin-top:10px; font-size:1.02rem; color:var(--text-soft); text-align:center; }
-      .chips { justify-content:center; }
       .stage { height:620px; }
       .warum-grid, .cta-grid { grid-template-columns:1fr; }
       .cast { order:-1; }
@@ -354,6 +422,8 @@
       html { scroll-behavior:auto; }
       .reveal { opacity:1; transform:none; transition:none; }
       .hero h1 .ul svg path, .hero-spark path { animation:none; stroke-dashoffset:0; }
+      .cast-art img, .cast-art::after, .aha.pop, .rd-next.nudge { animation:none; }
+      .ask-q > span, .ask-art img, .rd-page { transition:none; }
       .phone, .bubble, .track, .btn { transition:none; }
       .sim-play::before { animation:none; }
     }
@@ -375,7 +445,14 @@
           <span class="ul"><span data-de="bessere Zukunft." data-en="better future.">bessere Zukunft.</span><svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M20 45 Q316.8 34 580 41" stroke="#FF981C" stroke-width="14" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"/></svg></span>
           <svg class="hero-spark" viewBox="0 0 200 200" aria-hidden="true"><g transform="translate(62 100) scale(1.1)" stroke="#FF981C" stroke-width="12" stroke-linecap="round" fill="none"><path pathLength="1" d="M0 -18 L12 -50"/><path pathLength="1" d="M24 0 L58 -8"/><path pathLength="1" d="M20 25 L47 48"/></g></svg>
         </h1>
-        <p class="hero-lead reveal" data-de="Wohin reist ein Regentropfen? Wie wird Sonne zu Strom? Kinder stellen große Fragen. aha Kids antwortet mit spannenden Geschichten – bis es Aha macht." data-en="Where does a raindrop travel? How does sunshine become electricity? Children ask big questions. aha Kids answers with exciting stories – until it clicks.">Wohin reist ein Regentropfen? Wie wird Sonne zu Strom? Kinder stellen große Fragen. aha Kids antwortet mit spannenden Geschichten – bis es Aha macht.</p>
+        <div class="ask reveal">
+          <p class="sr" data-de="Kinder fragen zum Beispiel: Wohin reist ein Regentropfen? Wie wird Sonne zu Strom?" data-en="Children ask, for example: Where does a raindrop travel? How does sunshine become electricity?">Kinder fragen zum Beispiel: Wohin reist ein Regentropfen? Wie wird Sonne zu Strom?</p>
+          <div class="ask-bubble" aria-hidden="true">
+            <span class="ask-art"><img src="images/app/covers/sus10.jpg" alt="" class="on"><img src="images/app/covers/sus03.jpg" alt=""><img src="images/app/covers/sus20.jpg" alt=""><img src="images/app/covers/sus02.jpg" alt=""><img src="images/app/covers/sus25.jpg" alt=""><img src="images/app/covers/sus06.jpg" alt=""></span>
+            <span class="ask-q"><span class="on" data-de="Wohin reist ein Regentropfen?" data-en="Where does a raindrop travel?">Wohin reist ein Regentropfen?</span><span data-de="Wie wird Sonne zu Strom?" data-en="How does sunshine become electricity?">Wie wird Sonne zu Strom?</span><span data-de="Ist krummes Gemüse genauso lecker?" data-en="Is wonky veg just as tasty?">Ist krummes Gemüse genauso lecker?</span><span data-de="Warum brauchen Äpfel Wildbienen?" data-en="Why do apples need wild bees?">Warum brauchen Äpfel Wildbienen?</span><span data-de="Wie kann Zuckerrohr Sonne speichern?" data-en="How can sugarcane store sunlight?">Wie kann Zuckerrohr Sonne speichern?</span><span data-de="Warum schwitzt die Erde?" data-en="Why is the Earth sweating?">Warum schwitzt die Erde?</span></span>
+          </div>
+          <p class="ask-answer"><span data-de="Kinder stellen große Fragen. aha Kids antwortet mit spannenden Geschichten – bis es" data-en="Children ask big questions. aha Kids answers with exciting stories – until it goes">Kinder stellen große Fragen. aha Kids antwortet mit spannenden Geschichten – bis es</span> <span class="aha" aria-hidden="true">Aha!</span> <span data-de="macht." data-en="">macht.</span></p>
+        </div>
         <p class="hero-sub reveal" data-de="Mit Fiete, Lotte und Hund Paco entdeckt dein Kind Natur, Tiere, Umwelt und die kleinen Dinge, die unsere Welt besser machen. In der App zum Vorlesen, als Hörgeschichte und als Buch." data-en="With Fiete, Lotte and their dog Paco, your child discovers nature, animals, the environment and the little things that make our world a better place. In the app to read aloud, as an audio story and as a book.">Mit Fiete, Lotte und Hund Paco entdeckt dein Kind Natur, Tiere, Umwelt und die kleinen Dinge, die unsere Welt besser machen. In der App zum Vorlesen, als Hörgeschichte und als Buch.</p>
         <div class="hero-actions reveal">
           <a class="store" href="#" data-store aria-disabled="true">
@@ -454,17 +531,10 @@
           <ol class="steps" role="tablist" aria-label="Funktionen der App" data-aria-de="Funktionen der App" data-aria-en="App features">
             <li><button class="step on" type="button" role="tab" aria-selected="true" aria-controls="simStage" data-step="browse"><span class="step-num">1</span><span class="step-title" data-de="Geschichte aussuchen" data-en="Pick a story">Geschichte aussuchen</span><span class="step-text" data-de="Stöbert gemeinsam durch die Bibliothek. Einige Geschichten sind gratis, von allen anderen lest ihr die ersten Seiten als Vorschau." data-en="Browse the library together. Some stories are free, and you can preview the first pages of all the others.">Stöbert gemeinsam durch die Bibliothek. Einige Geschichten sind gratis, von allen anderen lest ihr die ersten Seiten als Vorschau.</span><span class="step-prog"></span></button></li>
             <li><button class="step" type="button" role="tab" aria-selected="false" aria-controls="simStage" data-step="book"><span class="step-num">2</span><span class="step-title" data-de="Worum geht’s?" data-en="What’s it about?">Worum geht’s?</span><span class="step-text" data-de="Jede Buchseite zeigt, worum es geht und was dein Kind dabei entdeckt. Mit „Weiterlesen“ geht es genau da weiter, wo ihr aufgehört habt." data-en="Each book page shows what the story is about and what your child will discover. “Continue” picks up exactly where you left off.">Jede Buchseite zeigt, worum es geht und was dein Kind dabei entdeckt. Mit „Weiterlesen“ geht es genau da weiter, wo ihr aufgehört habt.</span><span class="step-prog"></span></button></li>
-            <li><button class="step" type="button" role="tab" aria-selected="false" aria-controls="simStage" data-step="read"><span class="step-num">3</span><span class="step-title" data-de="Gemeinsam vorlesen" data-en="Read aloud together">Gemeinsam vorlesen</span><span class="step-text" data-de="Große Illustrationen im Querformat, der Text steht daneben. Text ausblenden und das Bild in Ruhe gemeinsam entdecken." data-en="Big landscape illustrations with the text beside them. Hide the text and explore the picture together.">Große Illustrationen im Querformat, der Text steht daneben. Text ausblenden und das Bild in Ruhe gemeinsam entdecken.</span><span class="step-prog"></span></button></li>
+            <li><button class="step" type="button" role="tab" aria-selected="false" aria-controls="simStage" data-step="read"><span class="step-num">3</span><span class="step-title" data-de="Gemeinsam vorlesen" data-en="Read aloud together">Gemeinsam vorlesen</span><span class="step-text" data-de="Große Illustrationen im Querformat, der Text steht daneben. Scrollt durch den Text, blättert weiter – oder blendet ihn aus und entdeckt das Bild gemeinsam. Probier’s aus!" data-en="Big landscape illustrations with the text beside them. Scroll the text, turn the page – or hide the text and explore the picture together. Try it!">Große Illustrationen im Querformat, der Text steht daneben. Scrollt durch den Text, blättert weiter – oder blendet ihn aus und entdeckt das Bild gemeinsam. Probier’s aus!</span><span class="step-prog"></span></button></li>
             <li><button class="step" type="button" role="tab" aria-selected="false" aria-controls="simStage" data-step="listen"><span class="step-num">4</span><span class="step-title" data-de="Einfach zuhören" data-en="Just listen">Einfach zuhören</span><span class="step-text" data-de="Viele Geschichten gibt es auch als Hörgeschichte. Play drücken und gemeinsam lauschen – tipp im Handy auf Play und hör rein." data-en="Many stories are also available as audio stories. Press play and listen together – tap play on the phone to hear it.">Viele Geschichten gibt es auch als Hörgeschichte. Play drücken und gemeinsam lauschen – tipp im Handy auf Play und hör rein.</span><span class="step-prog"></span></button></li>
-            <li><button class="step" type="button" role="tab" aria-selected="false" aria-controls="simStage" data-step="discover"><span class="step-num">5</span><span class="step-title" data-de="Neues entdecken" data-en="Discover more">Neues entdecken</span><span class="step-text" data-de="Neue Geschichten und die Lieblinge anderer Familien – auf der Entdecken-Seite gibt es immer wieder etwas Neues." data-en="New stories and other families’ favourites – there’s always something new on the Discover page.">Neue Geschichten und die Lieblinge anderer Familien – auf der Entdecken-Seite gibt es immer wieder etwas Neues.</span><span class="step-prog"></span></button></li>
           </ol>
           <p class="step-detail" id="stepDetail" aria-live="polite"></p>
-          <div class="chips">
-            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg><span data-de="Offline lesen" data-en="Read offline">Offline lesen</span></span>
-            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span data-de="Deutsch &amp; Englisch" data-en="German &amp; English">Deutsch &amp; Englisch</span></span>
-            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg><span data-de="Keine Fremdwerbung" data-en="No third-party ads">Keine Fremdwerbung</span></span>
-            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span data-de="Käufe nur mit Eltern-Check" data-en="Purchases need a grown-up">Käufe nur mit Eltern-Check</span></span>
-          </div>
         </div>
 
         <div class="app-stage-col reveal">
@@ -500,14 +570,41 @@
                 </div>
                 <!-- 2–5 · real app screens (Michi's recordings) -->
                 <div class="scr" data-step="book"><img src="images/app/screens/bookpage.jpg" alt="Buchseite „Schafalarm im Sonnenfeld“ mit Weiterlesen, Von vorne und Hörgeschichte" data-alt-de="Buchseite „Schafalarm im Sonnenfeld“ mit Weiterlesen, Von vorne und Hörgeschichte" data-alt-en="Book page “Schafalarm im Sonnenfeld” with continue, start over and audio story" decoding="async"></div>
-                <div class="scr scr-read" data-step="read"><img src="images/app/screens/reader.jpg" alt="Lesemodus im Querformat: Illustration mit Text daneben" data-alt-de="Lesemodus im Querformat: Illustration mit Text daneben" data-alt-en="Landscape reading mode: illustration with the text beside it" decoding="async"></div>
+                <div class="scr scr-read" data-step="read">
+                  <div class="reader" id="reader" tabindex="0" aria-label="Leseprobe: Schafalarm im Sonnenfeld" data-aria-de="Leseprobe: Schafalarm im Sonnenfeld" data-aria-en="Reading sample: Schafalarm im Sonnenfeld">
+                    <div class="rd-stage" id="rdStage">
+                      <img class="rd-page on" src="images/app/reader/page-01.jpg" alt="Fiete, Lotte und Paco schauen über eine trockene Ebene auf etwas Blaues in der Ferne" data-alt-de="Fiete, Lotte und Paco schauen über eine trockene Ebene auf etwas Blaues in der Ferne" data-alt-en="Fiete, Lotte and Paco look across a dry plain at something blue in the distance" draggable="false">
+                      <img class="rd-page" src="images/app/reader/page-02.jpg" alt="Tashi in roter Jacke begrüßt Fiete, Lotte und Paco vor den Solarmodulen" data-alt-de="Tashi in roter Jacke begrüßt Fiete, Lotte und Paco vor den Solarmodulen" data-alt-en="Tashi in a red jacket welcomes Fiete, Lotte and Paco in front of the solar panels" draggable="false">
+                      <img class="rd-page" src="images/app/reader/page-03.jpg" alt="Eine Technikerin bürstet den Staub vom Solarmodul, ein Tropfen landet auf Pacos Nase" data-alt-de="Eine Technikerin bürstet den Staub vom Solarmodul, ein Tropfen landet auf Pacos Nase" data-alt-en="A technician brushes dust off a solar panel; a drop lands on Paco's nose" draggable="false">
+                      <div class="rd-top">
+                        <button class="rd-btn" type="button" id="rdClose" aria-label="Zurück zur Buchseite" data-aria-de="Zurück zur Buchseite" data-aria-en="Back to the book page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                        <button class="rd-btn" type="button" id="rdFirst" aria-label="Zur ersten Seite" data-aria-de="Zur ersten Seite" data-aria-en="To the first page" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 5v14M19 5l-9 7 9 7z" fill="currentColor"/></svg></button>
+                        <span class="rd-pill" id="rdPill">Seite 1 / 14</span>
+                      </div>
+                      <button class="rd-btn rd-eye" type="button" id="rdEye" aria-label="Text ausblenden" data-aria-de="Text ausblenden" data-aria-en="Hide text"><span class="i-hide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="i-show"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18M10.6 6.1A10 10 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3.3 3.9M6.6 6.6C3.7 8.4 2 12 2 12s3.6 7 10 7a9.6 9.6 0 0 0 4.4-1.1"/></svg></span></button>
+                      <div class="rd-nav">
+                        <button class="rd-btn rd-prev" type="button" id="rdPrev" aria-label="Vorherige Seite" data-aria-de="Vorherige Seite" data-aria-en="Previous page" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+                        <button class="rd-btn rd-next" type="button" id="rdNext" aria-label="Nächste Seite" data-aria-de="Nächste Seite" data-aria-en="Next page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+                      </div>
+                      <div class="rd-end">
+                        <b data-de="Wie geht’s weiter im Sonnenfeld?" data-en="What happens next in the sun field?">Wie geht’s weiter im Sonnenfeld?</b>
+                        <span data-de="Die ganze Geschichte mit 14 Seiten liest du in der aha Kids App." data-en="Read the whole 14-page story in the aha Kids app.">Die ganze Geschichte mit 14 Seiten liest du in der aha Kids App.</span>
+                        <button type="button" id="rdAgain" data-de="Nochmal von vorn" data-en="Start again">Nochmal von vorn</button>
+                      </div>
+                    </div>
+                    <div class="rd-panel"><div class="rd-text" id="rdText"></div><span class="rd-scroll" data-de="Weiter scrollen" data-en="Scroll for more">Weiter scrollen</span></div>
+                    <div class="rd-src" hidden><p>Fiete, Lotte und Paco sind in einer trockenen Gegend in China unterwegs. Die Sonne steht hell am wolkenlosen Himmel. Der Wind pustet Staub über den Boden und ringsum sind nur Steine und Sand zu sehen. Paco hechelt und sucht vergebens nach Schatten.</p><p>Da blitzt etwas Blaues in der Sonne. „Wasser!“, ruft Fiete. Paco sieht es auch und flitzt los. Doch als die drei näher kommen, gibt es weder Wellen noch ein Plätschern.</p><p>Lotte bleibt staunend stehen. „Das ist kein See. Das sind Solarmodule!“</p></div>
+                    <div class="rd-src" hidden><p>Zwischen den ersten Modulreihen kommt ein Junge in einer roten Jacke hervor. „Hallo! Ich bin Tashi“, sagt er. „Willkommen im Sonnenfeld.“</p><p>„Warum steht so ein riesiges Sonnenfeld ausgerechnet hier?“, fragt Lotte.</p><p>„Weil es hier nur selten regnet und an vielen Tagen die Sonne scheint“, erklärt Tashi. „So können die Module viel Sonnenlicht einfangen und daraus Strom machen.“</p><p>Da fegt eine kräftige Windböe über die Ebene. Staub wirbelt auf und legt sich wie ein grauer Schleier auf das blaue Glas.</p><p>Paco schnuppert. „Hatschi!“</p><p>Tashi zeigt auf das staubige Modul. „Die trockene Gegend hat aber auch einen Nachteil: Der Wind bringt immer wieder neuen Staub.“</p></div>
+                    <div class="rd-src" hidden><p>Eine Technikerin kommt mit einer langen Bürste auf sie zu.</p><p>„Damit genug Sonnenlicht auf die Module trifft, müssen wir den Staub regelmäßig entfernen“, erklärt Tashi.</p><p>Die Technikerin schiebt die weiche Bürste über das Glas.</p><p>Schschsch.</p><p>Ein wenig Wasser läuft über das Modul und nimmt den Staub mit.</p><p>„Warum spritzt sie es nicht einfach mit einem Wasserschlauch ab?“, fragt Fiete.</p><p>„Das würde viel mehr Wasser verbrauchen“, sagt Tashi. „Und weil es hier nur selten regnet, ist Wasser kostbar. Darum nimmt sie nur so viel, wie wirklich nötig ist.“</p><p>Ein Tropfen fällt vom Modul und landet mitten auf Pacos Nase. Paco leckt nach links. Dann nach rechts. Doch an den Tropfen kommt er nicht heran.</p><p>Fiete und Lotte müssen lachen.</p></div>
+                  </div>
+                </div>
                 <div class="scr scr-listen" data-step="listen"><img src="images/app/screens/player.jpg" alt="Hörgeschichten-Player „Die Kraft von Sonne und Wind“" data-alt-de="Hörgeschichten-Player „Die Kraft von Sonne und Wind“" data-alt-en="Audio story player “Die Kraft von Sonne und Wind”" decoding="async">
                   <button class="sim-play" type="button" id="simPlay" aria-label="Hörprobe „Die Kraft von Sonne und Wind“ abspielen" data-aria-de="Hörprobe „Die Kraft von Sonne und Wind“ abspielen" data-aria-en="Play sample “The Power of Sun and Wind”"><span class="pz"><svg width="44%" height="44%" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><rect x="5" y="4" width="5" height="16" rx="1.4"/><rect x="14" y="4" width="5" height="16" rx="1.4"/></svg></span></button>
                   <span class="sim-tip" data-de="Tipp auf Play" data-en="Tap play">Tipp auf Play</span>
                 </div>
-                <div class="scr" data-step="discover"><img src="images/app/screens/entdecken.jpg" alt="Entdecken-Seite mit Top Stories und neuen Geschichten" data-alt-de="Entdecken-Seite mit Top Stories und neuen Geschichten" data-alt-en="Discover page with top stories and new stories" decoding="async"></div>
               </div>
             </div>
+            <div class="reader-card" id="readerCard"></div>
           </div>
         </div>
       </div>
@@ -596,7 +693,7 @@
         </div>
       </div>
       <figure class="cast reveal">
-        <img src="images/brand/fiete-lotte-paco.webp" width="1000" height="603" alt="Fiete, Lotte und Hund Paco auf einer Wolke" data-alt-de="Fiete, Lotte und Hund Paco auf einer Wolke" data-alt-en="Fiete, Lotte and their dog Paco on a cloud" decoding="async">
+        <div class="cast-art"><img src="images/brand/fiete-lotte-paco.webp" width="1120" height="675" alt="Fiete, Lotte und Hund Paco auf einer Wolke" data-alt-de="Fiete, Lotte und Hund Paco auf einer Wolke" data-alt-en="Fiete, Lotte and their dog Paco on a cloud" decoding="async"></div>
         <figcaption class="cast-cap" data-de="Mit Fiete, Lotte und Paco." data-en="With Fiete, Lotte and Paco.">Mit Fiete, Lotte und Paco.</figcaption>
       </figure>
     </div>
@@ -757,7 +854,7 @@
     // ── app simulator ──
     var stage = $('#simStage'), phone = $('#phone'), steps = $$('.step'), scrs = $$('.scr'), detail = $('#stepDetail');
     var listenScr = $('.scr-listen'), simTrack = $('.track[data-key="sonne-und-wind"]');
-    var cur = 0, timer = null, auto = !reduce, inView = false, STEP_MS = 6500;
+    var cur = 0, timer = null, pageTimer = null, auto = !reduce, inView = false, STEP_MS = 6500;
     function syncSim() { listenScr.classList.toggle('playing', !$('audio', simTrack).paused); }
     function fit() {
       var land = phone.classList.contains('landscape');
@@ -767,12 +864,15 @@
     }
     function setDetail() { detail.textContent = $('.step-text', steps[cur]).textContent; }
     function show(i) {
+      if (steps[cur] && steps[cur].dataset.step === 'read' && steps[i].dataset.step !== 'read') clearTimeout(pageTimer);
       cur = i;
       steps.forEach(function (s, k) { s.classList.toggle('on', k === i); s.setAttribute('aria-selected', k === i ? 'true' : 'false'); s.classList.remove('run'); });
       var key = steps[i].dataset.step;
       scrs.forEach(function (s) { s.classList.toggle('on', s.dataset.step === key); });
       phone.classList.toggle('landscape', key === 'read');
-      fit(); setDetail(); schedule();
+      placeReader(); fit(); setDetail(); schedule();
+      if (key === 'read' && auto && inView) { goPage(0); clearTimeout(pageTimer); pageTimer = setTimeout(function () { if (auto) goPage(1); }, STEP_MS / 2); }
+      if (key === 'read') { var nx = $('#rdNext'); nx.classList.remove('nudge'); void nx.offsetWidth; nx.classList.add('nudge'); }
       if (window.matchMedia('(max-width:900px)').matches) {
         var li = steps[i].parentNode, row = li.parentNode;
         row.scrollTo({ left: li.offsetLeft - (row.clientWidth - li.offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth' });
@@ -797,8 +897,71 @@
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) { inView = es[0].isIntersecting; if (inView) schedule(); else clearTimeout(timer); }, { threshold: 0.35 }).observe(stage);
     }
-    window.addEventListener('resize', fit);
-    fit(); setDetail();
+    window.addEventListener('resize', function () { placeReader(); fit(); });
+
+    // reader: three pages of „Schafalarm im Sonnenfeld“, scrollable text, page turning, text on/off
+    var reader = $('#reader'), readScr = $('.scr-read'), card = $('#readerCard'), rdPages = $$('.rd-page'), rdSrc = $$('.rd-src');
+    var rdText = $('#rdText'), rdPanel = $('.rd-panel'), page = 0, TOTAL = 14;
+    function placeReader() {
+      var cardMode = steps[cur].dataset.step === 'read' && stage.clientWidth < 600;
+      stage.classList.toggle('card-mode', cardMode);
+      var host = cardMode ? card : readScr;
+      if (reader.parentNode !== host) host.appendChild(reader);
+    }
+    function more() { var m = rdText.scrollHeight - rdText.clientHeight - rdText.scrollTop > 4; rdPanel.style.setProperty('--more', m ? 1 : 0); }
+    function pill() { $('#rdPill').textContent = T('Seite ', 'Page ') + (page + 1) + ' / ' + TOTAL; }
+    function goPage(n) {
+      var end = n >= rdPages.length;
+      reader.classList.toggle('at-end', end);
+      if (!end) {
+        page = Math.max(0, n);
+        rdPages.forEach(function (im, k) { im.classList.toggle('on', k === page); im.classList.toggle('prev', k < page); });
+        rdText.innerHTML = rdSrc[page].innerHTML; rdText.scrollTop = 0; more(); pill();
+      }
+      $('#rdPrev').disabled = page === 0 && !end; $('#rdFirst').disabled = page === 0 && !end;
+      $('#rdNext').disabled = end;
+    }
+    function rdUser(fn) { return function (e) { stopAuto(); clearTimeout(pageTimer); fn(e); }; }
+    $('#rdNext').addEventListener('click', rdUser(function () { goPage(page + 1); }));
+    $('#rdPrev').addEventListener('click', rdUser(function () { goPage(reader.classList.contains('at-end') ? page : page - 1); }));
+    $('#rdFirst').addEventListener('click', rdUser(function () { goPage(0); }));
+    $('#rdAgain').addEventListener('click', rdUser(function () { goPage(0); }));
+    $('#rdClose').addEventListener('click', rdUser(function () { show(1); }));
+    $('#rdEye').addEventListener('click', rdUser(function () {
+      var off = reader.classList.toggle('no-text'), b = $('#rdEye');
+      b.dataset.ariaDe = off ? 'Text einblenden' : 'Text ausblenden'; b.dataset.ariaEn = off ? 'Show text' : 'Hide text';
+      b.setAttribute('aria-label', T(b.dataset.ariaDe, b.dataset.ariaEn));
+    }));
+    rdText.addEventListener('scroll', more, { passive: true });
+    ['wheel', 'touchstart', 'pointerdown'].forEach(function (ev) { rdText.addEventListener(ev, function () { stopAuto(); clearTimeout(pageTimer); }, { passive: true }); });
+    reader.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); rdUser(function () { goPage(page + 1); })(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); rdUser(function () { goPage(page - 1); })(); }
+    });
+    (function () {   // swipe on the picture
+      var x0 = null, st = $('#rdStage');
+      st.addEventListener('pointerdown', function (e) { x0 = e.clientX; });
+      st.addEventListener('pointerup', function (e) {
+        if (x0 === null) return; var dx = e.clientX - x0; x0 = null;
+        if (Math.abs(dx) > 40 && !e.target.closest('button')) rdUser(function () { goPage(page + (dx < 0 ? 1 : -1)); })();
+      });
+    })();
+    goPage(0);
+    placeReader(); fit(); setDetail();
+
+    // hero: one kids' question at a time, with the matching story art; „Aha!“ pops on every change
+    (function () {
+      var qs = $$('.ask-q > span'), arts = $$('.ask-art img'), aha = $('.aha'), i = 0, hover = false;
+      if (reduce || qs.length < 2) return;
+      var box = $('.ask'); box.addEventListener('mouseenter', function () { hover = true; }); box.addEventListener('mouseleave', function () { hover = false; });
+      setInterval(function () {
+        if (hover || document.hidden) return;
+        var old = qs[i]; old.classList.remove('on'); old.classList.add('out'); arts[i].classList.remove('on');
+        setTimeout(function () { old.classList.remove('out'); }, 650);
+        i = (i + 1) % qs.length; qs[i].classList.add('on'); arts[i].classList.add('on');
+        aha.classList.remove('pop'); void aha.offsetWidth; aha.classList.add('pop');
+      }, 2900);
+    })();
 
     // library: scrolls gently while it is on screen; any touch pauses it
     (function () {
@@ -820,9 +983,9 @@
     window.addEventListener('load', function () {
       if (typeof window.applyLang === 'function') {
         var orig = window.applyLang;
-        window.applyLang = function (l) { orig(l); filmUI(); setDetail(); };
+        window.applyLang = function (l) { orig(l); filmUI(); setDetail(); pill(); };
       }
-      filmUI(); setDetail();
+      filmUI(); setDetail(); pill();
     });
   })();
   </script>
