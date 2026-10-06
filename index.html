@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>aha Kids – Warum-Geschichten zum Vorlesen und Anhören</title>
-  <meta name="description" content="Wohin reist ein Regentropfen? Wie wird Sonne zu Strom? aha Kids beantwortet echte Kinderfragen mit spannenden, liebevoll illustrierten Geschichten – zum Vorlesen und Anhören, in der App und als Buch.">
+  <title>Aha Kids – Warum-Geschichten zum Vorlesen und Anhören</title>
+  <meta name="description" content="Wohin reist ein Regentropfen? Wie wird Sonne zu Strom? Aha Kids beantwortet echte Kinderfragen mit spannenden, liebevoll illustrierten Geschichten – zum Vorlesen und Anhören, in der App und als Buch.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#FFF9EC">
   <link rel="canonical" href="https://aha-kids.de/">
 
   <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="aha Kids">
+  <meta property="og:site_name" content="Aha Kids">
   <meta property="og:url" content="https://aha-kids.de/">
-  <meta property="og:title" content="aha Kids – Warum-Geschichten zum Vorlesen und Anhören">
+  <meta property="og:title" content="Aha Kids – Warum-Geschichten zum Vorlesen und Anhören">
   <meta property="og:description" content="Echte Kinderfragen, spannende Geschichten, echte Aha-Momente: Mit Fiete, Lotte und Hund Paco – zum Vorlesen und Anhören.">
   <meta property="og:image" content="https://aha-kids.de/images/brand/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="aha Kids – Lernen für eine bessere Zukunft. Warum-Geschichten zum Vorlesen und Anhören">
+  <meta property="og:image:alt" content="Aha Kids – Lernen für eine bessere Zukunft. Warum-Geschichten zum Vorlesen und Anhören">
   <meta property="og:locale" content="de_DE">
   <meta property="og:locale:alternate" content="en_US">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="aha Kids – Warum-Geschichten zum Vorlesen und Anhören">
+  <meta name="twitter:title" content="Aha Kids – Warum-Geschichten zum Vorlesen und Anhören">
   <meta name="twitter:description" content="Echte Kinderfragen, spannende Geschichten, echte Aha-Momente – zum Vorlesen und Anhören.">
   <meta name="twitter:image" content="https://aha-kids.de/images/brand/og-image.jpg">
 
@@ -36,24 +36,24 @@
       {
         "@type": "Organization",
         "@id": "https://aha-kids.de/#organization",
-        "name": "aha Kids",
+        "name": "Aha Kids",
         "url": "https://aha-kids.de/",
         "logo": "https://aha-kids.de/images/brand/logo-stacked.png",
         "slogan": "Lernen für eine bessere Zukunft.",
-        "description": "aha Kids beantwortet echte Kinderfragen mit illustrierten Geschichten zum Vorlesen und Anhören – als App und als Buch."
+        "description": "Aha Kids beantwortet echte Kinderfragen mit illustrierten Geschichten zum Vorlesen und Anhören – als App und als Buch."
       },
       {
         "@type": "WebSite",
         "@id": "https://aha-kids.de/#website",
         "url": "https://aha-kids.de/",
-        "name": "aha Kids",
+        "name": "Aha Kids",
         "inLanguage": "de",
         "publisher": { "@id": "https://aha-kids.de/#organization" }
       },
       {
         "@type": "VideoObject",
-        "name": "aha Kids – Kleine Frage. Großes Aha.",
-        "description": "Der aha Kids Film: Kinderfragen, die App zum Vorlesen und Anhören, Fiete, Lotte und Paco.",
+        "name": "Aha Kids – Kleine Frage. Großes Aha.",
+        "description": "Der Aha Kids Film: Kinderfragen, die App zum Vorlesen und Anhören, Fiete, Lotte und Paco.",
         "thumbnailUrl": "https://aha-kids.de/media/film-poster.jpg",
         "contentUrl": "https://aha-kids.de/media/aha-kids-film-720.mp4",
         "uploadDate": "2026-10-06",
@@ -76,6 +76,7 @@
     html { scroll-behavior:smooth; scroll-padding-top:calc(var(--header-h) + 16px); -webkit-text-size-adjust:100%; }
     body { font-family:var(--body); font-size:17px; line-height:1.6; color:var(--forest); background:var(--cream); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
     img, video, svg { display:block; max-width:100%; }
+    :where(img[width][height]) { height:auto; }
     main, footer { overflow-x:clip; }   /* decorative circles must never widen the page (phones would shift the fixed header) */
     a { color:inherit; }
     h1, h2, h3 { font-family:var(--display); font-weight:800; line-height:1.08; letter-spacing:-0.01em; text-wrap:balance; }
@@ -331,9 +332,9 @@
     .pillar p { color:var(--text-soft); font-size:.98rem; }
     .cast { position:relative; text-align:center; }
     .cast-art { position:relative; max-width:560px; margin:0 auto; padding-bottom:30px; }
-    .cast-art img { position:relative; z-index:1; width:100%; filter:drop-shadow(0 14px 22px rgba(23,63,53,.12)); animation:floaty 7s ease-in-out infinite; will-change:transform; }
+    .cast-art img { position:relative; z-index:1; width:100%; height:auto; filter:drop-shadow(0 14px 22px rgba(23,63,53,.12)); animation:floaty 7s ease-in-out infinite; will-change:transform; }
     .cast-art::after { content:""; position:absolute; left:24%; right:24%; bottom:6px; height:26px; border-radius:50%; background:radial-gradient(closest-side, rgba(23,63,53,.24), rgba(23,63,53,0)); animation:floatshadow 7s ease-in-out infinite; }
-    @keyframes floaty { 0%, 100% { transform:translateY(0) rotate(-.8deg); } 50% { transform:translateY(-16px) rotate(.8deg); } }
+    @keyframes floaty { 0%, 100% { transform:translateY(0); } 50% { transform:translateY(-14px); } }   /* no rotation: it resampled the artwork and softened it */
     @keyframes floatshadow { 0%, 100% { transform:scaleX(1); opacity:1; } 50% { transform:scaleX(.8); opacity:.55; } }
     .cast-cap { display:inline-block; margin-top:8px; font:800 1.5rem var(--display); }
     .promise { margin-top:52px; text-align:center; font:800 clamp(1.25rem, 2.4vw, 1.7rem)/1.3 var(--display); }
@@ -451,7 +452,7 @@
             <span class="ask-art"><img src="images/app/covers/sus10.jpg" alt="" class="on"><img src="images/app/covers/sus03.jpg" alt=""><img src="images/app/covers/sus20.jpg" alt=""><img src="images/app/covers/sus02.jpg" alt=""><img src="images/app/covers/sus25.jpg" alt=""><img src="images/app/covers/sus06.jpg" alt=""></span>
             <span class="ask-q"><span class="on" data-de="Wohin reist ein Regentropfen?" data-en="Where does a raindrop travel?">Wohin reist ein Regentropfen?</span><span data-de="Wie wird Sonne zu Strom?" data-en="How does sunshine become electricity?">Wie wird Sonne zu Strom?</span><span data-de="Ist krummes Gemüse genauso lecker?" data-en="Is wonky veg just as tasty?">Ist krummes Gemüse genauso lecker?</span><span data-de="Warum brauchen Äpfel Wildbienen?" data-en="Why do apples need wild bees?">Warum brauchen Äpfel Wildbienen?</span><span data-de="Wie kann Zuckerrohr Sonne speichern?" data-en="How can sugarcane store sunlight?">Wie kann Zuckerrohr Sonne speichern?</span><span data-de="Warum schwitzt die Erde?" data-en="Why is the Earth sweating?">Warum schwitzt die Erde?</span></span>
           </div>
-          <p class="ask-answer"><span data-de="Kinder stellen große Fragen. aha Kids antwortet mit spannenden Geschichten – bis es" data-en="Children ask big questions. aha Kids answers with exciting stories – until it goes">Kinder stellen große Fragen. aha Kids antwortet mit spannenden Geschichten – bis es</span> <span class="aha" aria-hidden="true">Aha!</span> <span data-de="macht." data-en="">macht.</span></p>
+          <p class="ask-answer"><span data-de="Kinder stellen große Fragen. Aha Kids antwortet mit spannenden Geschichten – bis es" data-en="Children ask big questions. Aha Kids answers with exciting stories – until it goes">Kinder stellen große Fragen. Aha Kids antwortet mit spannenden Geschichten – bis es</span> <span class="aha" aria-hidden="true">Aha!</span> <span data-de="macht." data-en="">macht.</span></p>
         </div>
         <p class="hero-sub reveal" data-de="Mit Fiete, Lotte und Hund Paco entdeckt dein Kind Natur, Tiere, Umwelt und die kleinen Dinge, die unsere Welt besser machen. In der App zum Vorlesen, als Hörgeschichte und als Buch." data-en="With Fiete, Lotte and their dog Paco, your child discovers nature, animals, the environment and the little things that make our world a better place. In the app to read aloud, as an audio story and as a book.">Mit Fiete, Lotte und Hund Paco entdeckt dein Kind Natur, Tiere, Umwelt und die kleinen Dinge, die unsere Welt besser machen. In der App zum Vorlesen, als Hörgeschichte und als Buch.</p>
         <div class="hero-actions reveal">
@@ -470,7 +471,7 @@
       <div class="hero-media reveal">
         <div class="film" id="filmBox">
           <video id="film" muted loop playsinline preload="auto" poster="media/film-poster.jpg"
-                 aria-label="aha Kids Film, 36 Sekunden" data-aria-de="aha Kids Film, 36 Sekunden" data-aria-en="aha Kids film, 36 seconds">
+                 aria-label="Aha Kids Film, 36 Sekunden" data-aria-de="Aha Kids Film, 36 Sekunden" data-aria-en="Aha Kids film, 36 seconds">
             <source src="media/aha-kids-film-720.mp4" type="video/mp4" media="(min-width: 701px)">
             <source src="media/aha-kids-film-540.mp4" type="video/mp4">
           </video>
@@ -522,7 +523,7 @@
     <div class="wrap">
       <div class="center">
         <span class="label reveal" data-de="Die App" data-en="The app">Die App</span>
-        <h2 class="h2 reveal" data-de="So funktioniert aha Kids." data-en="How aha Kids works.">So funktioniert aha Kids.</h2>
+        <h2 class="h2 reveal" data-de="So funktioniert Aha Kids." data-en="How Aha Kids works.">So funktioniert Aha Kids.</h2>
         <p class="lead reveal" data-de="Große Bilder, warme Geschichten und alles, was ihr zum gemeinsamen Lesen und Hören braucht – in einer App. Probier es direkt hier aus." data-en="Big pictures, warm stories and everything you need to read and listen together – in one app. Try it right here.">Große Bilder, warme Geschichten und alles, was ihr zum gemeinsamen Lesen und Hören braucht – in einer App. Probier es direkt hier aus.</p>
       </div>
 
@@ -538,7 +539,7 @@
         </div>
 
         <div class="app-stage-col reveal">
-          <div class="stage" id="simStage" role="tabpanel" aria-label="aha Kids App" data-aria-de="aha Kids App" data-aria-en="aha Kids app">
+          <div class="stage" id="simStage" role="tabpanel" aria-label="Aha Kids App" data-aria-de="Aha Kids App" data-aria-en="Aha Kids app">
             <div class="phone" id="phone">
               <span class="island"></span>
               <div class="screen">
@@ -588,7 +589,7 @@
                       </div>
                       <div class="rd-end">
                         <b data-de="Wie geht’s weiter im Sonnenfeld?" data-en="What happens next in the sun field?">Wie geht’s weiter im Sonnenfeld?</b>
-                        <span data-de="Die ganze Geschichte mit 14 Seiten liest du in der aha Kids App." data-en="Read the whole 14-page story in the aha Kids app.">Die ganze Geschichte mit 14 Seiten liest du in der aha Kids App.</span>
+                        <span data-de="Die ganze Geschichte mit 14 Seiten liest du in der Aha Kids App." data-en="Read the whole 14-page story in the Aha Kids app.">Die ganze Geschichte mit 14 Seiten liest du in der Aha Kids App.</span>
                         <button type="button" id="rdAgain" data-de="Nochmal von vorn" data-en="Start again">Nochmal von vorn</button>
                       </div>
                     </div>
@@ -617,7 +618,7 @@
     <div class="wrap">
       <span class="label reveal" data-de="Hörgeschichten" data-en="Audio stories">Hörgeschichten</span>
       <h2 class="h2 reveal" data-de="Einfach mal reinhören." data-en="Have a listen.">Einfach mal reinhören.</h2>
-      <p class="lead reveal" data-de="Viele aha Kids Geschichten gibt es auch zum Anhören – warm erzählt, zum Einschlafen, für unterwegs oder einfach zwischendurch. So beginnen drei von ihnen:" data-en="Many aha Kids stories are also available to listen to – warmly told, for bedtime, on the go or just in between. Here’s how three of them begin (in German):">Viele aha Kids Geschichten gibt es auch zum Anhören – warm erzählt, zum Einschlafen, für unterwegs oder einfach zwischendurch. So beginnen drei von ihnen:</p>
+      <p class="lead reveal" data-de="Viele Aha Kids Geschichten gibt es auch zum Anhören – warm erzählt, zum Einschlafen, für unterwegs oder einfach zwischendurch. So beginnen drei von ihnen:" data-en="Many Aha Kids stories are also available to listen to – warmly told, for bedtime, on the go or just in between. Here’s how three of them begin (in German):">Viele Aha Kids Geschichten gibt es auch zum Anhören – warm erzählt, zum Einschlafen, für unterwegs oder einfach zwischendurch. So beginnen drei von ihnen:</p>
 
       <div class="tracks">
         <article class="track reveal" data-key="regentropfen" data-secs="53">
@@ -663,7 +664,7 @@
           <audio preload="none" src="media/hoerprobe-krumme-karotte.mp3"></audio>
         </article>
       </div>
-      <p class="hoeren-note reveal" data-de="Die ganzen Hörgeschichten gibt es in der aha Kids App." data-en="The full audio stories are in the aha Kids app.">Die ganzen Hörgeschichten gibt es in der aha Kids App.</p>
+      <p class="hoeren-note reveal" data-de="Die ganzen Hörgeschichten gibt es in der Aha Kids App." data-en="The full audio stories are in the Aha Kids app.">Die ganzen Hörgeschichten gibt es in der Aha Kids App.</p>
     </div>
   </section>
 
@@ -672,7 +673,7 @@
     <div class="wave" style="color:#FFE0C7" aria-hidden="true"><svg viewBox="0 0 1440 56" preserveAspectRatio="none"><path d="M0 24 C 280 52 600 52 860 30 S 1280 6 1440 28 V56 H0Z" fill="currentColor"/></svg></div>
     <div class="wrap warum-grid">
       <div>
-        <span class="label reveal" data-de="Warum aha Kids" data-en="Why aha Kids">Warum aha Kids</span>
+        <span class="label reveal" data-de="Warum Aha Kids" data-en="Why Aha Kids">Warum Aha Kids</span>
         <h2 class="h2 reveal" data-de="Geschichten mit Aha-Moment." data-en="Stories with an aha moment.">Geschichten mit Aha-Moment.</h2>
         <div class="pillars">
           <div class="pillar reveal">
@@ -688,12 +689,12 @@
           <div class="pillar reveal">
             <span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="#FF981C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5h7a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H2zM22 5.5h-7a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg></span>
             <h3 data-de="Zeit zu zweit" data-en="Time together">Zeit zu zweit</h3>
-            <p data-de="Vorlesen, Bilder entdecken, Fragen stellen: aha Kids ist gemacht für gemeinsame Momente – und für erste Gespräche über wichtige Themen." data-en="Reading aloud, exploring pictures, asking questions: aha Kids is made for shared moments – and first conversations about important topics.">Vorlesen, Bilder entdecken, Fragen stellen: aha Kids ist gemacht für gemeinsame Momente – und für erste Gespräche über wichtige Themen.</p>
+            <p data-de="Vorlesen, Bilder entdecken, Fragen stellen: Aha Kids ist gemacht für gemeinsame Momente – und für erste Gespräche über wichtige Themen." data-en="Reading aloud, exploring pictures, asking questions: Aha Kids is made for shared moments – and first conversations about important topics.">Vorlesen, Bilder entdecken, Fragen stellen: Aha Kids ist gemacht für gemeinsame Momente – und für erste Gespräche über wichtige Themen.</p>
           </div>
         </div>
       </div>
       <figure class="cast reveal">
-        <div class="cast-art"><img src="images/brand/fiete-lotte-paco.webp" width="1120" height="675" alt="Fiete, Lotte und Hund Paco auf einer Wolke" data-alt-de="Fiete, Lotte und Hund Paco auf einer Wolke" data-alt-en="Fiete, Lotte and their dog Paco on a cloud" decoding="async"></div>
+        <div class="cast-art"><img src="images/brand/fiete-lotte-paco.webp" width="1600" height="962" alt="Fiete, Lotte und Hund Paco auf einer Wolke" data-alt-de="Fiete, Lotte und Hund Paco auf einer Wolke" data-alt-en="Fiete, Lotte and their dog Paco on a cloud" decoding="async"></div>
         <figcaption class="cast-cap" data-de="Mit Fiete, Lotte und Paco." data-en="With Fiete, Lotte and Paco.">Mit Fiete, Lotte und Paco.</figcaption>
       </figure>
     </div>
@@ -710,7 +711,7 @@
         <span class="paper-ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#173F35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></span>
         <div class="paper-txt">
           <h2 data-de="Lieber auf Papier?" data-en="Prefer paper?">Lieber auf Papier?</h2>
-          <p data-de="Viele aha Kids Geschichten gibt es auch als Buch – mit Mitmachteil und Ausmalbildern." data-en="Many aha Kids stories are also available as books – with an activity section and colouring pages.">Viele aha Kids Geschichten gibt es auch als Buch – mit Mitmachteil und Ausmalbildern.</p>
+          <p data-de="Viele Aha Kids Geschichten gibt es auch als Buch – mit Mitmachteil und Ausmalbildern." data-en="Many Aha Kids stories are also available as books – with an activity section and colouring pages.">Viele Aha Kids Geschichten gibt es auch als Buch – mit Mitmachteil und Ausmalbildern.</p>
         </div>
         <a class="btn btn-secondary" href="https://www.amazon.de/dp/B0GRC42G7B" target="_blank" rel="noopener"><span data-de="Bücher bei Amazon" data-en="Books on Amazon">Bücher bei Amazon</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
       </div>
@@ -723,7 +724,7 @@
     <div class="wrap cta-grid">
       <div>
         <h2 class="h2 reveal" data-de="Bereit für das nächste Aha?" data-en="Ready for the next aha?">Bereit für das nächste Aha?</h2>
-        <p class="lead reveal" data-de="Die aha Kids App kommt bald in den App Store. Trag dich in den Newsletter ein – wir sagen dir Bescheid, sobald sie da ist." data-en="The aha Kids app is coming soon to the App Store. Join the newsletter – we’ll let you know as soon as it’s there.">Die aha Kids App kommt bald in den App Store. Trag dich in den Newsletter ein – wir sagen dir Bescheid, sobald sie da ist.</p>
+        <p class="lead reveal" data-de="Die Aha Kids App kommt bald in den App Store. Trag dich in den Newsletter ein – wir sagen dir Bescheid, sobald sie da ist." data-en="The Aha Kids app is coming soon to the App Store. Join the newsletter – we’ll let you know as soon as it’s there.">Die Aha Kids App kommt bald in den App Store. Trag dich in den Newsletter ein – wir sagen dir Bescheid, sobald sie da ist.</p>
         <div class="cta-actions reveal">
           <a class="store" href="#" data-store aria-disabled="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3.2"/><path d="M11 18h2"/></svg>
@@ -735,7 +736,7 @@
           </button>
         </div>
       </div>
-      <div class="cta-logo reveal"><img src="images/brand/logo-stacked.png" width="720" height="562" alt="aha Kids"></div>
+      <div class="cta-logo reveal"><img src="images/brand/logo-stacked.png" width="720" height="562" alt="Aha Kids"></div>
     </div>
   </section>
   </main>
@@ -744,7 +745,7 @@
   <footer>
     <div class="wrap">
       <div class="foot">
-        <div class="foot-brand"><img src="images/brand/logo-oneline.png" width="147" height="44" alt="aha Kids"><span data-de="Lernen für eine bessere Zukunft." data-en="Learning for a better future.">Lernen für eine bessere Zukunft.</span></div>
+        <div class="foot-brand"><img src="images/brand/logo-oneline.png" width="147" height="44" alt="Aha Kids"><span data-de="Lernen für eine bessere Zukunft." data-en="Learning for a better future.">Lernen für eine bessere Zukunft.</span></div>
         <div class="foot-links">
           <a href="impressum.html" data-de="Impressum" data-en="Imprint">Impressum</a>
           <a href="datenschutz.html" data-de="Datenschutz" data-en="Privacy">Datenschutz</a>
@@ -753,7 +754,7 @@
           <a href="https://www.amazon.de/dp/B0GRC42G7B" target="_blank" rel="noopener" data-de="Bücher bei Amazon" data-en="Books on Amazon">Bücher bei Amazon</a>
         </div>
       </div>
-      <p class="foot-copy" data-de="© 2026 aha Kids. Alle Rechte vorbehalten." data-en="© 2026 aha Kids. All rights reserved.">© 2026 aha Kids. Alle Rechte vorbehalten.</p>
+      <p class="foot-copy" data-de="© 2026 Aha Kids. Alle Rechte vorbehalten." data-en="© 2026 Aha Kids. All rights reserved.">© 2026 Aha Kids. Alle Rechte vorbehalten.</p>
     </div>
   </footer>
 

@@ -1,5 +1,5 @@
 /**
- * Shared Navbar Component for aha Kids Website
+ * Shared Navbar Component for Aha Kids Website
  * Generates the navbar dynamically to avoid duplication across pages.
  * Also injects Newsletter and Contact modals on every page.
  */
@@ -99,7 +99,7 @@
   if (logoContainer) {
     logoContainer.innerHTML =
       '<a href="' + logoHref + '"' + logoOnclick + ' class="nav-logo">' +
-      '<img src="images/brand/logo-oneline.png" alt="aha Kids" width="147" height="44">' +
+      '<img src="images/brand/logo-oneline.png" alt="Aha Kids" width="147" height="44">' +
       '</a>';
   }
 
@@ -138,7 +138,7 @@
           '<button class="modal-close" onclick="closeNewsletterModal()" aria-label="Schließen" data-aria-de="Schließen" data-aria-en="Close">✕</button>' +
           '<div id="newsletterForm">' +
             '<h2 class="modal-title">📬 Newsletter</h2>' +
-            '<p class="modal-sub" data-de="Bleib auf dem Laufenden \u2013 keine Werbung, nur echte News von aha Kids." data-en="Stay up to date \u2013 no ads, just genuine news from aha Kids.">Bleib auf dem Laufenden \u2013 keine Werbung, nur echte News von aha Kids.</p>' +
+            '<p class="modal-sub" data-de="Bleib auf dem Laufenden \u2013 keine Werbung, nur echte News von Aha Kids." data-en="Stay up to date \u2013 no ads, just genuine news from Aha Kids.">Bleib auf dem Laufenden \u2013 keine Werbung, nur echte News von Aha Kids.</p>' +
             '<input class="modal-field" id="nlName" type="text" placeholder="Dein Name" data-placeholder-de="Dein Name" data-placeholder-en="Your Name">' +
             '<input class="modal-field" id="nlEmail" type="email" placeholder="Deine E-Mail-Adresse" data-placeholder-de="Deine E-Mail-Adresse" data-placeholder-en="Your Email Address">' +
             '<label class="modal-gdpr">' +
@@ -228,7 +228,7 @@
         var res = await fetch('https://formspree.io/f/mbdzrbld', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ _subject: 'Newsletter Anmeldung – aha Kids', name: name, email: email })
+          body: JSON.stringify({ _subject: 'Newsletter Anmeldung – Aha Kids', name: name, email: email })
         });
         if (!res.ok) throw new Error();
         var form = document.getElementById('newsletterForm');
@@ -273,7 +273,7 @@
         var res = await fetch('https://formspree.io/f/xreyzdbb', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ _subject: 'Kontaktanfrage – aha Kids', name: name, email: email, message: msg })
+          body: JSON.stringify({ _subject: 'Kontaktanfrage – Aha Kids', name: name, email: email, message: msg })
         });
         if (!res.ok) throw new Error();
         var form = document.getElementById('contactForm');
