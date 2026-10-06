@@ -1,0 +1,19 @@
+/* aha Kids legal pages (Impressum, Datenschutz, AGB): brand look.
+   Loaded after each page's own <style>, so it only overrides colours and type. */
+body { font-family: var(--body); background: var(--cream); color: var(--forest); }
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 800; letter-spacing: -0.01em; }
+.legal-page-header { background: var(--forest); padding: calc(var(--header-h) + 3.4rem) 1.5rem 3.4rem; }
+.legal-page-header::before { background: var(--sun); opacity: .16; }
+.legal-page-header::after { background: var(--sprout); opacity: .12; }
+.legal-page-badge { background: var(--sun); color: var(--forest); box-shadow: none; font-weight: 600; }
+.legal-page-header h1 { color: var(--cream); }
+.legal-page-back { color: rgba(255, 249, 236, .85); }
+.legal-page-back:hover { color: var(--cream); }
+.legal-page-content h3 { color: var(--forest); font-size: 1.25rem; }
+.legal-page-content p, .legal-page-content li { color: var(--text-soft); font-size: 1rem; }
+.legal-page-content strong { color: var(--forest); }
+.legal-page-content a { color: var(--forest); text-decoration-color: var(--orange); text-underline-offset: 3px; }
+.legal-para-num { color: var(--forest); }
+footer { border-top-color: rgba(23, 63, 53, .1); max-width: 1160px; }
+footer p, .footer-links a { color: var(--text-soft); }
+.footer-links a:hover { color: var(--forest); }

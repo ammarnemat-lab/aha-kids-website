@@ -14,10 +14,10 @@
 
   // Navigation items: [label, href, pageFile (for active detection), special, data-de, data-en]
   const navItems = [
-    ['Home',       isIndex ? '#' : 'index.html',  'index.html', null, 'Home', 'Home'],
-    ['Bücher',     idx + '#buecher',               null, null, 'Bücher', 'Books'],
-    ['Newsletter', '#',                            null, 'newsletter', 'Newsletter', 'Newsletter'],
+    ['Die App',    idx + '#app',                   null, null, 'Die App', 'The app'],
+    ['Hörproben',  idx + '#hoeren',                null, null, 'Hörproben', 'Listen'],
     ['Kontakt',    '#',                            null, 'kontakt', 'Kontakt', 'Contact'],
+    ['Newsletter', '#',                            null, 'newsletter', 'Newsletter', 'Newsletter'],
   ];
 
   // Build nav-links list
@@ -99,7 +99,7 @@
   if (logoContainer) {
     logoContainer.innerHTML =
       '<a href="' + logoHref + '"' + logoOnclick + ' class="nav-logo">' +
-      '<img src="images/logo.webp" alt="aha Kids Logo">' +
+      '<img src="images/brand/logo-oneline.png" alt="aha Kids" width="147" height="44">' +
       '</a>';
   }
 
@@ -109,8 +109,8 @@
     navContainer.innerHTML =
       '<ul class="nav-links">\n      ' + listItems + '\n    </ul>\n' +
       '<div class="nav-right">' + langDropdown +
-      '    <button class="mobile-menu" onclick="document.querySelector(\'.nav-links\').classList.toggle(\'show\')" aria-label="Menu">\n' +
-      '      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1c6b50" stroke-width="2.5" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>\n' +
+      '    <button class="mobile-menu" onclick="event.stopPropagation();document.querySelector(\'.nav-links\').classList.toggle(\'show\')" aria-label="Menü" data-aria-de="Menü" data-aria-en="Menu">\n' +
+      '      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#173F35" stroke-width="2.4" stroke-linecap="round"><path d="M4 12h16M4 6h16M4 18h16"/></svg>\n' +
       '    </button></div>';
   }
 
@@ -153,7 +153,7 @@
           '</div>' +
           '<div class="modal-success" id="newsletterSuccess" style="display:none">' +
             '<div class="success-icon">🎉</div>' +
-            '<h3 style="font-family:\'Baloo 2\',cursive;margin-bottom:0.4rem;" data-de="Fast geschafft!" data-en="Almost done!">Fast geschafft!</h3>' +
+            '<h3 data-de="Fast geschafft!" data-en="Almost done!">Fast geschafft!</h3>' +
             '<p data-de="Deine Anmeldung wurde abgeschickt. Schau kurz in dein Postfach." data-en="Your registration has been submitted. Please check your inbox.">Deine Anmeldung wurde abgeschickt. Schau kurz in dein Postfach.</p>' +
           '</div>' +
         '</div>';
@@ -186,7 +186,7 @@
           '</div>' +
           '<div class="modal-success" id="contactSuccess" style="display:none">' +
             '<div class="success-icon">✅</div>' +
-            '<h3 style="font-family:\'Baloo 2\',cursive;margin-bottom:0.4rem;" data-de="Danke!" data-en="Thank you!">Danke!</h3>' +
+            '<h3 data-de="Danke!" data-en="Thank you!">Danke!</h3>' +
             '<p data-de="Deine Nachricht ist auf dem Weg. Wir melden uns bald!" data-en="Your message is on its way. We\'ll be in touch soon!">Deine Nachricht ist auf dem Weg. Wir melden uns bald!</p>' +
           '</div>' +
         '</div>';
@@ -304,11 +304,15 @@
 
   // ── Scroll handler for nav shadow and logo visibility ─────────────────────
   function updateNavOnScroll() {
-    var nav  = document.getElementById('navbar');
-    var logo = document.querySelector('.nav-logo');
-    if (nav)  nav.classList.toggle('scrolled', window.scrollY > 20);
-    if (logo) logo.classList.toggle('hidden',  window.scrollY > 50);
+    document.body.classList.toggle('nav-scrolled', window.scrollY > 12);
   }
+
+  // close the mobile menu after choosing an item or tapping elsewhere
+  document.addEventListener('click', function (e) {
+    var links = document.querySelector('.nav-links');
+    if (!links || !links.classList.contains('show')) return;
+    if (e.target.closest('.nav-links a') || !e.target.closest('.nav-links')) links.classList.remove('show');
+  });
 
   window.addEventListener('scroll', updateNavOnScroll);
   updateNavOnScroll();
