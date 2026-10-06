@@ -171,19 +171,58 @@
     .wave { position:absolute; left:0; right:0; top:1px; height:56px; transform:translateY(-100%); pointer-events:none; }
     .wave svg { width:100%; height:100%; }
 
-    /* ===== KINDERFRAGEN (sky) ===== */
-    .fragen { background:var(--sky-bg); color:var(--forest); padding:72px 0 96px; }
-    .bubbles { display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:26px 22px; margin-top:52px; }
-    .bubble { position:relative; background:#fff; border-radius:26px; padding:22px 24px 20px; box-shadow:0 8px 22px rgba(23,63,53,.07); transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s; }
-    .bubble::after { content:""; position:absolute; left:34px; bottom:-11px; width:24px; height:24px; background:#fff; border-radius:3px 0 6px 0; transform:rotate(45deg) skew(8deg,8deg); }
-    .bubble:nth-child(4n+1) { transform:rotate(-1.2deg); } .bubble:nth-child(4n+2) { transform:rotate(.9deg); }
-    .bubble:nth-child(4n+3) { transform:rotate(-.5deg); } .bubble:nth-child(4n+4) { transform:rotate(1.3deg); }
-    .bubble:hover { transform:rotate(0) translateY(-4px); box-shadow:0 16px 34px rgba(23,63,53,.12); }
-    .bubble q { display:block; quotes:none; font-family:var(--display); font-weight:800; font-size:1.32rem; line-height:1.18; }
-    .bubble span { display:flex; align-items:center; gap:7px; margin-top:12px; font-size:.86rem; font-weight:600; color:var(--leaf); }
-    .bubble span svg { width:16px; height:16px; }
-    .bubble.hl { background:var(--orange); } .bubble.hl::after { background:var(--orange); } .bubble.hl span { color:var(--forest); }
-
+    /* ===== KINDERFRAGEN (sky): flip cards ===== */
+    .fragen { background:var(--sky-bg); color:var(--forest); padding:72px 0 108px; }
+    .fr-deco { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+    .fr-deco i { position:absolute; font:800 var(--sz)/1 var(--display); font-style:normal; color:var(--sky); opacity:.24; animation:qdrift var(--t) ease-in-out infinite alternate; }
+    @keyframes qdrift { from { transform:translateY(0) rotate(var(--r)); } to { transform:translateY(-30px) rotate(calc(var(--r) * -1)); } }
+    .fr-deco b { position:absolute; width:360px; height:130px; border-radius:50%; background:radial-gradient(closest-side, rgba(255,255,255,.95), rgba(255,255,255,0)); animation:cloudgo var(--t) linear infinite; }
+    @keyframes cloudgo { from { transform:translateX(-30vw); } to { transform:translateX(130vw); } }
+    .fragen .wrap { position:relative; }
+    .fr-hint { display:inline-flex; align-items:center; gap:9px; margin-top:22px; font-weight:600; font-size:.97rem; color:var(--forest); background:#fff; padding:.55rem 1.05rem; border-radius:100px; box-shadow:0 6px 16px rgba(23,63,53,.06); }
+    .fr-hint svg { width:18px; height:18px; color:var(--orange); }
+    .qcards { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:24px 22px; margin-top:44px; }
+    .qcard { min-width:0; perspective:1200px; }
+    .qc-bob { animation:bob 6.5s ease-in-out infinite; animation-delay:var(--d, 0s); }
+    @keyframes bob { 0%, 100% { transform:translateY(0); } 50% { transform:translateY(-9px); } }
+    .qc-inner { position:relative; aspect-ratio:1 / 1.08; transform-style:preserve-3d; transition:transform .75s cubic-bezier(.22,1,.36,1); }
+    .qcard.flipped .qc-inner, .qcard.playing .qc-inner { transform:rotateY(180deg); }
+    .qc-face { position:absolute; inset:0; border-radius:28px; overflow:hidden; -webkit-backface-visibility:hidden; backface-visibility:hidden; }
+    .qc-front { width:100%; display:flex; flex-direction:column; justify-content:space-between; text-align:left; padding:24px 22px 20px; border:0; cursor:pointer;
+      background:#fff; color:var(--forest); font:inherit; box-shadow:0 14px 30px rgba(23,63,53,.08); transition:box-shadow .3s; }
+    .qc-front::after { content:"?"; position:absolute; right:10px; bottom:-26px; font:800 150px/1 var(--display); color:var(--sky); opacity:.16; transform:rotate(12deg); pointer-events:none; }
+    .qc-front q { position:relative; z-index:1; quotes:none; font:800 clamp(1.18rem, 1.65vw, 1.46rem)/1.18 var(--display); }
+    .qc-hint { position:relative; z-index:1; display:inline-flex; align-items:center; gap:7px; font-size:.86rem; font-weight:600; color:var(--leaf); }
+    .qc-hint svg { width:17px; height:17px; transition:transform .5s; }
+    .qcard.hl .qc-front { background:var(--orange); }
+    .qcard.hl .qc-front::after { color:var(--forest); opacity:.1; }
+    .qcard.hl .qc-hint { color:var(--forest); }
+    .qc-back { transform:rotateY(180deg); background:var(--forest); pointer-events:none; }
+    .qc-back img { width:100%; height:100%; object-fit:cover; transform:scale(1.08); transition:transform 1.2s cubic-bezier(.22,1,.36,1); }
+    .qc-back::after { content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(23,63,53,.94) 0%, rgba(23,63,53,.5) 38%, rgba(23,63,53,0) 66%); }
+    .qcard.flipped .qc-back, .qcard.playing .qc-back { pointer-events:auto; }
+    .qcard.flipped .qc-front, .qcard.playing .qc-front { pointer-events:none; }
+    .qcard.flipped .qc-back img, .qcard.playing .qc-back img { transform:scale(1); }
+    .qc-aha { position:absolute; left:14px; top:14px; z-index:2; background:var(--orange); color:var(--forest); font:800 1.05rem/1 var(--display); padding:.4rem .75rem .45rem; border-radius:100px; transform:rotate(-7deg); box-shadow:0 6px 14px rgba(0,0,0,.18); }
+    .qc-turn { position:absolute; right:12px; top:12px; z-index:2; width:38px; height:38px; border:0; border-radius:50%; background:rgba(255,249,236,.9); color:var(--forest); display:flex; align-items:center; justify-content:center; cursor:pointer; }
+    .qc-turn svg { width:18px; height:18px; }
+    .qc-info { position:absolute; left:18px; right:16px; bottom:16px; z-index:2; color:var(--cream); }
+    .qc-info b { display:block; font:800 1.14rem/1.2 var(--display); margin-bottom:10px; }
+    .qc-listen { display:inline-flex; align-items:center; gap:8px; border:0; border-radius:100px; background:var(--sun); color:var(--forest); font:600 .9rem var(--body); padding:.5rem 1rem; cursor:pointer; transition:transform .2s; }
+    .qc-listen:hover { transform:scale(1.05); }
+    .qc-listen svg { width:15px; height:15px; }
+    .qc-listen .i-pause, .qcard.playing .qc-listen .i-play { display:none; }
+    .qcard.playing .qc-listen .i-pause { display:block; }
+    .qc-app { display:inline-block; font-size:.86rem; font-weight:600; opacity:.88; }
+    @media (hover:hover) and (pointer:fine) {
+      .qcard:hover .qc-inner { transform:rotateY(180deg); }
+      .qcard:hover .qc-back { pointer-events:auto; }
+      .qcard:hover .qc-front { pointer-events:none; }
+      .qcard:hover .qc-back img { transform:scale(1); }
+    }
+    .fr-close { margin-top:64px; text-align:center; font:800 clamp(1.55rem, 3.2vw, 2.4rem)/1.2 var(--display); }
+    .fr-close .ul2 { position:relative; display:inline-block; white-space:nowrap; }
+    .fr-close .ul2 svg { position:absolute; left:-1%; bottom:-.2em; width:102%; height:.34em; overflow:visible; }
     /* ===== DIE APP (cream, simulator) ===== */
     .app { padding:110px 0 110px; }
     .app-grid { display:grid; grid-template-columns:minmax(0, 1fr) 640px; gap:48px; align-items:center; margin-top:46px; }
@@ -383,6 +422,7 @@
       .track .player { grid-column:1 / -1; }
     }
     @media (max-width:900px) {
+      .qcards { grid-template-columns:repeat(2, minmax(0, 1fr)); }
       .hero { padding-top:calc(var(--header-h) + 18px); }
       .hero-grid { grid-template-columns:1fr; gap:34px; }
       .hero-media { order:-1; display:flex; justify-content:center; }
@@ -412,7 +452,19 @@
     @media (max-width:560px) {
       body { font-size:16px; }
       .wrap { padding:0 20px; }
-      .bubbles { grid-template-columns:1fr; gap:22px; }
+      .qcards { gap:14px; }
+      .qc-inner { aspect-ratio:1 / 1.2; }
+      .qc-front { padding:16px 14px 14px; border-radius:22px; }
+      .qc-face { border-radius:22px; }
+      .qc-front q { font-size:1.05rem; }
+      .qc-hint { font-size:.76rem; gap:5px; }
+      .qc-front::after { font-size:110px; bottom:-22px; }
+      .qc-aha { font-size:.85rem; left:10px; top:10px; }
+      .qc-turn { width:32px; height:32px; right:8px; top:8px; }
+      .qc-info { left:12px; right:10px; bottom:12px; }
+      .qc-info b { font-size:.95rem; margin-bottom:8px; }
+      .qc-listen { font-size:.8rem; padding:.4rem .75rem; }
+      .qc-app { font-size:.76rem; }
       .stage { height:560px; }
       .phone { --pw:256px; }
       .track { display:flex; }
@@ -425,7 +477,8 @@
       .hero h1 .ul svg path, .hero-spark path { animation:none; stroke-dashoffset:0; }
       .cast-art img, .cast-art::after, .aha.pop, .rd-next.nudge { animation:none; }
       .ask-q > span, .ask-art img, .rd-page { transition:none; }
-      .phone, .bubble, .track, .btn { transition:none; }
+      .phone, .track, .btn { transition:none; }
+      .qc-bob, .fr-deco i, .fr-deco b { animation:none; }
       .sim-play::before { animation:none; }
     }
   </style>
@@ -497,23 +550,71 @@
 
   <!-- ============ KINDERFRAGEN (sky) ============ -->
   <section class="fragen themed" id="fragen">
+    <div class="fr-deco" aria-hidden="true">
+      <i style="--sz:150px;left:4%;top:8%;--r:-12deg;--t:9s">?</i><i style="--sz:90px;left:88%;top:6%;--r:14deg;--t:7s">?</i>
+      <i style="--sz:120px;left:80%;top:56%;--r:-8deg;--t:11s">?</i><i style="--sz:70px;left:10%;top:62%;--r:18deg;--t:8s">?</i>
+      <i style="--sz:60px;left:48%;top:3%;--r:-20deg;--t:10s">?</i>
+      <b style="top:14%;--t:70s;animation-delay:-20s"></b><b style="top:66%;--t:90s;animation-delay:-60s;width:460px"></b>
+    </div>
     <div class="wave" style="color:#E7F5FC" aria-hidden="true"><svg viewBox="0 0 1440 56" preserveAspectRatio="none"><path d="M0 34 C 240 6 470 6 720 26 S 1200 54 1440 22 V56 H0Z" fill="currentColor"/></svg></div>
     <div class="wrap">
       <div class="center">
         <span class="label reveal" data-de="Kinderfragen" data-en="Children's questions">Kinderfragen</span>
         <h2 class="h2 reveal" data-de="Jede Geschichte beginnt mit einer echten Frage." data-en="Every story starts with a real question.">Jede Geschichte beginnt mit einer echten Frage.</h2>
-        <p class="lead reveal" data-de="Kinder fragen „Warum?“ – oft viele Male am Tag. Unsere Geschichten nehmen diese Fragen ernst und machen Abenteuer daraus. Kein trockenes Lernbuch, sondern Geschichten, die Neugier wecken, Empathie stärken und zeigen: Du bist Teil dieser Welt. Dein Handeln zählt." data-en="Children ask “Why?” – often many times a day. Our stories take these questions seriously and turn them into adventures. Not a dry textbook, but stories that spark curiosity, build empathy and show: You are part of this world. Your actions matter.">Kinder fragen „Warum?“ – oft viele Male am Tag. Unsere Geschichten nehmen diese Fragen ernst und machen Abenteuer daraus. Kein trockenes Lernbuch, sondern Geschichten, die Neugier wecken, Empathie stärken und zeigen: Du bist Teil dieser Welt. Dein Handeln zählt.</p>
+        <p class="lead reveal" data-de="Kinder fragen „Warum?“ – oft viele Male am Tag. Unsere Geschichten nehmen diese Fragen ernst und machen Abenteuer daraus. Kein trockenes Lernbuch, sondern Geschichten, die Neugier wecken und Empathie stärken." data-en="Children ask “Why?” – often many times a day. Our stories take these questions seriously and turn them into adventures. Not a dry textbook, but stories that spark curiosity and build empathy.">Kinder fragen „Warum?“ – oft viele Male am Tag. Unsere Geschichten nehmen diese Fragen ernst und machen Abenteuer daraus. Kein trockenes Lernbuch, sondern Geschichten, die Neugier wecken und Empathie stärken.</p>
+        <span class="fr-hint reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg><span data-de="Dreh die Fragen um – dahinter wartet die Geschichte." data-en="Flip the questions – the story is waiting behind them.">Dreh die Fragen um – dahinter wartet die Geschichte.</span></span>
       </div>
-      <div class="bubbles">
-        <div class="bubble reveal"><q data-de="Wohin reist ein Regentropfen?" data-en="Where does a raindrop travel?">Wohin reist ein Regentropfen?</q><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5h7a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H2zM22 5.5h-7a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span data-de="Der reisende Regentropfen" data-en="The Traveling Raindrop">Der reisende Regentropfen</span></span></div>
-        <div class="bubble hl reveal"><q data-de="Wie wird Sonne zu Strom?" data-en="How does sunshine become electricity?">Wie wird Sonne zu Strom?</q><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5h7a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H2zM22 5.5h-7a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span data-de="Die Kraft von Sonne und Wind" data-en="The Power of Sun and Wind">Die Kraft von Sonne und Wind</span></span></div>
-        <div class="bubble reveal"><q data-de="Ist krummes Gemüse genauso lecker?" data-en="Is wonky veg just as tasty?">Ist krummes Gemüse genauso lecker?</q><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5h7a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H2zM22 5.5h-7a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span data-de="Die krumme Karotte darf mit" data-en="Die krumme Karotte darf mit">Die krumme Karotte darf mit</span></span></div>
-        <div class="bubble reveal"><q data-de="Warum schwitzt die Erde?" data-en="Why is the Earth sweating?">Warum schwitzt die Erde?</q><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5h7a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H2zM22 5.5h-7a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span data-de="Die verschwitzte Erde" data-en="The Sweaty Earth">Die verschwitzte Erde</span></span></div>
-        <div class="bubble reveal"><q data-de="Warum brauchen Äpfel Wildbienen?" data-en="Why do apples need wild bees?">Warum brauchen Äpfel Wildbienen?</q><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5h7a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H2zM22 5.5h-7a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span data-de="Das Apfelfest" data-en="Das Apfelfest">Das Apfelfest</span></span></div>
-        <div class="bubble reveal"><q data-de="Was wird aus unserem Müll?" data-en="What happens to our rubbish?">Was wird aus unserem Müll?</q><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5h7a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H2zM22 5.5h-7a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span data-de="Die Zauberwelt des Recyclings" data-en="The Magical World of Recycling">Die Zauberwelt des Recyclings</span></span></div>
-        <div class="bubble reveal"><q data-de="Wie kann Zuckerrohr Sonne speichern?" data-en="How can sugarcane store sunlight?">Wie kann Zuckerrohr Sonne speichern?</q><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5h7a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H2zM22 5.5h-7a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span data-de="Das Dorf voller Sonnenkraft" data-en="The Village Full of Sun Power">Das Dorf voller Sonnenkraft</span></span></div>
-        <div class="bubble reveal"><q data-de="Was machen wir mit Essen, das übrig bleibt?" data-en="What do we do with leftover food?">Was machen wir mit Essen, das übrig bleibt?</q><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5h7a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H2zM22 5.5h-7a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg><span data-de="Der Kühlschrank für alle" data-en="Der Kühlschrank für alle">Der Kühlschrank für alle</span></span></div>
+      <div class="qcards">
+        <div class="qcard reveal"><div class="qc-bob" style="--d:-0.0s"><div class="qc-inner">
+          <button class="qc-face qc-front" type="button"><q data-de="Wohin reist ein Regentropfen?" data-en="Where does a raindrop travel?">Wohin reist ein Regentropfen?</q><span class="qc-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg><span data-de="Antwort entdecken" data-en="Discover the answer">Antwort entdecken</span></span></button>
+          <div class="qc-face qc-back"><img src="images/app/covers/sus10.jpg" alt="" decoding="async"><span class="qc-aha" aria-hidden="true">Aha!</span>
+            <button class="qc-turn" type="button" tabindex="-1" aria-label="Zurück zur Frage" data-aria-de="Zurück zur Frage" data-aria-en="Back to the question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg></button>
+            <div class="qc-info"><b data-de="Der reisende Regentropfen" data-en="The Traveling Raindrop">Der reisende Regentropfen</b><button class="qc-listen" type="button" tabindex="-1" data-track="regentropfen"><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.8v14.4c0 .9 1 1.4 1.7.9l11-7.2a1.1 1.1 0 0 0 0-1.8l-11-7.2C8 3.4 7 3.9 7 4.8Z"/></svg><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="5" height="16" rx="1.4"/><rect x="14" y="4" width="5" height="16" rx="1.4"/></svg><span data-de="Reinhören" data-en="Listen">Reinhören</span></button></div></div>
+        </div></div></div>
+        <div class="qcard hl reveal"><div class="qc-bob" style="--d:-0.8s"><div class="qc-inner">
+          <button class="qc-face qc-front" type="button"><q data-de="Wie wird Sonne zu Strom?" data-en="How does sunshine become electricity?">Wie wird Sonne zu Strom?</q><span class="qc-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg><span data-de="Antwort entdecken" data-en="Discover the answer">Antwort entdecken</span></span></button>
+          <div class="qc-face qc-back"><img src="images/app/covers/sus03.jpg" alt="" decoding="async"><span class="qc-aha" aria-hidden="true">Aha!</span>
+            <button class="qc-turn" type="button" tabindex="-1" aria-label="Zurück zur Frage" data-aria-de="Zurück zur Frage" data-aria-en="Back to the question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg></button>
+            <div class="qc-info"><b data-de="Die Kraft von Sonne und Wind" data-en="The Power of Sun and Wind">Die Kraft von Sonne und Wind</b><button class="qc-listen" type="button" tabindex="-1" data-track="sonne-und-wind"><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.8v14.4c0 .9 1 1.4 1.7.9l11-7.2a1.1 1.1 0 0 0 0-1.8l-11-7.2C8 3.4 7 3.9 7 4.8Z"/></svg><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="5" height="16" rx="1.4"/><rect x="14" y="4" width="5" height="16" rx="1.4"/></svg><span data-de="Reinhören" data-en="Listen">Reinhören</span></button></div></div>
+        </div></div></div>
+        <div class="qcard reveal"><div class="qc-bob" style="--d:-1.6s"><div class="qc-inner">
+          <button class="qc-face qc-front" type="button"><q data-de="Ist krummes Gemüse genauso lecker?" data-en="Is wonky veg just as tasty?">Ist krummes Gemüse genauso lecker?</q><span class="qc-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg><span data-de="Antwort entdecken" data-en="Discover the answer">Antwort entdecken</span></span></button>
+          <div class="qc-face qc-back"><img src="images/app/covers/sus20.jpg" alt="" decoding="async"><span class="qc-aha" aria-hidden="true">Aha!</span>
+            <button class="qc-turn" type="button" tabindex="-1" aria-label="Zurück zur Frage" data-aria-de="Zurück zur Frage" data-aria-en="Back to the question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg></button>
+            <div class="qc-info"><b data-de="Die krumme Karotte darf mit" data-en="Die krumme Karotte darf mit">Die krumme Karotte darf mit</b><button class="qc-listen" type="button" tabindex="-1" data-track="krumme-karotte"><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.8v14.4c0 .9 1 1.4 1.7.9l11-7.2a1.1 1.1 0 0 0 0-1.8l-11-7.2C8 3.4 7 3.9 7 4.8Z"/></svg><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="5" height="16" rx="1.4"/><rect x="14" y="4" width="5" height="16" rx="1.4"/></svg><span data-de="Reinhören" data-en="Listen">Reinhören</span></button></div></div>
+        </div></div></div>
+        <div class="qcard reveal"><div class="qc-bob" style="--d:-2.4s"><div class="qc-inner">
+          <button class="qc-face qc-front" type="button"><q data-de="Warum schwitzt die Erde?" data-en="Why is the Earth sweating?">Warum schwitzt die Erde?</q><span class="qc-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg><span data-de="Antwort entdecken" data-en="Discover the answer">Antwort entdecken</span></span></button>
+          <div class="qc-face qc-back"><img src="images/app/covers/sus06.jpg" alt="" decoding="async"><span class="qc-aha" aria-hidden="true">Aha!</span>
+            <button class="qc-turn" type="button" tabindex="-1" aria-label="Zurück zur Frage" data-aria-de="Zurück zur Frage" data-aria-en="Back to the question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg></button>
+            <div class="qc-info"><b data-de="Die verschwitzte Erde" data-en="The Sweaty Earth">Die verschwitzte Erde</b><span class="qc-app" data-de="Diese Geschichte gibt es in der App" data-en="This story is in the app">Diese Geschichte gibt es in der App</span></div></div>
+        </div></div></div>
+        <div class="qcard reveal"><div class="qc-bob" style="--d:-3.2s"><div class="qc-inner">
+          <button class="qc-face qc-front" type="button"><q data-de="Warum brauchen Äpfel Wildbienen?" data-en="Why do apples need wild bees?">Warum brauchen Äpfel Wildbienen?</q><span class="qc-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg><span data-de="Antwort entdecken" data-en="Discover the answer">Antwort entdecken</span></span></button>
+          <div class="qc-face qc-back"><img src="images/app/covers/sus02.jpg" alt="" decoding="async"><span class="qc-aha" aria-hidden="true">Aha!</span>
+            <button class="qc-turn" type="button" tabindex="-1" aria-label="Zurück zur Frage" data-aria-de="Zurück zur Frage" data-aria-en="Back to the question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg></button>
+            <div class="qc-info"><b data-de="Das Apfelfest" data-en="Das Apfelfest">Das Apfelfest</b><span class="qc-app" data-de="Diese Geschichte gibt es in der App" data-en="This story is in the app">Diese Geschichte gibt es in der App</span></div></div>
+        </div></div></div>
+        <div class="qcard reveal"><div class="qc-bob" style="--d:-4.0s"><div class="qc-inner">
+          <button class="qc-face qc-front" type="button"><q data-de="Was wird aus unserem Müll?" data-en="What happens to our rubbish?">Was wird aus unserem Müll?</q><span class="qc-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg><span data-de="Antwort entdecken" data-en="Discover the answer">Antwort entdecken</span></span></button>
+          <div class="qc-face qc-back"><img src="images/app/covers/sus04.jpg" alt="" decoding="async"><span class="qc-aha" aria-hidden="true">Aha!</span>
+            <button class="qc-turn" type="button" tabindex="-1" aria-label="Zurück zur Frage" data-aria-de="Zurück zur Frage" data-aria-en="Back to the question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg></button>
+            <div class="qc-info"><b data-de="Die Zauberwelt des Recyclings" data-en="The Magical World of Recycling">Die Zauberwelt des Recyclings</b><span class="qc-app" data-de="Diese Geschichte gibt es in der App" data-en="This story is in the app">Diese Geschichte gibt es in der App</span></div></div>
+        </div></div></div>
+        <div class="qcard reveal"><div class="qc-bob" style="--d:-4.8s"><div class="qc-inner">
+          <button class="qc-face qc-front" type="button"><q data-de="Wie kann Zuckerrohr Sonne speichern?" data-en="How can sugarcane store sunlight?">Wie kann Zuckerrohr Sonne speichern?</q><span class="qc-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg><span data-de="Antwort entdecken" data-en="Discover the answer">Antwort entdecken</span></span></button>
+          <div class="qc-face qc-back"><img src="images/app/covers/sus25.jpg" alt="" decoding="async"><span class="qc-aha" aria-hidden="true">Aha!</span>
+            <button class="qc-turn" type="button" tabindex="-1" aria-label="Zurück zur Frage" data-aria-de="Zurück zur Frage" data-aria-en="Back to the question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg></button>
+            <div class="qc-info"><b data-de="Das Dorf voller Sonnenkraft" data-en="The Village Full of Sun Power">Das Dorf voller Sonnenkraft</b><span class="qc-app" data-de="Diese Geschichte gibt es in der App" data-en="This story is in the app">Diese Geschichte gibt es in der App</span></div></div>
+        </div></div></div>
+        <div class="qcard reveal"><div class="qc-bob" style="--d:-5.6s"><div class="qc-inner">
+          <button class="qc-face qc-front" type="button"><q data-de="Was machen wir mit Essen, das übrig bleibt?" data-en="What do we do with leftover food?">Was machen wir mit Essen, das übrig bleibt?</q><span class="qc-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg><span data-de="Antwort entdecken" data-en="Discover the answer">Antwort entdecken</span></span></button>
+          <div class="qc-face qc-back"><img src="images/app/covers/sus21.jpg" alt="" decoding="async"><span class="qc-aha" aria-hidden="true">Aha!</span>
+            <button class="qc-turn" type="button" tabindex="-1" aria-label="Zurück zur Frage" data-aria-de="Zurück zur Frage" data-aria-en="Back to the question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg></button>
+            <div class="qc-info"><b data-de="Der Kühlschrank für alle" data-en="Der Kühlschrank für alle">Der Kühlschrank für alle</b><span class="qc-app" data-de="Diese Geschichte gibt es in der App" data-en="This story is in the app">Diese Geschichte gibt es in der App</span></div></div>
+        </div></div></div>
       </div>
+      <p class="fr-close reveal"><span data-de="Du bist Teil dieser Welt." data-en="You are part of this world.">Du bist Teil dieser Welt.</span><br><span class="ul2"><span data-de="Dein Handeln zählt." data-en="Your actions matter.">Dein Handeln zählt.</span><svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true"><path d="M20 45 Q316.8 34 580 41" stroke="#FF981C" stroke-width="14" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"/></svg></span></p>
     </div>
   </section>
 
@@ -838,8 +939,8 @@
         var d = dur(), pct = Math.min(100, a.currentTime / d * 100);
         fill.style.width = pct + '%'; time.textContent = fmt(a.currentTime) + ' / ' + fmt(d); bar.setAttribute('aria-valuenow', Math.round(pct));
       });
-      a.addEventListener('play', function () { t.classList.add('playing'); syncSim(); });
-      a.addEventListener('pause', function () { t.classList.remove('playing'); syncSim(); });
+      a.addEventListener('play', function () { t.classList.add('playing'); syncSim(); syncCards(); });
+      a.addEventListener('pause', function () { t.classList.remove('playing'); syncSim(); syncCards(); });
       a.addEventListener('ended', function () { a.currentTime = 0; });
       bar.addEventListener('click', function (e) { var r = bar.getBoundingClientRect(); a.currentTime = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * dur(); });
       bar.addEventListener('keydown', function (e) {
@@ -851,6 +952,40 @@
       $('#hoeren').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
       if ($('audio', t).paused) toggleTrack(t);
     });
+
+    // ── Kinderfragen: flip cards (hover with a mouse; tap / Enter everywhere); „Reinhören“ plays the sample ──
+    var qcards = $$('.qcard'), lastPointer = '';
+    function backFocus(c, on) { $$('.qc-back button', c).forEach(function (b) { b.tabIndex = on ? 0 : -1; }); }
+    function flip(c, on) { c.classList.toggle('flipped', on); backFocus(c, on || c.classList.contains('playing')); }
+    function syncCards() {
+      qcards.forEach(function (c) {
+        var l = $('.qc-listen', c); if (!l) return;
+        var a = $('.track[data-key="' + l.dataset.track + '"] audio');
+        c.classList.toggle('playing', !!a && !a.paused); backFocus(c, c.classList.contains('flipped') || c.classList.contains('playing'));
+      });
+    }
+    document.addEventListener('pointerdown', function (e) { lastPointer = e.pointerType; }, true);
+    qcards.forEach(function (c) {
+      var front = $('.qc-front', c);
+      front.addEventListener('click', function () {
+        if (lastPointer === 'mouse' && window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;   // the mouse already turned it
+        var keyboard = lastPointer === ''; lastPointer = '';
+        qcards.forEach(function (o) { if (o !== c && o.classList.contains('flipped')) flip(o, false); });
+        flip(c, true);
+        if (keyboard) { var target = $('.qc-listen', c) || $('.qc-turn', c); setTimeout(function () { target.focus({ preventScroll: true }); }, 380); }
+      });
+      $('.qc-turn', c).addEventListener('click', function (e) { e.stopPropagation(); var keyboard = lastPointer === ''; lastPointer = ''; flip(c, false); if (keyboard) front.focus({ preventScroll: true }); });
+      var l = $('.qc-listen', c);
+      if (l) l.addEventListener('click', function (e) { e.stopPropagation(); var t = $('.track[data-key="' + l.dataset.track + '"]'); if (t) toggleTrack(t); });
+    });
+    if (!reduce && 'IntersectionObserver' in window && qcards[1]) {   // first visit: turn one card briefly, so the idea is clear
+      var demoDone = false;
+      var dio = new IntersectionObserver(function (es) {
+        if (demoDone || !es[0].isIntersecting) return; demoDone = true; dio.disconnect();
+        setTimeout(function () { if (!qcards.some(function (c) { return c.classList.contains('flipped'); })) { flip(qcards[1], true); setTimeout(function () { flip(qcards[1], false); }, 1700); } }, 900);
+      }, { threshold: 0.45 });
+      dio.observe($('.qcards'));
+    }
 
     // ── app simulator ──
     var stage = $('#simStage'), phone = $('#phone'), steps = $$('.step'), scrs = $$('.scr'), detail = $('#stepDetail');
