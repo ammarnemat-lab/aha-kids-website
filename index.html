@@ -116,6 +116,34 @@
     .on-forest .store { background:var(--cream); color:var(--forest); box-shadow:none; }
     .on-forest .store:hover { background:#fff; }
 
+    /* ===== FREE STORY POP-UP (like the app's sheet after onboarding) ===== */
+    .freeoffer { position:fixed; inset:0; z-index:90; display:flex; align-items:center; justify-content:center; padding:20px; }
+    .freeoffer[hidden] { display:none; }
+    .fo-backdrop { position:absolute; inset:0; background:rgba(23,63,53,.42); opacity:0; transition:opacity .35s; }
+    .fo-sheet { position:relative; width:100%; max-width:440px; max-height:calc(100vh - 40px); overflow:auto; background:var(--cream); border-radius:32px; padding:40px 28px 16px; text-align:center; box-shadow:0 30px 80px rgba(10,30,25,.35); opacity:0; transform:translateY(40px) scale(.96); transition:transform .5s cubic-bezier(.2,1.25,.4,1), opacity .3s; }
+    .freeoffer.open .fo-backdrop { opacity:1; }
+    .freeoffer.open .fo-sheet { opacity:1; transform:none; }
+    .fo-sheet:focus { outline:none; }
+    .fo-x { position:absolute; right:14px; top:14px; width:40px; height:40px; border-radius:50%; border:0; background:rgba(23,63,53,.07); color:var(--forest); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    .fo-x:hover { background:rgba(23,63,53,.13); }
+    .fo-cover { position:relative; width:172px; height:172px; margin:4px auto 0; transform:rotate(-3deg); }
+    .fo-cover img { width:100%; height:100%; border-radius:26px; object-fit:cover; box-shadow:0 16px 34px rgba(60,40,10,.28); }
+    .fo-badge { position:absolute; left:-22px; top:-12px; background:var(--sun); color:var(--forest); font:800 15px/1 var(--display); padding:9px 14px; border-radius:100px; transform:rotate(-8deg); box-shadow:0 6px 14px rgba(0,0,0,.12); }
+    .fo-spark { position:absolute; right:-36px; top:-28px; width:56px; height:56px; }
+    .fo-h { font:800 1.72rem/1.2 var(--display); color:var(--forest); margin:24px 0 0; }
+    .fo-ul { position:relative; display:inline-block; white-space:nowrap; }
+    .fo-ul svg { position:absolute; left:-3%; bottom:-.34em; width:106%; height:.42em; }
+    .fo-t { font:600 1.06rem/1.3 var(--body); color:var(--forest); margin:18px 0 0; }
+    .fo-s { font-size:.92rem; color:var(--text-soft); margin:3px 0 0; }
+    .fo-p { font-size:.95rem; line-height:1.5; color:var(--text-soft); margin:14px auto 20px; max-width:30ch; }
+    .fo-later { display:block; margin:8px auto 0; background:none; border:0; font:600 1rem var(--body); color:var(--text-soft); padding:10px 20px; cursor:pointer; }
+    .fo-later:hover { color:var(--forest); }
+    @media (max-width:600px) {
+      .freeoffer { align-items:flex-end; padding:0; }
+      .fo-sheet { max-width:none; max-height:92vh; border-radius:32px 32px 0 0; padding-bottom:calc(16px + env(safe-area-inset-bottom)); transform:translateY(100%); }
+    }
+    @media (prefers-reduced-motion: reduce) { .fo-sheet, .fo-backdrop { transition:none; } }
+
     /* ===== HERO ===== */
     .hero { position:relative; padding:calc(var(--header-h) + 36px) 0 72px; overflow:hidden; }
     .hero::before { content:""; position:absolute; width:520px; height:520px; right:-170px; top:-190px; border-radius:50%; background:var(--sun); opacity:.22; pointer-events:none; }
@@ -196,9 +224,6 @@
     .qc-front q { position:relative; z-index:1; quotes:none; font:800 clamp(1.18rem, 1.65vw, 1.46rem)/1.18 var(--display); }
     .qc-hint { position:relative; z-index:1; display:inline-flex; align-items:center; gap:7px; font-size:.86rem; font-weight:600; color:var(--leaf); }
     .qc-hint svg { width:17px; height:17px; transition:transform .5s; }
-    .qcard.hl .qc-front { background:var(--orange); }
-    .qcard.hl .qc-front::after { color:var(--forest); opacity:.1; }
-    .qcard.hl .qc-hint { color:var(--forest); }
     .qc-back { background:var(--forest); pointer-events:none; transform:scaleX(0); transition:transform .26s cubic-bezier(.7,0,.8,.3) 0s; }
     .qcard.flipped .qc-front, .qcard.playing .qc-front { transform:scaleX(0); transition:transform .26s cubic-bezier(.7,0,.8,.3) 0s, box-shadow .3s; }
     .qcard.flipped .qc-back, .qcard.playing .qc-back { transform:scaleX(1); transition:transform .26s cubic-bezier(.2,.7,.3,1) .26s; }
@@ -595,7 +620,7 @@
           <div class="qc-face qc-back" tabindex="-1" role="button" aria-label="Zurück zur Frage" data-aria-de="Zurück zur Frage" data-aria-en="Back to the question"><img src="images/app/covers/sus10.jpg" alt="" decoding="async"><span class="qc-aha" aria-hidden="true">Aha!</span>
             <div class="qc-info"><b data-de="Der reisende Regentropfen" data-en="The Traveling Raindrop">Der reisende Regentropfen</b><button class="qc-listen" type="button" tabindex="-1" data-track="regentropfen"><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.8v14.4c0 .9 1 1.4 1.7.9l11-7.2a1.1 1.1 0 0 0 0-1.8l-11-7.2C8 3.4 7 3.9 7 4.8Z"/></svg><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="5" height="16" rx="1.4"/><rect x="14" y="4" width="5" height="16" rx="1.4"/></svg><span data-de="Reinhören" data-en="Listen">Reinhören</span></button></div></div>
         </div></div></div>
-        <div class="qcard hl reveal"><div class="qc-bob" style="--d:-0.8s"><div class="qc-inner">
+        <div class="qcard reveal"><div class="qc-bob" style="--d:-0.8s"><div class="qc-inner">
           <button class="qc-face qc-front" type="button"><q data-de="Wie wird Sonne zu Strom?" data-en="How does sunshine become electricity?">Wie wird Sonne zu Strom?</q><span class="qc-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.4 6.4L3 16M3 21v-5h5"/></svg><span data-de="Antwort entdecken" data-en="Discover the answer">Antwort entdecken</span></span></button>
           <div class="qc-face qc-back" tabindex="-1" role="button" aria-label="Zurück zur Frage" data-aria-de="Zurück zur Frage" data-aria-en="Back to the question"><img src="images/app/covers/sus03.jpg" alt="" decoding="async"><span class="qc-aha" aria-hidden="true">Aha!</span>
             <div class="qc-info"><b data-de="Die Kraft von Sonne und Wind" data-en="The Power of Sun and Wind">Die Kraft von Sonne und Wind</b><button class="qc-listen" type="button" tabindex="-1" data-track="sonne-und-wind"><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.8v14.4c0 .9 1 1.4 1.7.9l11-7.2a1.1 1.1 0 0 0 0-1.8l-11-7.2C8 3.4 7 3.9 7 4.8Z"/></svg><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="5" height="16" rx="1.4"/><rect x="14" y="4" width="5" height="16" rx="1.4"/></svg><span data-de="Reinhören" data-en="Listen">Reinhören</span></button></div></div>
@@ -649,10 +674,8 @@
       <div class="app-grid">
         <div class="app-steps-col reveal">
           <ol class="steps" role="tablist" aria-label="Funktionen der App" data-aria-de="Funktionen der App" data-aria-en="App features">
-            <li><button class="step on" type="button" role="tab" aria-selected="true" aria-controls="simStage" data-step="browse"><span class="step-num">1</span><span class="step-title" data-de="Geschichte aussuchen" data-en="Pick a story">Geschichte aussuchen</span><span class="step-text" data-de="Stöbert gemeinsam durch die Bibliothek. Einige Geschichten sind gratis, von allen anderen lest ihr die ersten Seiten als Vorschau." data-en="Browse the library together. Some stories are free, and you can preview the first pages of all the others.">Stöbert gemeinsam durch die Bibliothek. Einige Geschichten sind gratis, von allen anderen lest ihr die ersten Seiten als Vorschau.</span><span class="step-prog"></span></button></li>
+            <li><button class="step on" type="button" role="tab" aria-selected="true" aria-controls="simStage" data-step="browse"><span class="step-num">1</span><span class="step-title" data-de="Geschichte aussuchen" data-en="Pick a story">Geschichte aussuchen</span><span class="step-text" data-de="Stöbert gemeinsam durch die Bibliothek. „Die Reise eines Marmeladenglases“ ist gratis, von allen anderen Geschichten lest ihr die ersten Seiten als Vorschau." data-en="Browse the library together. “Die Reise eines Marmeladenglases” is free, and you can preview the first pages of all the other stories.">Stöbert gemeinsam durch die Bibliothek. „Die Reise eines Marmeladenglases“ ist gratis, von allen anderen Geschichten lest ihr die ersten Seiten als Vorschau.</span><span class="step-prog"></span></button></li>
             <li><button class="step" type="button" role="tab" aria-selected="false" aria-controls="simStage" data-step="book"><span class="step-num">2</span><span class="step-title" data-de="Worum geht’s?" data-en="What’s it about?">Worum geht’s?</span><span class="step-text" data-de="Jede Buchseite zeigt, worum es geht und was dein Kind dabei entdeckt. Dann wählt ihr: „Lesen“ oder „Hörgeschichte“." data-en="Each book page shows what the story is about and what your child will discover. Then you choose: “Read” or “Audio story”.">Jede Buchseite zeigt, worum es geht und was dein Kind dabei entdeckt. Dann wählt ihr: „Lesen“ oder „Hörgeschichte“.</span><span class="step-prog"></span></button></li>
-            <li><button class="step" type="button" role="tab" aria-selected="false" aria-controls="simStage" data-step="read"><span class="step-num">3</span><span class="step-title" data-de="Gemeinsam vorlesen" data-en="Read aloud together">Gemeinsam vorlesen</span><span class="step-text" data-de="Große Illustrationen im Querformat, der Text steht daneben. Scrollt durch den Text, blättert weiter – oder blendet ihn aus und entdeckt das Bild gemeinsam. Probier’s aus!" data-en="Big landscape illustrations with the text beside them. Scroll the text, turn the page – or hide the text and explore the picture together. Try it!">Große Illustrationen im Querformat, der Text steht daneben. Scrollt durch den Text, blättert weiter – oder blendet ihn aus und entdeckt das Bild gemeinsam. Probier’s aus!</span><span class="step-prog"></span></button></li>
-            <li><button class="step" type="button" role="tab" aria-selected="false" aria-controls="simStage" data-step="listen"><span class="step-num">4</span><span class="step-title" data-de="Einfach zuhören" data-en="Just listen">Einfach zuhören</span><span class="step-text" data-de="Viele Geschichten gibt es auch als Hörgeschichte. Play drücken und gemeinsam lauschen – tipp im Handy auf Play und hör rein." data-en="Many stories are also available as audio stories. Press play and listen together – tap play on the phone to hear it.">Viele Geschichten gibt es auch als Hörgeschichte. Play drücken und gemeinsam lauschen – tipp im Handy auf Play und hör rein.</span><span class="step-prog"></span></button></li>
           </ol>
           <p class="step-detail" id="stepDetail" aria-live="polite"></p>
         </div>
@@ -669,14 +692,14 @@
                   <div class="lib">
                     <div class="lib-head"><b>Bücher</b><span class="lib-ic"><i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg></i><i><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg></i></span></div>
                     <div class="lib-scroll" id="libScroll" tabindex="0" aria-label="Bibliothek – zum Scrollen" data-aria-de="Bibliothek – zum Scrollen" data-aria-en="Library – scrollable">
-                      <div class="lib-card"><img src="images/app/covers/sus11.jpg" alt="Schafalarm im Sonnenfeld" decoding="async"><span class="g"></span><span class="t"><b>Schafalarm im Sonnenfeld</b><i>Ein wolliger Einsatz für sauberen Strom</i></span><span class="h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 20.3 4.6 13.1A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 7.4 6.5Z"/></svg></span><span class="m">9 Min.</span></div>
+                      <div class="lib-card"><img src="images/app/covers/sus02.jpg" alt="Das Apfelfest" decoding="async"><span class="g"></span><span class="t"><b>Das Apfelfest</b><i>Wie Wildbienen aus Blüten Früchte entstehen lassen</i></span><span class="h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 20.3 4.6 13.1A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 7.4 6.5Z"/></svg></span><span class="m">11 Min.</span></div>
                       <div class="lib-card"><img src="images/app/covers/sus03.jpg" alt="Die Kraft von Sonne und Wind" decoding="async"><span class="g"></span><span class="t"><b>Die Kraft von Sonne und Wind</b><i>Wie Sonne und Wind sauberen Strom erzeugen</i></span><span class="h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 20.3 4.6 13.1A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 7.4 6.5Z"/></svg></span><span class="m">10 Min.</span></div>
                       <div class="lib-card"><img src="images/app/covers/sus10.jpg" alt="Der reisende Regentropfen" decoding="async"><span class="g"></span><span class="t"><b>Der reisende Regentropfen</b><i>Warum Wasser immer unterwegs ist</i></span><span class="h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 20.3 4.6 13.1A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 7.4 6.5Z"/></svg></span><span class="m">10 Min.</span></div>
                       <div class="lib-card"><img src="images/app/covers/sus20.jpg" alt="Die krumme Karotte darf mit" decoding="async"><span class="g"></span><span class="t"><b>Die krumme Karotte darf mit</b><i>Warum krummes Gemüse genauso lecker ist</i></span><span class="h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 20.3 4.6 13.1A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 7.4 6.5Z"/></svg></span><span class="m">10 Min.</span></div>
                       <div class="lib-card"><img src="images/app/covers/sus25.jpg" alt="Das Dorf voller Sonnenkraft" decoding="async"><span class="g"></span><span class="t"><b>Das Dorf voller Sonnenkraft</b><i>Wie Zuckerrohr Sonne speichert und ein Dorf versorgt</i></span><span class="h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 20.3 4.6 13.1A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 7.4 6.5Z"/></svg></span><span class="m">10 Min.</span></div>
-                      <div class="lib-card"><img src="images/app/covers/sus02.jpg" alt="Das Apfelfest" decoding="async"><span class="g"></span><span class="t"><b>Das Apfelfest</b><i>Wie Wildbienen aus Blüten Früchte entstehen lassen</i></span><span class="h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 20.3 4.6 13.1A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 7.4 6.5Z"/></svg></span><span class="m">11 Min.</span></div>
                       <div class="lib-card"><img src="images/app/covers/sus15.jpg" alt="Das verlorene Brüllaffenlied" decoding="async"><span class="g"></span><span class="t"><b>Das verlorene Brüllaffenlied</b><i>Ein Abenteuer hoch oben in den Baumkronen</i></span><span class="h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 20.3 4.6 13.1A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 7.4 6.5Z"/></svg></span><span class="m">12 Min.</span></div>
                       <div class="lib-card"><img src="images/app/covers/sus21.jpg" alt="Der Kühlschrank für alle" decoding="async"><span class="g"></span><span class="t"><b>Der Kühlschrank für alle</b><i>Wie Teilen Lebensmittel rettet</i></span><span class="h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 20.3 4.6 13.1A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 7.4 6.5Z"/></svg></span><span class="m">11 Min.</span></div>
+                      <div class="lib-card"><img src="images/app/covers/sus11.jpg" alt="Schafalarm im Sonnenfeld" decoding="async"><span class="g"></span><span class="t"><b>Schafalarm im Sonnenfeld</b><i>Ein wolliger Einsatz für sauberen Strom</i></span><span class="h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 20.3 4.6 13.1A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 7.4 6.5Z"/></svg></span><span class="m">9 Min.</span></div>
                       <div class="lib-card"><img src="images/app/covers/sus06.jpg" alt="Die verschwitzte Erde" decoding="async"><span class="g"></span><span class="t"><b>Die verschwitzte Erde</b><i>Von dicker Luft und kleinen Klimaschritten</i></span><span class="h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 20.3 4.6 13.1A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 7.4 6.5Z"/></svg></span><span class="m">12 Min.</span></div>
                       <div class="lib-card"><img src="images/app/covers/sus08.jpg" alt="Der magische Kleiderschrank" decoding="async"><span class="g"></span><span class="t"><b>Der magische Kleiderschrank</b><i>Wie alte Sachen neue Lieblingsstücke werden</i></span><span class="h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M12 20.3 4.6 13.1A4.9 4.9 0 0 1 12 6.6a4.9 4.9 0 0 1 7.4 6.5Z"/></svg></span><span class="m">10 Min.</span></div>
                     </div>
@@ -688,43 +711,10 @@
                     </div>
                   </div>
                 </div>
-                <!-- 2–5 · real app screens (Michi's recordings) -->
-                <div class="scr" data-step="book"><img src="images/app/screens/bookpage.jpg" alt="Buchseite „Die Kraft von Sonne und Wind“ mit Lesen und Hörgeschichte" data-alt-de="Buchseite „Die Kraft von Sonne und Wind“ mit Lesen und Hörgeschichte" data-alt-en="Book page “Die Kraft von Sonne und Wind” with read and audio story" decoding="async"></div>
-                <div class="scr scr-read" data-step="read">
-                  <div class="reader" id="reader" tabindex="0" aria-label="Leseprobe: Schafalarm im Sonnenfeld" data-aria-de="Leseprobe: Schafalarm im Sonnenfeld" data-aria-en="Reading sample: Schafalarm im Sonnenfeld">
-                    <div class="rd-stage" id="rdStage">
-                      <img class="rd-page on" src="images/app/reader/page-01.jpg" alt="Fiete, Lotte und Paco schauen über eine trockene Ebene auf etwas Blaues in der Ferne" data-alt-de="Fiete, Lotte und Paco schauen über eine trockene Ebene auf etwas Blaues in der Ferne" data-alt-en="Fiete, Lotte and Paco look across a dry plain at something blue in the distance" draggable="false">
-                      <img class="rd-page" src="images/app/reader/page-02.jpg" alt="Tashi in roter Jacke begrüßt Fiete, Lotte und Paco vor den Solarmodulen" data-alt-de="Tashi in roter Jacke begrüßt Fiete, Lotte und Paco vor den Solarmodulen" data-alt-en="Tashi in a red jacket welcomes Fiete, Lotte and Paco in front of the solar panels" draggable="false">
-                      <img class="rd-page" src="images/app/reader/page-03.jpg" alt="Eine Technikerin bürstet den Staub vom Solarmodul, ein Tropfen landet auf Pacos Nase" data-alt-de="Eine Technikerin bürstet den Staub vom Solarmodul, ein Tropfen landet auf Pacos Nase" data-alt-en="A technician brushes dust off a solar panel; a drop lands on Paco's nose" draggable="false">
-                      <div class="rd-top">
-                        <button class="rd-btn" type="button" id="rdClose" aria-label="Zurück zur Buchseite" data-aria-de="Zurück zur Buchseite" data-aria-en="Back to the book page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-                        <button class="rd-btn" type="button" id="rdFirst" aria-label="Zur ersten Seite" data-aria-de="Zur ersten Seite" data-aria-en="To the first page" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 5v14M19 5l-9 7 9 7z" fill="currentColor"/></svg></button>
-                        <span class="rd-pill" id="rdPill">Seite 1 / 14</span>
-                      </div>
-                      <button class="rd-btn rd-eye" type="button" id="rdEye" aria-label="Text ausblenden" data-aria-de="Text ausblenden" data-aria-en="Hide text"><span class="i-hide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="i-show"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18M10.6 6.1A10 10 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3.3 3.9M6.6 6.6C3.7 8.4 2 12 2 12s3.6 7 10 7a9.6 9.6 0 0 0 4.4-1.1"/></svg></span></button>
-                      <div class="rd-nav">
-                        <button class="rd-btn rd-prev" type="button" id="rdPrev" aria-label="Vorherige Seite" data-aria-de="Vorherige Seite" data-aria-en="Previous page" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
-                        <button class="rd-btn rd-next" type="button" id="rdNext" aria-label="Nächste Seite" data-aria-de="Nächste Seite" data-aria-en="Next page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
-                      </div>
-                      <div class="rd-end">
-                        <b data-de="Wie geht’s weiter im Sonnenfeld?" data-en="What happens next in the sun field?">Wie geht’s weiter im Sonnenfeld?</b>
-                        <span data-de="Die ganze Geschichte mit 14 Seiten liest du in der Aha Kids App." data-en="Read the whole 14-page story in the Aha Kids app.">Die ganze Geschichte mit 14 Seiten liest du in der Aha Kids App.</span>
-                        <button type="button" id="rdAgain" data-de="Nochmal von vorn" data-en="Start again">Nochmal von vorn</button>
-                      </div>
-                    </div>
-                    <div class="rd-panel"><div class="rd-text" id="rdText"></div><span class="rd-scroll" data-de="Weiter scrollen" data-en="Scroll for more">Weiter scrollen</span></div>
-                    <div class="rd-src" hidden><p>Fiete, Lotte und Paco sind in einer trockenen Gegend in China unterwegs. Die Sonne steht hell am wolkenlosen Himmel. Der Wind pustet Staub über den Boden und ringsum sind nur Steine und Sand zu sehen. Paco hechelt und sucht vergebens nach Schatten.</p><p>Da blitzt etwas Blaues in der Sonne. „Wasser!“, ruft Fiete. Paco sieht es auch und flitzt los. Doch als die drei näher kommen, gibt es weder Wellen noch ein Plätschern.</p><p>Lotte bleibt staunend stehen. „Das ist kein See. Das sind Solarmodule!“</p></div>
-                    <div class="rd-src" hidden><p>Zwischen den ersten Modulreihen kommt ein Junge in einer roten Jacke hervor. „Hallo! Ich bin Tashi“, sagt er. „Willkommen im Sonnenfeld.“</p><p>„Warum steht so ein riesiges Sonnenfeld ausgerechnet hier?“, fragt Lotte.</p><p>„Weil es hier nur selten regnet und an vielen Tagen die Sonne scheint“, erklärt Tashi. „So können die Module viel Sonnenlicht einfangen und daraus Strom machen.“</p><p>Da fegt eine kräftige Windböe über die Ebene. Staub wirbelt auf und legt sich wie ein grauer Schleier auf das blaue Glas.</p><p>Paco schnuppert. „Hatschi!“</p><p>Tashi zeigt auf das staubige Modul. „Die trockene Gegend hat aber auch einen Nachteil: Der Wind bringt immer wieder neuen Staub.“</p></div>
-                    <div class="rd-src" hidden><p>Eine Technikerin kommt mit einer langen Bürste auf sie zu.</p><p>„Damit genug Sonnenlicht auf die Module trifft, müssen wir den Staub regelmäßig entfernen“, erklärt Tashi.</p><p>Die Technikerin schiebt die weiche Bürste über das Glas.</p><p>Schschsch.</p><p>Ein wenig Wasser läuft über das Modul und nimmt den Staub mit.</p><p>„Warum spritzt sie es nicht einfach mit einem Wasserschlauch ab?“, fragt Fiete.</p><p>„Das würde viel mehr Wasser verbrauchen“, sagt Tashi. „Und weil es hier nur selten regnet, ist Wasser kostbar. Darum nimmt sie nur so viel, wie wirklich nötig ist.“</p><p>Ein Tropfen fällt vom Modul und landet mitten auf Pacos Nase. Paco leckt nach links. Dann nach rechts. Doch an den Tropfen kommt er nicht heran.</p><p>Fiete und Lotte müssen lachen.</p></div>
-                  </div>
-                </div>
-                <div class="scr scr-listen" data-step="listen"><img src="images/app/screens/player.jpg" alt="Hörgeschichten-Player „Die Kraft von Sonne und Wind“" data-alt-de="Hörgeschichten-Player „Die Kraft von Sonne und Wind“" data-alt-en="Audio story player “Die Kraft von Sonne und Wind”" decoding="async">
-                  <button class="sim-play" type="button" id="simPlay" aria-label="Hörprobe „Die Kraft von Sonne und Wind“ abspielen" data-aria-de="Hörprobe „Die Kraft von Sonne und Wind“ abspielen" data-aria-en="Play sample “The Power of Sun and Wind”"><span class="pz"><svg width="44%" height="44%" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><rect x="5" y="4" width="5" height="16" rx="1.4"/><rect x="14" y="4" width="5" height="16" rx="1.4"/></svg></span></button>
-                  <span class="sim-tip" data-de="Tipp auf Play" data-en="Tap play">Tipp auf Play</span>
-                </div>
+                <!-- 2 · book page „Das Apfelfest“ (app screen, Lesen + Hörgeschichte) -->
+                <div class="scr" data-step="book"><img src="images/app/screens/bookpage.jpg" alt="Buchseite „Das Apfelfest“ mit Lesen und Hörgeschichte" data-alt-de="Buchseite „Das Apfelfest“ mit Lesen und Hörgeschichte" data-alt-en="Book page “Das Apfelfest” with read and audio story" decoding="async"></div>
               </div>
             </div>
-            <div class="reader-card" id="readerCard"></div>
           </div>
         </div>
       </div>
@@ -860,6 +850,28 @@
   </section>
   </main>
 
+  <!-- ============ FREE STORY POP-UP ============ -->
+  <div class="freeoffer" id="freeOffer" hidden>
+    <div class="fo-backdrop" data-fo-close></div>
+    <div class="fo-sheet" role="dialog" aria-modal="true" aria-labelledby="foTitle" tabindex="-1">
+      <button class="fo-x" type="button" data-fo-close aria-label="Schließen" data-aria-de="Schließen" data-aria-en="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="fo-cover">
+        <img src="images/app/covers/sus24.jpg" width="480" height="480" alt="Titelbild: Die Reise eines Marmeladenglases" data-alt-de="Titelbild: Die Reise eines Marmeladenglases" data-alt-en="Cover: Die Reise eines Marmeladenglases" loading="lazy" decoding="async">
+        <span class="fo-badge" data-de="Gratis" data-en="Free">Gratis</span>
+        <svg class="fo-spark" viewBox="0 0 200 200" aria-hidden="true"><g transform="translate(62 100) scale(1.3)" stroke="#FF981C" stroke-width="12" stroke-linecap="round" fill="none"><path d="M0 -18 L12 -50"/><path d="M24 0 L58 -8"/><path d="M20 25 L47 48"/></g></svg>
+      </div>
+      <h2 class="fo-h" id="foTitle"><span data-de="Diese Geschichte ist" data-en="This story is">Diese Geschichte ist</span> <span class="fo-ul"><span data-de="gratis" data-en="free">gratis</span><svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true"><path d="M20 45 Q316.8 34 580 41" stroke="#FF981C" stroke-width="16" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"/></svg></span></h2>
+      <p class="fo-t">Die Reise eines Marmeladenglases</p>
+      <p class="fo-s" data-de="Wie Altglas zu neuen Gläsern wird" data-en="How old glass becomes new jars">Wie Altglas zu neuen Gläsern wird</p>
+      <p class="fo-p" data-de="In der Aha Kids App lest ihr sie gemeinsam – ganz ohne Kauf." data-en="Read it together in the Aha Kids app – no purchase needed.">In der Aha Kids App lest ihr sie gemeinsam – ganz ohne Kauf.</p>
+      <a class="store" href="#" data-store aria-disabled="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3.2"/><path d="M11 18h2"/></svg>
+        <span class="store-txt"><span class="store-small" data-de="Bald im" data-en="Coming soon to the">Bald im</span><span class="store-big">App Store</span></span>
+      </a>
+      <button class="fo-later" type="button" data-fo-close data-de="Später" data-en="Later">Später</button>
+    </div>
+  </div>
+
   <!-- ============ FOOTER ============ -->
   <footer>
     <div class="wrap">
@@ -957,8 +969,8 @@
         var d = dur(), pct = Math.min(100, a.currentTime / d * 100);
         fill.style.width = pct + '%'; time.textContent = fmt(a.currentTime) + ' / ' + fmt(d); bar.setAttribute('aria-valuenow', Math.round(pct));
       });
-      a.addEventListener('play', function () { t.classList.add('playing'); syncSim(); syncCards(); });
-      a.addEventListener('pause', function () { t.classList.remove('playing'); syncSim(); syncCards(); });
+      a.addEventListener('play', function () { t.classList.add('playing'); syncCards(); });
+      a.addEventListener('pause', function () { t.classList.remove('playing'); syncCards(); });
       a.addEventListener('ended', function () { a.currentTime = 0; });
       bar.addEventListener('click', function (e) { var r = bar.getBoundingClientRect(); a.currentTime = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * dur(); });
       bar.addEventListener('keydown', function (e) {
@@ -1024,26 +1036,19 @@
 
     // ── app simulator ──
     var stage = $('#simStage'), phone = $('#phone'), steps = $$('.step'), scrs = $$('.scr'), detail = $('#stepDetail');
-    var listenScr = $('.scr-listen'), simTrack = $('.track[data-key="sonne-und-wind"]');
-    var cur = 0, timer = null, pageTimer = null, auto = !reduce, inView = false, STEP_MS = 6500;
-    function syncSim() { listenScr.classList.toggle('playing', !$('audio', simTrack).paused); }
+    var cur = 0, timer = null, auto = !reduce, inView = false, STEP_MS = 6500;
     function fit() {
-      var land = phone.classList.contains('landscape');
       var pw = phone.offsetWidth, ph = phone.offsetHeight, sw = stage.clientWidth - 16, sh = stage.clientHeight - 16;
-      var s = land ? Math.min(1, sw / ph, sh / pw) : Math.min(1, sw / pw, sh / ph);
+      var s = Math.min(1, sw / pw, sh / ph);
       phone.style.setProperty('--s', s.toFixed(3));
     }
     function setDetail() { detail.textContent = $('.step-text', steps[cur]).textContent; }
     function show(i) {
-      if (steps[cur] && steps[cur].dataset.step === 'read' && steps[i].dataset.step !== 'read') clearTimeout(pageTimer);
       cur = i;
       steps.forEach(function (s, k) { s.classList.toggle('on', k === i); s.setAttribute('aria-selected', k === i ? 'true' : 'false'); s.classList.remove('run'); });
       var key = steps[i].dataset.step;
       scrs.forEach(function (s) { s.classList.toggle('on', s.dataset.step === key); });
-      phone.classList.toggle('landscape', key === 'read');
-      placeReader(); fit(); setDetail(); schedule();
-      if (key === 'read' && auto && inView) { goPage(0); clearTimeout(pageTimer); pageTimer = setTimeout(function () { if (auto) goPage(1); }, STEP_MS / 2); }
-      if (key === 'read') { var nx = $('#rdNext'); nx.classList.remove('nudge'); void nx.offsetWidth; nx.classList.add('nudge'); }
+      fit(); setDetail(); schedule();
       if (window.matchMedia('(max-width:900px)').matches) {
         var li = steps[i].parentNode, row = li.parentNode;
         row.scrollTo({ left: li.offsetLeft - (row.clientWidth - li.offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth' });
@@ -1063,62 +1068,49 @@
         if (!d) return; e.preventDefault(); stopAuto(); var n = (k + d + steps.length) % steps.length; show(n); steps[n].focus();
       });
     });
-    $('#simPlay').addEventListener('click', function () { stopAuto(); toggleTrack(simTrack); });
     stage.addEventListener('pointerdown', stopAuto);
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) { inView = es[0].isIntersecting; if (inView) schedule(); else clearTimeout(timer); }, { threshold: 0.35 }).observe(stage);
     }
-    window.addEventListener('resize', function () { placeReader(); fit(); });
+    window.addEventListener('resize', fit);
+    fit(); setDetail();
 
-    // reader: three pages of „Schafalarm im Sonnenfeld“, scrollable text, page turning, text on/off
-    var reader = $('#reader'), readScr = $('.scr-read'), card = $('#readerCard'), rdPages = $$('.rd-page'), rdSrc = $$('.rd-src');
-    var rdText = $('#rdText'), rdPanel = $('.rd-panel'), page = 0, TOTAL = 14;
-    function placeReader() {
-      var cardMode = steps[cur].dataset.step === 'read' && stage.clientWidth < 600;
-      stage.classList.toggle('card-mode', cardMode);
-      var host = cardMode ? card : readScr;
-      if (reader.parentNode !== host) host.appendChild(reader);
-    }
-    function more() { var m = rdText.scrollHeight - rdText.clientHeight - rdText.scrollTop > 4; rdPanel.style.setProperty('--more', m ? 1 : 0); }
-    function pill() { $('#rdPill').textContent = T('Seite ', 'Page ') + (page + 1) + ' / ' + TOTAL; }
-    function goPage(n) {
-      var end = n >= rdPages.length;
-      reader.classList.toggle('at-end', end);
-      if (!end) {
-        page = Math.max(0, n);
-        rdPages.forEach(function (im, k) { im.classList.toggle('on', k === page); im.classList.toggle('prev', k < page); });
-        rdText.innerHTML = rdSrc[page].innerHTML; rdText.scrollTop = 0; more(); pill();
+
+    // free-story pop-up: after the first screen (or 12 s), once per page view, then 14 days of quiet after closing
+    (function () {
+      var box = $('#freeOffer'); if (!box) return;
+      var KEY = 'aha-free-offer', QUIET = 14 * 864e5, shown = false, last = null, timer = null;
+      try { var t0 = +localStorage.getItem(KEY); if (t0 && Date.now() - t0 < QUIET) return; } catch (e) {}
+      var sheet = $('.fo-sheet', box);
+      function focusables() { return $$('a[href], button', sheet).filter(function (el) { return el.offsetParent !== null; }); }
+      function onKey(e) {
+        if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+        if (e.key !== 'Tab') return;
+        var f = focusables(), a = f[0], z = f[f.length - 1];
+        if (document.activeElement === sheet) { e.preventDefault(); (e.shiftKey ? z : a).focus(); return; }
+        if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+        else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
       }
-      $('#rdPrev').disabled = page === 0 && !end; $('#rdFirst').disabled = page === 0 && !end;
-      $('#rdNext').disabled = end;
-    }
-    function rdUser(fn) { return function (e) { stopAuto(); clearTimeout(pageTimer); fn(e); }; }
-    $('#rdNext').addEventListener('click', rdUser(function () { goPage(page + 1); }));
-    $('#rdPrev').addEventListener('click', rdUser(function () { goPage(reader.classList.contains('at-end') ? page : page - 1); }));
-    $('#rdFirst').addEventListener('click', rdUser(function () { goPage(0); }));
-    $('#rdAgain').addEventListener('click', rdUser(function () { goPage(0); }));
-    $('#rdClose').addEventListener('click', rdUser(function () { show(1); }));
-    $('#rdEye').addEventListener('click', rdUser(function () {
-      var off = reader.classList.toggle('no-text'), b = $('#rdEye');
-      b.dataset.ariaDe = off ? 'Text einblenden' : 'Text ausblenden'; b.dataset.ariaEn = off ? 'Show text' : 'Hide text';
-      b.setAttribute('aria-label', T(b.dataset.ariaDe, b.dataset.ariaEn));
-    }));
-    rdText.addEventListener('scroll', more, { passive: true });
-    ['wheel', 'touchstart', 'pointerdown'].forEach(function (ev) { rdText.addEventListener(ev, function () { stopAuto(); clearTimeout(pageTimer); }, { passive: true }); });
-    reader.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { e.preventDefault(); rdUser(function () { goPage(page + 1); })(); }
-      else if (e.key === 'ArrowLeft') { e.preventDefault(); rdUser(function () { goPage(page - 1); })(); }
-    });
-    (function () {   // swipe on the picture
-      var x0 = null, st = $('#rdStage');
-      st.addEventListener('pointerdown', function (e) { x0 = e.clientX; });
-      st.addEventListener('pointerup', function (e) {
-        if (x0 === null) return; var dx = e.clientX - x0; x0 = null;
-        if (Math.abs(dx) > 40 && !e.target.closest('button')) rdUser(function () { goPage(page + (dx < 0 ? 1 : -1)); })();
-      });
+      function open() {
+        if (shown) return;
+        if (document.querySelector('.modal-overlay.open')) { timer = setTimeout(open, 4000); return; }
+        shown = true; clearTimeout(timer); window.removeEventListener('scroll', onScroll);
+        last = document.activeElement; box.hidden = false; void box.offsetWidth; box.classList.add('open');
+        document.addEventListener('keydown', onKey);
+        setTimeout(function () { sheet.focus({ preventScroll: true }); }, reduce ? 0 : 350);
+      }
+      function close() {
+        box.classList.remove('open'); document.removeEventListener('keydown', onKey);
+        try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {}
+        setTimeout(function () { box.hidden = true; }, reduce ? 0 : 420);
+        if (last && last.focus) last.focus({ preventScroll: true });
+      }
+      function onScroll() { if (window.scrollY > window.innerHeight * 0.9) open(); }
+      $$('[data-fo-close]', box).forEach(function (el) { el.addEventListener('click', close); });
+      $('.store', sheet).addEventListener('click', close);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      timer = setTimeout(open, 12000);
     })();
-    goPage(0);
-    placeReader(); fit(); setDetail();
 
     // hero: one kids' question at a time, with the matching story art; „Aha!“ pops on every change
     (function () {
@@ -1154,9 +1146,9 @@
     window.addEventListener('load', function () {
       if (typeof window.applyLang === 'function') {
         var orig = window.applyLang;
-        window.applyLang = function (l) { orig(l); filmUI(); setDetail(); pill(); };
+        window.applyLang = function (l) { orig(l); filmUI(); setDetail(); };
       }
-      filmUI(); setDetail(); pill();
+      filmUI(); setDetail();
     });
   })();
   </script>
