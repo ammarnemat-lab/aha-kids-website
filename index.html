@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aha Kids – Warum-Geschichten zum Vorlesen und Anhören</title>
+  <title>Aha Kids – Geschichten zum Vorlesen und Anhören</title>
   <meta name="description" content="Wohin reist ein Regentropfen? Wie wird Sonne zu Strom? Aha Kids beantwortet echte Kinderfragen mit spannenden, liebevoll illustrierten Geschichten – zum Vorlesen und Anhören, in der App und als Buch.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#FFF9EC">
@@ -13,18 +13,18 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Aha Kids">
   <meta property="og:url" content="https://aha-kids.de/">
-  <meta property="og:title" content="Aha Kids – Warum-Geschichten zum Vorlesen und Anhören">
+  <meta property="og:title" content="Aha Kids – Geschichten zum Vorlesen und Anhören">
   <meta property="og:description" content="Echte Kinderfragen, spannende Geschichten, echte Aha-Momente: Mit Fiete, Lotte und Hund Paco – zum Vorlesen und Anhören.">
   <meta property="og:image" content="https://aha-kids.de/images/brand/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Aha Kids – Lernen für eine bessere Zukunft. Warum-Geschichten zum Vorlesen und Anhören">
+  <meta property="og:image:alt" content="Aha Kids – Lernen für eine bessere Zukunft. Geschichten zum Vorlesen und Anhören">
   <meta property="og:locale" content="de_DE">
   <meta property="og:locale:alternate" content="en_US">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Aha Kids – Warum-Geschichten zum Vorlesen und Anhören">
+  <meta name="twitter:title" content="Aha Kids – Geschichten zum Vorlesen und Anhören">
   <meta name="twitter:description" content="Echte Kinderfragen, spannende Geschichten, echte Aha-Momente – zum Vorlesen und Anhören.">
   <meta name="twitter:image" content="https://aha-kids.de/images/brand/og-image.jpg">
 
@@ -106,7 +106,7 @@
     .btn-cream-outline { background:transparent; color:var(--cream); border-color:rgba(255,249,236,.35); }
     .btn-cream-outline:hover { border-color:var(--cream); }
 
-    /* App Store pill (shown as „bald“ until the app is live; see APP_STORE_URL in the script) */
+    /* App Store pill (links to APP_STORE_URL in the script) */
     .store { display:inline-flex; align-items:center; gap:.7rem; padding:.62rem 1.25rem .62rem 1rem; border-radius:16px; background:var(--forest); color:var(--cream); text-decoration:none; border:2px solid transparent; transition:transform .25s, background .25s; box-shadow:0 10px 26px rgba(23,63,53,.2); }
     .store:hover { transform:translateY(-2px); background:var(--forest-2); }
     .store svg { width:24px; height:24px; }
@@ -115,34 +115,6 @@
     .store-big { font-family:var(--display); font-weight:800; font-size:1.2rem; }
     .on-forest .store { background:var(--cream); color:var(--forest); box-shadow:none; }
     .on-forest .store:hover { background:#fff; }
-
-    /* ===== FREE STORY POP-UP (like the app's sheet after onboarding) ===== */
-    .freeoffer { position:fixed; inset:0; z-index:90; display:flex; align-items:center; justify-content:center; padding:20px; }
-    .freeoffer[hidden] { display:none; }
-    .fo-backdrop { position:absolute; inset:0; background:rgba(23,63,53,.42); opacity:0; transition:opacity .35s; }
-    .fo-sheet { position:relative; width:100%; max-width:440px; max-height:calc(100vh - 40px); overflow:auto; background:var(--cream); border-radius:32px; padding:40px 28px 16px; text-align:center; box-shadow:0 30px 80px rgba(10,30,25,.35); opacity:0; transform:translateY(40px) scale(.96); transition:transform .5s cubic-bezier(.2,1.25,.4,1), opacity .3s; }
-    .freeoffer.open .fo-backdrop { opacity:1; }
-    .freeoffer.open .fo-sheet { opacity:1; transform:none; }
-    .fo-sheet:focus { outline:none; }
-    .fo-x { position:absolute; right:14px; top:14px; width:40px; height:40px; border-radius:50%; border:0; background:rgba(23,63,53,.07); color:var(--forest); cursor:pointer; display:flex; align-items:center; justify-content:center; }
-    .fo-x:hover { background:rgba(23,63,53,.13); }
-    .fo-cover { position:relative; width:172px; height:172px; margin:4px auto 0; transform:rotate(-3deg); }
-    .fo-cover img { width:100%; height:100%; border-radius:26px; object-fit:cover; box-shadow:0 16px 34px rgba(60,40,10,.28); }
-    .fo-badge { position:absolute; left:-22px; top:-12px; background:var(--sun); color:var(--forest); font:800 15px/1 var(--display); padding:9px 14px; border-radius:100px; transform:rotate(-8deg); box-shadow:0 6px 14px rgba(0,0,0,.12); }
-    .fo-spark { position:absolute; right:-36px; top:-28px; width:56px; height:56px; }
-    .fo-h { font:800 1.72rem/1.2 var(--display); color:var(--forest); margin:24px 0 0; }
-    .fo-ul { position:relative; display:inline-block; white-space:nowrap; }
-    .fo-ul svg { position:absolute; left:-3%; bottom:-.34em; width:106%; height:.42em; }
-    .fo-t { font:600 1.06rem/1.3 var(--body); color:var(--forest); margin:18px 0 0; }
-    .fo-s { font-size:.92rem; color:var(--text-soft); margin:3px 0 0; }
-    .fo-p { font-size:.95rem; line-height:1.5; color:var(--text-soft); margin:14px auto 20px; max-width:30ch; }
-    .fo-later { display:block; margin:8px auto 0; background:none; border:0; font:600 1rem var(--body); color:var(--text-soft); padding:10px 20px; cursor:pointer; }
-    .fo-later:hover { color:var(--forest); }
-    @media (max-width:600px) {
-      .freeoffer { align-items:flex-end; padding:0; }
-      .fo-sheet { max-width:none; max-height:92vh; border-radius:32px 32px 0 0; padding-bottom:calc(16px + env(safe-area-inset-bottom)); transform:translateY(100%); }
-    }
-    @media (prefers-reduced-motion: reduce) { .fo-sheet, .fo-backdrop { transition:none; } }
 
     /* ===== HERO ===== */
     .hero { position:relative; padding:calc(var(--header-h) + 36px) 0 72px; overflow:hidden; }
@@ -543,7 +515,7 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <span class="label reveal" data-de="Warum-Geschichten zum Vorlesen und Anhören" data-en="Why-stories to read aloud and listen to">Warum-Geschichten zum Vorlesen und Anhören</span>
+        <span class="label reveal" data-de="Geschichten zum Vorlesen und Anhören" data-en="Stories to read aloud and listen to">Geschichten zum Vorlesen und Anhören</span>
         <h1 class="reveal">
           <span data-de="Lernen für eine" data-en="Learning for a">Lernen für eine</span><br>
           <span class="ul"><span data-de="bessere Zukunft." data-en="better future.">bessere Zukunft.</span><svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M20 45 Q316.8 34 580 41" stroke="#FF981C" stroke-width="14" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"/></svg></span>
@@ -559,9 +531,9 @@
         </div>
         <p class="hero-sub reveal" data-de="Mit Fiete, Lotte und Hund Paco entdeckt dein Kind Natur, Tiere, Umwelt und die kleinen Dinge, die unsere Welt besser machen. In der App zum Vorlesen, als Hörgeschichte und als Buch." data-en="With Fiete, Lotte and their dog Paco, your child discovers nature, animals, the environment and the little things that make our world a better place. In the app to read aloud, as an audio story and as a book.">Mit Fiete, Lotte und Hund Paco entdeckt dein Kind Natur, Tiere, Umwelt und die kleinen Dinge, die unsere Welt besser machen. In der App zum Vorlesen, als Hörgeschichte und als Buch.</p>
         <div class="hero-actions reveal">
-          <a class="store" href="#" data-store aria-disabled="true">
+          <a class="store" href="https://apps.apple.com/de/app/aha-kids-wissen-geschichten/id6768319817" target="_blank" rel="noopener" data-store>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3.2"/><path d="M11 18h2"/></svg>
-            <span class="store-txt"><span class="store-small" data-de="Bald im" data-en="Coming soon to the">Bald im</span><span class="store-big">App Store</span></span>
+            <span class="store-txt"><span class="store-small" data-de="Laden im" data-en="Download on the">Laden im</span><span class="store-big">App Store</span></span>
           </a>
           <button class="btn btn-secondary" type="button" id="heroListen">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><rect x="2.5" y="14" width="5" height="7" rx="2"/><rect x="16.5" y="14" width="5" height="7" rx="2"/></svg>
@@ -674,7 +646,7 @@
       <div class="app-grid">
         <div class="app-steps-col reveal">
           <ol class="steps" role="tablist" aria-label="Funktionen der App" data-aria-de="Funktionen der App" data-aria-en="App features">
-            <li><button class="step on" type="button" role="tab" aria-selected="true" aria-controls="simStage" data-step="browse"><span class="step-num">1</span><span class="step-title" data-de="Geschichte aussuchen" data-en="Pick a story">Geschichte aussuchen</span><span class="step-text" data-de="Stöbert gemeinsam durch die Bibliothek. „Die Reise eines Marmeladenglases“ ist gratis, von allen anderen Geschichten lest ihr die ersten Seiten als Vorschau." data-en="Browse the library together. “Die Reise eines Marmeladenglases” is free, and you can preview the first pages of all the other stories.">Stöbert gemeinsam durch die Bibliothek. „Die Reise eines Marmeladenglases“ ist gratis, von allen anderen Geschichten lest ihr die ersten Seiten als Vorschau.</span><span class="step-prog"></span></button></li>
+            <li><button class="step on" type="button" role="tab" aria-selected="true" aria-controls="simStage" data-step="browse"><span class="step-num">1</span><span class="step-title" data-de="Geschichte aussuchen" data-en="Pick a story">Geschichte aussuchen</span><span class="step-text" data-de="Stöbert gemeinsam durch die Bibliothek. „Die Reise eines Marmeladenglases“ ist gratis." data-en="Browse the library together. “Die Reise eines Marmeladenglases” is free.">Stöbert gemeinsam durch die Bibliothek. „Die Reise eines Marmeladenglases“ ist gratis.</span><span class="step-prog"></span></button></li>
             <li><button class="step" type="button" role="tab" aria-selected="false" aria-controls="simStage" data-step="book"><span class="step-num">2</span><span class="step-title" data-de="Worum geht’s?" data-en="What’s it about?">Worum geht’s?</span><span class="step-text" data-de="Jede Buchseite zeigt, worum es geht und was dein Kind dabei entdeckt. Dann wählt ihr: „Lesen“ oder „Hörgeschichte“." data-en="Each book page shows what the story is about and what your child will discover. Then you choose: “Read” or “Audio story”.">Jede Buchseite zeigt, worum es geht und was dein Kind dabei entdeckt. Dann wählt ihr: „Lesen“ oder „Hörgeschichte“.</span><span class="step-prog"></span></button></li>
           </ol>
           <p class="step-detail" id="stepDetail" aria-live="polite"></p>
@@ -833,11 +805,11 @@
     <div class="wrap cta-grid">
       <div>
         <h2 class="h2 reveal" data-de="Bereit für das nächste Aha?" data-en="Ready for the next aha?">Bereit für das nächste Aha?</h2>
-        <p class="lead reveal" data-de="Die Aha Kids App kommt bald in den App Store. Trag dich in den Newsletter ein – wir sagen dir Bescheid, sobald sie da ist." data-en="The Aha Kids app is coming soon to the App Store. Join the newsletter – we’ll let you know as soon as it’s there.">Die Aha Kids App kommt bald in den App Store. Trag dich in den Newsletter ein – wir sagen dir Bescheid, sobald sie da ist.</p>
+        <p class="lead reveal" data-de="Die Aha Kids App ist jetzt im App Store. Trag dich in den Newsletter ein – wir sagen dir Bescheid, wenn neue Geschichten da sind." data-en="The Aha Kids app is now on the App Store. Join the newsletter – we’ll let you know when new stories are out.">Die Aha Kids App ist jetzt im App Store. Trag dich in den Newsletter ein – wir sagen dir Bescheid, wenn neue Geschichten da sind.</p>
         <div class="cta-actions reveal">
-          <a class="store" href="#" data-store aria-disabled="true">
+          <a class="store" href="https://apps.apple.com/de/app/aha-kids-wissen-geschichten/id6768319817" target="_blank" rel="noopener" data-store>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3.2"/><path d="M11 18h2"/></svg>
-            <span class="store-txt"><span class="store-small" data-de="Bald im" data-en="Coming soon to the">Bald im</span><span class="store-big">App Store</span></span>
+            <span class="store-txt"><span class="store-small" data-de="Laden im" data-en="Download on the">Laden im</span><span class="store-big">App Store</span></span>
           </a>
           <button class="btn btn-sun" type="button" onclick="openNewsletterModal()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>
@@ -849,28 +821,6 @@
     </div>
   </section>
   </main>
-
-  <!-- ============ FREE STORY POP-UP ============ -->
-  <div class="freeoffer" id="freeOffer" hidden>
-    <div class="fo-backdrop" data-fo-close></div>
-    <div class="fo-sheet" role="dialog" aria-modal="true" aria-labelledby="foTitle" tabindex="-1">
-      <button class="fo-x" type="button" data-fo-close aria-label="Schließen" data-aria-de="Schließen" data-aria-en="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-      <div class="fo-cover">
-        <img src="images/app/covers/sus24.jpg" width="480" height="480" alt="Titelbild: Die Reise eines Marmeladenglases" data-alt-de="Titelbild: Die Reise eines Marmeladenglases" data-alt-en="Cover: Die Reise eines Marmeladenglases" loading="lazy" decoding="async">
-        <span class="fo-badge" data-de="Gratis" data-en="Free">Gratis</span>
-        <svg class="fo-spark" viewBox="0 0 200 200" aria-hidden="true"><g transform="translate(62 100) scale(1.3)" stroke="#FF981C" stroke-width="12" stroke-linecap="round" fill="none"><path d="M0 -18 L12 -50"/><path d="M24 0 L58 -8"/><path d="M20 25 L47 48"/></g></svg>
-      </div>
-      <h2 class="fo-h" id="foTitle"><span data-de="Diese Geschichte ist" data-en="This story is">Diese Geschichte ist</span> <span class="fo-ul"><span data-de="gratis" data-en="free">gratis</span><svg viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true"><path d="M20 45 Q316.8 34 580 41" stroke="#FF981C" stroke-width="16" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"/></svg></span></h2>
-      <p class="fo-t">Die Reise eines Marmeladenglases</p>
-      <p class="fo-s" data-de="Wie Altglas zu neuen Gläsern wird" data-en="How old glass becomes new jars">Wie Altglas zu neuen Gläsern wird</p>
-      <p class="fo-p" data-de="In der Aha Kids App lest ihr sie gemeinsam – ganz ohne Kauf." data-en="Read it together in the Aha Kids app – no purchase needed.">In der Aha Kids App lest ihr sie gemeinsam – ganz ohne Kauf.</p>
-      <a class="store" href="#" data-store aria-disabled="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3.2"/><path d="M11 18h2"/></svg>
-        <span class="store-txt"><span class="store-small" data-de="Bald im" data-en="Coming soon to the">Bald im</span><span class="store-big">App Store</span></span>
-      </a>
-      <button class="fo-later" type="button" data-fo-close data-de="Später" data-en="Later">Später</button>
-    </div>
-  </div>
 
   <!-- ============ FOOTER ============ -->
   <footer>
@@ -892,8 +842,8 @@
   <script>
   (function () {
     'use strict';
-    // Set the App Store link here once the app is live; every „Bald im App Store“ button then links to it.
-    var APP_STORE_URL = '';
+    // App Store listing; every [data-store] button links to it (empty = „Bald im“ + newsletter).
+    var APP_STORE_URL = 'https://apps.apple.com/de/app/aha-kids-wissen-geschichten/id6768319817';
 
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -1075,42 +1025,6 @@
     window.addEventListener('resize', fit);
     fit(); setDetail();
 
-
-    // free-story pop-up: after the first screen (or 12 s), once per page view, then 14 days of quiet after closing
-    (function () {
-      var box = $('#freeOffer'); if (!box) return;
-      var KEY = 'aha-free-offer', QUIET = 14 * 864e5, shown = false, last = null, timer = null;
-      try { var t0 = +localStorage.getItem(KEY); if (t0 && Date.now() - t0 < QUIET) return; } catch (e) {}
-      var sheet = $('.fo-sheet', box);
-      function focusables() { return $$('a[href], button', sheet).filter(function (el) { return el.offsetParent !== null; }); }
-      function onKey(e) {
-        if (e.key === 'Escape') { e.preventDefault(); close(); return; }
-        if (e.key !== 'Tab') return;
-        var f = focusables(), a = f[0], z = f[f.length - 1];
-        if (document.activeElement === sheet) { e.preventDefault(); (e.shiftKey ? z : a).focus(); return; }
-        if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
-        else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
-      }
-      function open() {
-        if (shown) return;
-        if (document.querySelector('.modal-overlay.open')) { timer = setTimeout(open, 4000); return; }
-        shown = true; clearTimeout(timer); window.removeEventListener('scroll', onScroll);
-        last = document.activeElement; box.hidden = false; void box.offsetWidth; box.classList.add('open');
-        document.addEventListener('keydown', onKey);
-        setTimeout(function () { sheet.focus({ preventScroll: true }); }, reduce ? 0 : 350);
-      }
-      function close() {
-        box.classList.remove('open'); document.removeEventListener('keydown', onKey);
-        try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {}
-        setTimeout(function () { box.hidden = true; }, reduce ? 0 : 420);
-        if (last && last.focus) last.focus({ preventScroll: true });
-      }
-      function onScroll() { if (window.scrollY > window.innerHeight * 0.9) open(); }
-      $$('[data-fo-close]', box).forEach(function (el) { el.addEventListener('click', close); });
-      $('.store', sheet).addEventListener('click', close);
-      window.addEventListener('scroll', onScroll, { passive: true });
-      timer = setTimeout(open, 12000);
-    })();
 
     // hero: one kids' question at a time, with the matching story art; „Aha!“ pops on every change
     (function () {
