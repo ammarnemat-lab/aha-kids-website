@@ -44,7 +44,12 @@
         "sameAs": [
           "https://www.instagram.com/ahakidsapp_de/",
           "https://apps.apple.com/de/app/aha-kids-wissen-geschichten/id6768319817"
-        ]
+        ],
+        "memberOf": {
+          "@type": "Organization",
+          "name": "Gesunde Erde. Gesunde Kinder.",
+          "url": "https://gesunde-erde-gesunde-kinder.de/"
+        }
       },
       {
         "@type": "WebSite",
@@ -383,6 +388,12 @@
     .cast-cap { display:inline-block; margin-top:8px; font:800 1.5rem var(--display); }
     .promise { margin-top:52px; text-align:center; font:800 clamp(1.25rem, 2.4vw, 1.7rem)/1.3 var(--display); }
     .promise svg { display:inline-block; vertical-align:-6px; width:30px; height:30px; margin-right:8px; }
+    .partner { display:flex; align-items:center; gap:24px; max-width:880px; margin:36px auto 0; background:rgba(255,249,236,.75); border-radius:24px; padding:18px 28px 18px 18px; }
+    .partner-badge { flex:0 0 auto; width:112px; height:112px; }
+    .partner-txt { flex:1; }
+    .partner-txt h3 { font-size:1.28rem; margin-bottom:.25rem; }
+    .partner-txt p { color:var(--text-soft); font-size:.98rem; }
+    .partner .btn { flex:0 0 auto; }
 
     /* ===== BÜCHER (small band) ===== */
     .paper { padding:72px 0 76px; background:var(--cream); }
@@ -453,6 +464,7 @@
       .cast { order:-1; }
       .cta-logo { max-width:300px; }
       .paper-box { flex-direction:column; text-align:center; }
+      .partner { flex-direction:column; text-align:center; gap:14px; padding:24px 22px; }
     }
     @media (max-width:600px) {
       /* question cards: a swipeable row of large cards */
@@ -785,6 +797,14 @@
     </div>
     <div class="wrap">
       <p class="promise reveal"><svg viewBox="0 0 24 24" fill="none" stroke="#3F8F62" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><span data-de="Sicher, ohne Werbung, kindgerecht und voller Fantasie." data-en="Safe, ad-free, child-friendly and full of imagination.">Sicher, ohne Werbung, kindgerecht und voller Fantasie.</span></p>
+      <div class="partner reveal">
+        <img class="partner-badge" src="images/partner/gegk-partnerprojekt.webp" width="240" height="240" alt="Partnerprojekt von Gesunde Erde. Gesunde Kinder." data-alt-de="Partnerprojekt von Gesunde Erde. Gesunde Kinder." data-alt-en="Partner project of Gesunde Erde. Gesunde Kinder. (Healthy Earth. Healthy Children.)" loading="lazy" decoding="async">
+        <div class="partner-txt">
+          <h3 data-de="Wir sind Partnerprojekt." data-en="We are a partner project.">Wir sind Partnerprojekt.</h3>
+          <p><span data-de="Aha Kids gehört zum Netzwerk" data-en="Aha Kids is part of the network">Aha Kids gehört zum Netzwerk</span> <strong>Gesunde Erde. Gesunde Kinder.</strong> <span data-de="Gemeinsam setzen wir uns für die Gesundheit unserer Kinder und unseres Planeten ein." data-en="(Healthy Earth. Healthy Children.) Together we stand up for the health of our children and our planet.">Gemeinsam setzen wir uns für die Gesundheit unserer Kinder und unseres Planeten ein.</span></p>
+        </div>
+        <a class="btn btn-secondary" href="https://gesunde-erde-gesunde-kinder.de/projektportal/aha-kids/" target="_blank" rel="noopener"><span data-de="Unsere Projektseite" data-en="Our project page">Unsere Projektseite</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      </div>
     </div>
   </section>
 
