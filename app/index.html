@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aha Kids App – App Store und Google Play</title>
+  <meta name="description" content="Aha Kids: Geschichten zum Lesen und Anhören für Kinder von 3 bis 8. Für iPhone, iPad und Android.">
+  <link rel="canonical" href="https://aha-kids.de/app/">
+  <meta property="og:title" content="Aha Kids App">
+  <meta property="og:description" content="Geschichten zum Lesen und Anhören. Für iPhone, iPad und Android.">
+  <meta property="og:image" content="https://aha-kids.de/images/brand/og-image.jpg">
+  <meta property="og:url" content="https://aha-kids.de/app/">
+  <link rel="icon" type="image/png" href="../images/brand/favicon-48.png">
+  <link rel="apple-touch-icon" href="../images/brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="../fonts/fonts.css">
+  <!-- One link for both stores (22/23 Nov 2026, for the Instagram/TikTok bio): iPhone/iPad -> App Store, Android -> Google Play,
+       everything else sees both buttons. No cookies, no tracking, no third-party service. -->
+  <script>
+    (function () {
+      var IOS = "https://apps.apple.com/de/app/aha-kids-wissen-geschichten/id6768319817";
+      var PLAY = "https://play.google.com/store/apps/details?id=de.ahakids.reader";
+      var ua = navigator.userAgent || "";
+      var ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+      var android = /Android/i.test(ua);
+      if (location.hash === "#stay") return;                 // aha-kids.de/app/#stay shows the page on any device (for checking)
+      if (ios) location.replace(IOS); else if (android) location.replace(PLAY);
+    })();
+  </script>
+  <style>
+    :root { --forest:#173F35; --forest-2:#1f5245; --cream:#FFF9EC; --sun:#F7C948; --leaf:#3F8F62; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html, body { min-height:100%; }
+    body { font-family:"Inter", sans-serif; font-size:17px; line-height:1.6; color:var(--forest); background:var(--cream);
+           -webkit-font-smoothing:antialiased; display:flex; flex-direction:column; align-items:center; overflow-x:hidden; position:relative; }
+    body::before { content:""; position:absolute; top:-140px; right:-140px; width:360px; height:360px; border-radius:50%; background:var(--sun); opacity:.28; z-index:-1; }
+    body::after { content:""; position:absolute; bottom:-220px; left:-220px; width:460px; height:460px; border-radius:50%; border:3px solid var(--leaf); opacity:.25; z-index:-1; }
+    main { width:100%; max-width:560px; padding:48px 16px 24px; text-align:center; flex:1; }
+    .logo { width:168px; height:auto; display:block; margin:0 auto 20px; }
+    h1 { font-family:"Nunito", sans-serif; font-weight:800; font-size:clamp(1.9rem, 6vw, 2.5rem); line-height:1.15; letter-spacing:-.015em; }
+    .sub { margin:12px auto 26px; max-width:420px; }
+    .trio { width:100%; max-width:440px; height:auto; display:block; margin:0 auto 28px; border-radius:24px; }
+    .stores { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
+    .store { display:inline-flex; align-items:center; gap:.7rem; min-width:220px; padding:.7rem 1.3rem .7rem 1.05rem; border-radius:16px;
+             background:var(--forest); color:var(--cream); text-decoration:none; box-shadow:0 10px 26px rgba(23,63,53,.2); transition:transform .25s, background .25s; }
+    .store:hover, .store:focus-visible { transform:translateY(-2px); background:var(--forest-2); }
+    .store svg { width:26px; height:26px; flex:0 0 auto; }
+    .store-txt { display:flex; flex-direction:column; line-height:1.1; text-align:left; }
+    .store-small { font-size:.74rem; font-weight:600; opacity:.85; letter-spacing:.02em; }
+    .store-big { font-family:"Nunito", sans-serif; font-weight:800; font-size:1.25rem; }
+    .hint { margin-top:22px; font-size:.9rem; opacity:.75; }
+    footer { padding:20px 16px 28px; font-size:.85rem; }
+    footer a { color:var(--forest); }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="logo" src="../images/brand/logo-stacked.png" width="720" height="563" alt="Aha Kids">
+    <h1>Die Aha Kids App</h1>
+    <p class="sub">Geschichten zum Lesen und Anhören für Kinder von 3 bis 8. Mit Fiete, Lotte und Paco.</p>
+    <img class="trio" src="../images/brand/fiete-lotte-paco.webp" width="1600" height="962" alt="Fiete, Lotte und Hund Paco">
+    <div class="stores">
+      <a class="store" href="https://apps.apple.com/de/app/aha-kids-wissen-geschichten/id6768319817" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3.2"/><path d="M11 18h2"/></svg>
+        <span class="store-txt"><span class="store-small">Laden im</span><span class="store-big">App Store</span></span>
+      </a>
+      <a class="store" href="https://play.google.com/store/apps/details?id=de.ahakids.reader" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3.5v17l14-8.5z"/></svg>
+        <span class="store-txt"><span class="store-small">Jetzt bei</span><span class="store-big">Google Play</span></span>
+      </a>
+    </div>
+    <p class="hint">Für iPhone, iPad und Android.</p>
+  </main>
+  <footer><a href="../">aha-kids.de</a> · <a href="../impressum.html">Impressum</a> · <a href="../datenschutz.html">Datenschutz</a></footer>
+</body>
+</html>
