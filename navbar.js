@@ -4,18 +4,23 @@
  * Also injects Newsletter and Contact modals on every page.
  */
 (function () {
+  // Pages in a subfolder (geschichten/, netzwerk/) set window.SITE_ROOT ("../" or "../../") before loading this file
+  const ROOT = window.SITE_ROOT || '';
+  const SECTION = window.SITE_SECTION || '';
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
   // Determine if we're on the index page
-  const isIndex = currentPage === 'index.html' || currentPage === '' || currentPage === '/';
+  const isIndex = !ROOT && (currentPage === 'index.html' || currentPage === '' || currentPage === '/');
 
   // Helper: prefix for links — on index use anchors, on subpages prefix with index.html
-  const idx = isIndex ? '' : 'index.html';
+  const idx = isIndex ? '' : ROOT + 'index.html';
 
   // Navigation items: [label, href, pageFile (for active detection), special, data-de, data-en]
   const navItems = [
+    ['Geschichten', ROOT + 'geschichten/',         'geschichten', null, 'Geschichten', 'Stories'],
     ['Die App',    idx + '#app',                   null, null, 'Die App', 'The app'],
     ['Hörproben',  idx + '#hoeren',                null, null, 'Hörproben', 'Listen'],
+    ['Netzwerk',   ROOT + 'netzwerk/',             'netzwerk', null, 'Netzwerk', 'Network'],
     ['Kontakt',    '#',                            null, 'kontakt', 'Kontakt', 'Contact'],
     ['Newsletter', '#',                            null, 'newsletter', 'Newsletter', 'Newsletter'],
   ];
@@ -32,7 +37,7 @@
     const dataAttrs = ' data-de="' + dataDe + '" data-en="' + dataEn + '"';
 
     // Active styling
-    const isActive   = pageFile && (currentPage === pageFile || (pageFile === 'index.html' && isIndex));
+    const isActive   = pageFile && (pageFile === SECTION || currentPage === pageFile || (pageFile === 'index.html' && isIndex));
     const activeHome = label === 'Home' && isActive;
     const activeStyle = (isActive && !activeHome) ? ' style="color:var(--green);"' : '';
 
@@ -55,7 +60,7 @@
   }).join('\n      ');
 
   // Build the full nav-logo link
-  const logoHref    = isIndex ? '#' : 'index.html';
+  const logoHref    = isIndex ? '#' : ROOT + 'index.html';
   const logoOnclick = isIndex
     ? ' onclick="window.scrollTo({top:0,behavior:\'smooth\'});return false;"'
     : '';
@@ -99,7 +104,7 @@
   if (logoContainer) {
     logoContainer.innerHTML =
       '<a href="' + logoHref + '"' + logoOnclick + ' class="nav-logo">' +
-      '<img src="images/brand/logo-oneline.png" alt="Aha Kids" width="147" height="44">' +
+      '<img src="' + ROOT + 'images/brand/logo-oneline.png" alt="Aha Kids" width="147" height="44">' +
       '</a>';
   }
 
@@ -145,7 +150,7 @@
             '<input type="checkbox" id="nlGdpr" onchange="var b=document.getElementById(\'nlSubmitBtn\');if(b)b.disabled=!this.checked;">' +
             '<span>' +
             '<span data-de="Ich stimme der Verarbeitung meiner Daten gem\u00e4\u00df der" data-en="I consent to the processing of my data in accordance with the">Ich stimme der Verarbeitung meiner Daten gem\u00e4\u00df der</span> ' +
-            '<a href="datenschutz.html" target="_blank" rel="noopener" data-de="Datenschutzerkl\u00e4rung" data-en="Privacy Policy">Datenschutzerkl\u00e4rung</a>' +
+            '<a href="' + ROOT + 'datenschutz.html" target="_blank" rel="noopener" data-de="Datenschutzerkl\u00e4rung" data-en="Privacy Policy">Datenschutzerkl\u00e4rung</a>' +
             '<span data-de=" zu." data-en="."> zu.</span>' +
             '</span>' +
             '</label>' +
@@ -178,7 +183,7 @@
             '<input type="checkbox" id="ctGdpr" onchange="var b=document.getElementById(\'ctSubmitBtn\');if(b)b.disabled=!this.checked;">' +
             '<span>' +
             '<span data-de="Ich stimme der Verarbeitung meiner Daten gem\u00e4\u00df der" data-en="I consent to the processing of my data in accordance with the">Ich stimme der Verarbeitung meiner Daten gem\u00e4\u00df der</span> ' +
-            '<a href="datenschutz.html" target="_blank" rel="noopener" data-de="Datenschutzerkl\u00e4rung" data-en="Privacy Policy">Datenschutzerkl\u00e4rung</a>' +
+            '<a href="' + ROOT + 'datenschutz.html" target="_blank" rel="noopener" data-de="Datenschutzerkl\u00e4rung" data-en="Privacy Policy">Datenschutzerkl\u00e4rung</a>' +
             '<span data-de=" zu." data-en="."> zu.</span>' +
             '</span>' +
             '</label>' +
