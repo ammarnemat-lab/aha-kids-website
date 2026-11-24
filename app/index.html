@@ -32,8 +32,9 @@
     html, body { min-height:100%; }
     body { font-family:"Inter", sans-serif; font-size:17px; line-height:1.6; color:var(--forest); background:var(--cream);
            -webkit-font-smoothing:antialiased; display:flex; flex-direction:column; align-items:center; overflow-x:hidden; position:relative; }
-    body::before { content:""; position:absolute; top:-140px; right:-140px; width:360px; height:360px; border-radius:50%; background:var(--sun); opacity:.28; z-index:-1; }
-    body::after { content:""; position:absolute; bottom:-220px; left:-220px; width:460px; height:460px; border-radius:50%; border:3px solid var(--leaf); opacity:.25; z-index:-1; }
+    html { overflow-x:hidden; }
+    body { background:radial-gradient(circle 180px at calc(100% - 40px) 40px, rgba(247,201,72,.28) 99%, rgba(247,201,72,0) 100%) no-repeat,
+      radial-gradient(circle 230px at 10px calc(100% + 10px), rgba(63,143,98,0) 98.6%, rgba(63,143,98,.25) 98.7%, rgba(63,143,98,.25) 99.9%, rgba(63,143,98,0) 100%) no-repeat, var(--cream); }   /* circles as backgrounds (iPhone Safari pans on overflow) */
     main { width:100%; max-width:560px; padding:48px 16px 24px; text-align:center; flex:1; }
     .logo { width:168px; height:auto; display:block; margin:0 auto 20px; }
     h1 { font-family:"Nunito", sans-serif; font-weight:800; font-size:clamp(1.9rem, 6vw, 2.5rem); line-height:1.15; letter-spacing:-.015em; }

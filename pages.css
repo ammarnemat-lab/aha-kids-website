@@ -1,6 +1,7 @@
 /* Aha Kids · subpages (story pages, story overview, Netzwerk), 23 Nov 2026. Tokens come from navbar.css. */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { -webkit-text-size-adjust:100%; }
+html, body { overflow-x:hidden; }   /* belt and braces for iPhone Safari */
 body { font-family:var(--body); font-size:17px; line-height:1.6; color:var(--forest); background:var(--cream); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
 img { display:block; max-width:100%; height:auto; }
 a { color:inherit; }
@@ -24,8 +25,9 @@ h1, h2, h3 { font-family:var(--display); font-weight:800; line-height:1.1; lette
 .store-big { font:800 1.2rem var(--display); }
 .stores { display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; }
 .center { text-align:center; } .center .stores { justify-content:center; }
-.pg { padding:calc(var(--header-h) + 28px) 0 72px; position:relative; }
-.pg::before { content:""; position:absolute; z-index:-1; top:40px; right:-160px; width:420px; height:420px; border-radius:50%; background:var(--sun); opacity:.2; }
+.pg { padding:calc(var(--header-h) + 28px) 0 72px; position:relative; overflow-x:clip;
+      /* the sun circle as a background: an element sticking out on the right let iPhone Safari pan the page sideways (Michi, 23 Nov) */
+      background:radial-gradient(circle 210px at calc(100% + 50px) 250px, rgba(247,201,72,.2) 99%, rgba(247,201,72,0) 100%) no-repeat; }
 .crumbs { display:flex; flex-wrap:wrap; gap:8px; font-size:.9rem; color:var(--text-soft); margin-bottom:24px; }
 .crumbs a { text-decoration:none; } .crumbs a:hover { text-decoration:underline; }
 .pg-head { max-width:760px; margin-bottom:40px; }
